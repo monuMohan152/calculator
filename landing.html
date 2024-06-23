@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitemap</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #searchBar { width: 100%; padding: 12px; margin-bottom: 20px; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin: 5px 0; }
+        a { text-decoration: none; color: #007bff; }
+        a:hover { text-decoration: underline; }
+    </style>
+    <script>
+        function filterCalculators() {
+            let input = document.getElementById('searchBar').value.toLowerCase();
+            let ul = document.getElementById("calculatorList");
+            let li = ul.getElementsByTagName('li');
+            for (let i = 0; i < li.length; i++) {
+                let a = li[i].getElementsByTagName("a")[0];
+                let textValue = a.textContent || a.innerText;
+                if (textValue.toLowerCase().indexOf(input) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Sitemap</h1>
+    <input type="text" id="searchBar" onkeyup="filterCalculators()" placeholder="Search for calculators..">
+    <ul id="calculatorList">
+        <!-- Financial Calculators -->
+        <li><a href="finance.html#mortgage">Mortgage Calculator</a></li>
+        <li><a href="finance.html#loan">Loan Calculator</a></li>
+        <li><a href="finance.html#auto-loan">Auto Loan Calculator</a></li>
+        <li><a href="finance.html#interest">Interest Calculator</a></li>
+        <li><a href="finance.html#payment">Payment Calculator</a></li>
+        <li><a href="finance.html#retirement">Retirement Calculator</a></li>
+        <li><a href="finance.html#amortization">Amortization Calculator</a></li>
+        <li><a href="finance.html#investment">Investment Calculator</a></li>
+        <li><a href="finance.html#currency">Currency Calculator</a></li>
+        <li><a href="finance.html#inflation">Inflation Calculator</a></li>
+        <li><a href="finance.html#finance">Finance Calculator</a></li>
+        <li><a href="finance.html#mortgage-payoff">Mortgage Payoff Calculator</a></li>
+        <li><a href="finance.html#income-tax">Income Tax Calculator</a></li>
+        <li><a href="finance.html#compound-interest">Compound Interest Calculator</a></li>
+        <li><a href="finance.html#salary">Salary Calculator</a></li>
+        <li><a href="finance.html#401k">401K Calculator</a></li>
+        <li><a href="finance.html#interest-rate">Interest Rate Calculator</a></li>
+        <li><a href="finance.html#sales-tax">Sales Tax Calculator</a></li>
+        <li><a href="finance.html#house-affordability">House Affordability Calculator</a></li>
+        <li><a href="finance.html#savings">Savings Calculator</a></li>
+        <li><a href="finance.html#rent">Rent Calculator</a></li>
+        <li><a href="finance.html#marriage-tax">Marriage Tax Calculator</a></li>
+        <li><a href="finance.html#estate-tax">Estate Tax Calculator</a></li>
+        <li><a href="finance.html#pension">Pension Calculator</a></li>
+        <li><a href="finance.html#social-security">Social Security Calculator</a></li>
+        <li><a href="finance.html#annuity">Annuity Calculator</a></li>
+        <li><a href="finance.html#annuity-payout">Annuity Payout Calculator</a></li>
+        <li><a href="finance.html#credit-card">Credit Card Calculator</a></li>
+        <li><a href="finance.html#credit-cards-payoff">Credit Cards Payoff Calculator</a></li>
+        <li><a href="finance.html#debt-payoff">Debt Payoff Calculator</a></li>
+        <li><a href="finance.html#debt-consolidation">Debt Consolidation Calculator</a></li>
+        <li><a href="finance.html#repayment">Repayment Calculator</a></li>
+        <li><a href="finance.html#student-loan">Student Loan Calculator</a></li>
+        <li><a href="finance.html#college-cost">College Cost Calculator</a></li>
+        <li><a href="finance.html#simple-interest">Simple Interest Calculator</a></li>
+        <li><a href="finance.html#cd">CD Calculator</a></li>
+        <li><a href="finance.html#bond">Bond Calculator</a></li>
+        <li><a href="finance.html#roth-ira">Roth IRA Calculator</a></li>
+        <li><a href="finance.html#ira">IRA Calculator</a></li>
+        <li><a href="finance.html#rmd">RMD Calculator</a></li>
+        <li><a href="finance.html#vat">VAT Calculator</a></li>
+        <li><a href="finance.html#cash-back-low-interest">Cash Back or Low Interest Calculator</a></li>
+        <li><a href="finance.html#auto-lease">Auto Lease Calculator</a></li>
+        <li><a href="finance.html#depreciation">Depreciation Calculator</a></li>
+        <li><a href="finance.html#average-return">Average Return Calculator</a></li>
+        <li><a href="finance.html#margin">Margin Calculator</a></li>
+        <li><a href="finance.html#discount">Discount Calculator</a></li>
+        <li><a href="finance.html#business-loan">Business Loan Calculator</a></li>
+        <li><a href="finance.html#debt-to-income-ratio">Debt-to-Income Ratio Calculator</a></li>
+        <li><a href="finance.html#real-estate">Real Estate Calculator</a></li>
+        <li><a href="finance.html#take-home-paycheck">Take-Home-Paycheck Calculator</a></li>
+        <li><a href="finance.html#personal-loan">Personal Loan Calculator</a></li>
+        <li><a href="finance.html#lease">Lease Calculator</a></li>
+        <li><a href="finance.html#refinance">Refinance Calculator</a></li>
+        <li><a href="finance.html#budget">Budget Calculator</a></li>
+        <li><a href="finance.html#rental-property">Rental Property Calculator</a></li>
+        <li><a href="finance.html#roi">ROI Calculator</a></li>
+        <li><a href="finance.html#apr">APR Calculator</a></li>
+        <li><a href="finance.html#fha-loan">FHA Loan Calculator</a></li>
+        <li><a href="finance.html#va-mortgage">VA Mortgage Calculator</a></li>
+        <li><a href="finance.html#down-payment">Down Payment Calculator</a></li>
+        <li><a href="finance.html#rent-vs-buy">Rent vs. Buy Calculator</a></li>
+        <li><a href="finance.html#payback-period">Payback Period Calculator</a></li>
+        <li><a href="finance.html#present-value">Present Value Calculator</a></li>
+        <li><a href="finance.html#future-value">Future Value Calculator</a></li>
+        <li><a href="finance.html#commission">Commission Calculator</a></li>
+        <li><a href="finance.html#mortgage-uk">Mortgage Calculator UK</a></li>
+        <li><a href="finance.html#canadian-mortgage">Canadian Mortgage Calculator</a></li>
+        <li><a href="finance.html#mortgage-amortization">Mortgage Amortization Calculator</a></li>
+        <li><a href="finance.html#percent-off">Percent Off Calculator</a></li>
+
+        <!-- Fitness and Health Calculators -->
+        <li><a href="fitness.html#bmi">BMI Calculator</a></li>
+        <li><a href="fitness.html#calorie">Calorie Calculator</a></li>
+        <li><a href="fitness.html#body-fat">Body Fat Calculator</a></li>
+        <li><a href="fitness.html#bmr">BMR Calculator</a></li>
+        <li><a href="fitness.html#macro">Macro Calculator</a></li>
+        <li><a href="fitness.html#ideal-weight">Ideal Weight Calculator</a></li>
+        <li><a href="fitness.html#pregnancy">Pregnancy Calculator</a></li>
+        <li><a href="fitness.html#pregnancy-weight-gain">Pregnancy Weight Gain Calculator</a></li>
+        <li><a href="fitness.html#pregnancy-conception">Pregnancy Conception Calculator</a></li>
+        <li><a href="fitness.html#due-date">Due Date Calculator</a></li>
+        <li><a href="fitness.html#pace">Pace Calculator</a></li>
+        <li><a href="fitness.html#army-body-fat">Army Body Fat Calculator</a></li>
+        <li><a href="fitness.html#carbohydrate">Carbohydrate Calculator</a></li>
+        <li><a href="fitness.html#lean-body-mass">Lean Body Mass Calculator</a></li>
+        <li><a href="fitness.html#healthy-weight">Healthy Weight Calculator</a></li>
+        <li><a href="fitness.html#calories-burned">Calories Burned Calculator</a></li>
+        <li><a href="fitness.html#protein">Protein Calculator</a></li>
+        <li><a href="fitness.html#fat-intake">Fat Intake Calculator</a></li>
+        <li><a href="fitness.html#tdee">TDEE Calculator</a></li>
+        <li><a href="fitness.html#ovulation">Ovulation Calculator</a></li>
+        <li><a href="fitness.html#conception">Conception Calculator</a></li>
+        <li><a href="fitness.html#period">Period Calculator</a></li>
+        <li><a href="fitness.html#gfr">GFR Calculator</a></li>
+        <li><a href="fitness.html#body-type">Body Type Calculator</a></li>
+        <li><a href="fitness.html#body-surface-area">Body Surface Area Calculator</a></li>
+        <li><a href="fitness.html#bac">BAC Calculator</a></li>
+        <li><a href="fitness.html#anorexic-bmi">Anorexic BMI Calculator</a></li>
+        <li><a href="fitness.html#weight-watcher-points">Weight Watcher Points Calculator</a></li>
+        <li><a href="fitness.html#overweight">Overweight Calculator</a></li>
+
+        <!-- Math Calculators -->
+        <li><a href="math.html#scientific">Scientific Calculator</a></li>
+        <li><a href="math.html#fraction">Fraction Calculator</a></li>
+        <li><a href="math.html#percentage">Percentage Calculator</a></li>
+        <li><a href="math.html#triangle">Triangle Calculator</a></li>
+        <li><a href="math.html#volume">Volume Calculator</a></li>
+        <li><a href="math.html#standard-deviation">Standard Deviation Calculator</a></li>
+        <li><a href="math.html#random-number">Random Number Generator</a></li>
+        <li><a href="math.html#number-sequence">Number Sequence Calculator</a></li>
+        <li><a href="math.html#percent-error">Percent Error Calculator</a></li>
+        <li><a href="math.html#exponent">Exponent Calculator</a></li>
+        <li><a href="math.html#binary">Binary Calculator</a></li>
+        <li><a href="math.html#hex">Hex Calculator</a></li>
+        <li><a href="math.html#half-life">Half-Life Calculator</a></li>
+        <li><a href="math.html#quadratic-formula">Quadratic Formula Calculator</a></li>
+        <li><a href="math.html#slope">Slope Calculator</a></li>
+        <li><a href="math.html#log">Log Calculator</a></li>
+        <li><a href="math.html#area">Area Calculator</a></li>
+        <li><a href="math.html#sample-size">Sample Size Calculator</a></li>
+        <li><a href="math.html#probability">Probability Calculator</a></li>
+        <li><a href="math.html#statistics">Statistics Calculator</a></li>
+        <li><a href="math.html#mean-median-mode-range">Mean, Median, Mode, Range Calculator</a></li>
+        <li><a href="math.html#permutation-combination">Permutation and Combination Calculator</a></li>
+        <li><a href="math.html#z-score">Z-score Calculator</a></li>
+        <li><a href="math.html#confidence-interval">Confidence Interval Calculator</a></li>
+        <li><a href="math.html#ratio">Ratio Calculator</a></li>
+        <li><a href="math.html#distance">Distance Calculator</a></li>
+        <li><a href="math.html#circle">Circle Calculator</a></li>
+        <li><a href="math.html#surface-area">Surface Area Calculator</a></li>
+        <li><a href="math.html#pythagorean-theorem">Pythagorean Theorem Calculator</a></li>
+        <li><a href="math.html#right-triangle">Right Triangle Calculator</a></li>
+        <li><a href="math.html#root">Root Calculator</a></li>
+        <li><a href="math.html#least-common-multiple">Least Common Multiple Calculator</a></li>
+        <li><a href="math.html#greatest-common-factor">Greatest Common Factor Calculator</a></li>
+        <li><a href="math.html#factor">Factor Calculator</a></li>
+        <li><a href="math.html#rounding">Rounding Calculator</a></li>
+        <li><a href="math.html#matrix">Matrix Calculator</a></li>
+        <li><a href="math.html#scientific-notation">Scientific Notation Calculator</a></li>
+        <li><a href="math.html#big-number">Big Number Calculator</a></li>
+        <li><a href="math.html#prime-factorization">Prime Factorization Calculator</a></li>
+        <li><a href="math.html#common-factor">Common Factor Calculator</a></li>
+        <li><a href="math.html#basic">Basic Calculator</a></li>
+        <li><a href="math.html#long-division">Long Division Calculator</a></li>
+        <li><a href="math.html#average">Average Calculator</a></li>
+        <li><a href="math.html#p-value">P-value Calculator</a></li>
+
+        <!-- Other Calculators -->
+        <li><a href="other.html#age">Age Calculator</a></li>
+        <li><a href="other.html#date">Date Calculator</a></li>
+        <li><a href="other.html#time">Time Calculator</a></li>
+        <li><a href="other.html#hours">Hours Calculator</a></li>
+        <li><a href="other.html#gpa">GPA Calculator</a></li>
+        <li><a href="other.html#grade">Grade Calculator</a></li>
+        <li><a href="other.html#height">Height Calculator</a></li>
+        <li><a href="other.html#concrete">Concrete Calculator</a></li>
+        <li><a href="other.html#ip-subnet">IP Subnet Calculator</a></li>
+        <li><a href="other.html#bra-size">Bra Size Calculator</a></li>
+        <li><a href="other.html#password-generator">Password Generator</a></li>
+        <li><a href="other.html#dice-roller">Dice Roller</a></li>
+        <li><a href="other.html#conversion">Conversion Calculator</a></li>
+        <li><a href="other.html#fuel-cost">Fuel Cost Calculator</a></li>
+        <li><a href="other.html#voltage-drop">Voltage Drop Calculator</a></li>
+        <li><a href="other.html#btu">BTU Calculator</a></li>
+        <li><a href="other.html#square-footage">Square Footage Calculator</a></li>
+        <li><a href="other.html#time-card">Time Card Calculator</a></li>
+        <li><a href="other.html#time-zone">Time Zone Calculator</a></li>
+        <li><a href="other.html#love">Love Calculator</a></li>
+        <li><a href="other.html#gdp">GDP Calculator</a></li>
+        <li><a href="other.html#gas-mileage">Gas Mileage Calculator</a></li>
+        <li><a href="other.html#horsepower">Horsepower Calculator</a></li>
+        <li><a href="other.html#engine-horsepower">Engine Horsepower Calculator</a></li>
+        <li><a href="other.html#stair">Stair Calculator</a></li>
+        <li><a href="other.html#resistor">Resistor Calculator</a></li>
+        <li><a href="other.html#ohms-law">Ohms Law Calculator</a></li>
+        <li><a href="other.html#electricity">Electricity Calculator</a></li>
+        <li><a href="other.html#tip">Tip Calculator</a></li>
+        <li><a href="other.html#mileage">Mileage Calculator</a></li>
+        <li><a href="other.html#density">Density Calculator</a></li>
+        <li><a href="other.html#mass">Mass Calculator</a></li>
+        <li><a href="other.html#weight">Weight Calculator</a></li>
+        <li><a href="other.html#speed">Speed Calculator</a></li>
+        <li><a href="other.html#golf-handicap">Golf Handicap Calculator</a></li>
+        <li><a href="other.html#sleep">Sleep Calculator</a></li>
+        <li><a href="other.html#tire-size">Tire Size Calculator</a></li>
+        <li><a href="other.html#roofing">Roofing Calculator</a></li>
+        <li><a href="other.html#tile">Tile Calculator</a></li>
+        <li><a href="other.html#mulch">Mulch Calculator</a></li>
+        <li><a href="other.html#gravel">Gravel Calculator</a></li>
+        <li><a href="other.html#wind-chill">Wind Chill Calculator</a></li>
+        <li><a href="other.html#heat-index">Heat Index Calculator</a></li>
+        <li><a href="other.html#dew-point">Dew Point Calculator</a></li>
+        <li><a href="other.html#bandwidth">Bandwidth Calculator</a></li>
+        <li><a href="other.html#time-duration">Time Duration Calculator</a></li>
+        <li><a href="other.html#day-counter">Day Counter</a></li>
+        <li><a href="other.html#day-of-the-week">Day of the Week Calculator</a></li>
+    </ul>
+</body>
+</html>

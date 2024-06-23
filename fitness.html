@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Fitness and Health Calculators</title>
+      <style>
+         body {
+         font-family: 'Arial', sans-serif;
+         margin: 0;
+         padding: 0;
+         background-color: #f0f2f5;
+         color: #333;
+         }
+         header {
+         background-color: #28a745;
+         color: white;
+         padding: 20px;
+         text-align: center;
+         }
+         nav {
+         background-color: #218838;
+         padding: 10px;
+         display: flex;
+         justify-content: center;
+         flex-wrap: wrap;
+         }
+         nav a {
+         color: white;
+         margin: 5px 15px;
+         text-decoration: none;
+         font-weight: bold;
+         }
+         main {
+         padding: 20px;
+         max-width: 1200px;
+         margin: auto;
+         }
+         .calculator-category {
+         background-color: white;
+         padding: 20px;
+         margin: 20px 0;
+         border-radius: 8px;
+         box-shadow: 0 0 10px rgba(0,0,0,0.1);
+         }
+         .calculator-category h3 {
+         margin-top: 0;
+         }
+         .calculator-category ul {
+         list-style-type: none;
+         padding: 0;
+         }
+         .calculator-category ul li {
+         margin: 10px 0;
+         }
+         .calculator-category ul li a {
+         text-decoration: none;
+         color: #28a745;
+         }
+         .calculator_tool {
+         background-color: white;
+         padding: 20px;
+         margin: 20px 0;
+         border-radius: 8px;
+         box-shadow: 0 0 10px rgba(0,0,0,0.1);
+         }
+         .calculator_tool h2 {
+         margin-top: 0;
+         color: #333; /* Adjust text color as needed */
+         }
+         .calculator_tool form {
+         margin-bottom: 15px;
+         }
+         .calculator_tool label {
+         display: block;
+         margin-bottom: 5px;
+         }
+         .calculator_tool input[type="number"],
+         .calculator_tool button {
+         width: 100%;
+         padding: 8px;
+         margin-bottom: 10px;
+         box-sizing: border-box;
+         }
+         .calculator_tool button {
+         background-color: #007BFF; /* Match your link color */
+         color: white;
+         border: none;
+         cursor: pointer;
+         }
+         .calculator_tool button:hover {
+         background-color: #0056b3; /* Darker shade for hover */
+         }
+         .calculator_tool p {
+         margin-top: 10px;
+         }
+         .calculator_tool a {
+         text-decoration: none;
+         color: #007BFF;
+         }
+         .calculator_tool a:hover {
+         text-decoration: underline;
+         }
+         @media only screen and (max-width: 600px) {
+         /* Adjust styles for smaller screens (e.g., smartphones) */
+         .calculator {
+         padding: 10px;
+         margin: 10px 0;
+         }
+         .calculator h2 {
+         font-size: 1.2em; /* Adjust font size for smaller screens */
+         }
+         .calculator input[type="number"],
+         .calculator button {
+         padding: 6px; /* Adjust padding for smaller inputs/buttons */
+         }
+      </style>
+      <script type="text/javascript">
+         function showCalculator(id) {
+              // Hide all calculators
+              var calculators = document.querySelectorAll('.calculator');
+              calculators.forEach(function(calc) {
+                  calc.style.display = 'none';
+              });
+              // Show the selected calculator
+              document.getElementById(id).style.display = 'block';
+          }
+         
+         function calculateBMI() {
+         let weight = parseFloat(document.getElementById("bmiWeight").value);
+         let height = parseFloat(document.getElementById("bmiHeight").value) / 100;
+         if (weight && height) {
+             let bmi = weight / (height * height);
+             document.getElementById("bmiResult").innerText = "BMI: " + bmi.toFixed(2);
+         } else {
+             document.getElementById("bmiResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculateCalorie() {
+         // Basic placeholder logic
+         let weight = parseFloat(document.getElementById("calorieWeight").value);
+         let height = parseFloat(document.getElementById("calorieHeight").value);
+         let age = parseInt(document.getElementById("calorieAge").value);
+         if (weight && height && age) {
+             let calorie = 10 * weight + 6.25 * height - 5 * age + 5; // Mifflin-St Jeor Equation for men
+             document.getElementById("calorieResult").innerText = "Calorie: " + calorie.toFixed(2);
+         } else {
+             document.getElementById("calorieResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculateBodyFat() {
+         // Placeholder logic
+         let weight = parseFloat(document.getElementById("bodyFatWeight").value);
+         let waist = parseFloat(document.getElementById("bodyFatWaist").value);
+         if (weight && waist) {
+             let bodyFat = (waist / weight) * 100; // Simplified formula
+             document.getElementById("bodyFatResult").innerText = "Body Fat: " + bodyFat.toFixed(2) + "%";
+         } else {
+             document.getElementById("bodyFatResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculateBMR() {
+         // Placeholder logic
+         let weight = parseFloat(document.getElementById("bmrWeight").value);
+         let height = parseFloat(document.getElementById("bmrHeight").value);
+         let age = parseInt(document.getElementById("bmrAge").value);
+         if (weight && height && age) {
+             let bmr = 10 * weight + 6.25 * height - 5 * age + 5; // Mifflin-St Jeor Equation for men
+             document.getElementById("bmrResult").innerText = "BMR: " + bmr.toFixed(2);
+         } else {
+             document.getElementById("bmrResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculateMacro() {
+         // Placeholder logic
+         let weight = parseFloat(document.getElementById("macroWeight").value);
+         let height = parseFloat(document.getElementById("macroHeight").value);
+         let age = parseInt(document.getElementById("macroAge").value);
+         if (weight && height && age) {
+             let macro = (weight + height + age) / 3; // Simplified placeholder formula
+             document.getElementById("macroResult").innerText = "Macro: " + macro.toFixed(2);
+         } else {
+             document.getElementById("macroResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculateIdealWeight() {
+         // Placeholder logic
+         let height = parseFloat(document.getElementById("idealWeightHeight").value);
+         if (height) {
+             let idealWeight = (height - 100) * 0.9; // Simplified formula
+             document.getElementById("idealWeightResult").innerText = "Ideal Weight: " + idealWeight.toFixed(2) + " kg";
+         } else {
+             document.getElementById("idealWeightResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculatePregnancy() {
+         // Placeholder logic
+         let conceptionDate = new Date(document.getElementById("pregnancyConception").value);
+         if (conceptionDate) {
+             // Calculate pregnancy details
+             // Example: calculate weeks pregnant or expected due date
+             document.getElementById("pregnancyResult").innerText = "Pregnancy details calculated.";
+         } else {
+             document.getElementById("pregnancyResult").innerText = "Please select a valid date.";
+         }
+         }
+         
+         function calculatePregnancyWeightGain() {
+         // Placeholder logic
+         let weeksPregnant = parseInt(document.getElementById("pregnancyWeeks").value);
+         let prePregnancyWeight = parseFloat(document.getElementById("pregnancyWeightPre").value);
+         if (weeksPregnant && prePregnancyWeight) {
+             // Calculate pregnancy weight gain
+             // Example: use a formula to estimate weight gain
+             document.getElementById("pregnancyWeightGainResult").innerText = "Estimated weight gain calculated.";
+         } else {
+             document.getElementById("pregnancyWeightGainResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculatePregnancyConception() {
+         // Placeholder logic
+         let dueDate = new Date(document.getElementById("pregnancyDueDate").value);
+         if (dueDate) {
+             // Calculate conception date
+             // Example: calculate conception date based on due date
+             document.getElementById("pregnancyConceptionResult").innerText = "Conception date calculated.";
+         } else {
+             document.getElementById("pregnancyConceptionResult").innerText = "Please select a valid date.";
+         }
+         }
+         
+         function calculateDueDate() {
+         // Placeholder logic
+         let lmpDate = new Date(document.getElementById("dueDateLMP").value);
+         if (lmpDate) {
+             // Calculate due date
+             // Example: calculate due date based on last menstrual period
+             document.getElementById("dueDateResult").innerText = "Due date calculated.";
+         } else {
+             document.getElementById("dueDateResult").innerText = "Please select a valid date.";
+         }
+         }
+         
+         function calculatePace() {
+         // Placeholder logic
+         let distance = parseFloat(document.getElementById("paceDistance").value);
+         let time = parseFloat(document.getElementById("paceTime").value);
+         if (distance && time) {
+             // Calculate pace
+             // Example: calculate pace per km or mile
+             document.getElementById("paceResult").innerText = "Pace calculated.";
+         } else {
+             document.getElementById("paceResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculateArmyBodyFat() {
+         // Placeholder logic
+         let weight = parseFloat(document.getElementById("armyBodyFatWeight").value);
+         let waist = parseFloat(document.getElementById("armyBodyFatWaist").value);
+         let neck = parseFloat(document.getElementById("armyBodyFatNeck").value);
+         if (weight && waist && neck) {
+             // Calculate army body fat percentage
+             // Example: use a formula to calculate body fat
+             document.getElementById("armyBodyFatResult").innerText = "Body fat percentage calculated.";
+         } else {
+             document.getElementById("armyBodyFatResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculateCarbohydrate() {
+         // Placeholder logic
+         let weight = parseFloat(document.getElementById("carbohydrateWeight").value);
+         let activityLevel = document.getElementById("carbohydrateActivity").value;
+         if (weight && activityLevel) {
+             // Calculate carbohydrate needs
+             // Example: use a formula based on weight and activity level
+             document.getElementById("carbohydrateResult").innerText = "Carbohydrate needs calculated.";
+         } else {
+             document.getElementById("carbohydrateResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculateLeanBodyMass() {
+         // Placeholder logic
+         let weight = parseFloat(document.getElementById("leanBodyMassWeight").value);
+         let bodyFat = parseFloat(document.getElementById("leanBodyMassBodyFat").value);
+         if (weight && bodyFat) {
+             // Calculate lean body mass
+             // Example: use a formula to estimate lean body mass
+             document.getElementById("leanBodyMassResult").innerText = "Lean body mass calculated.";
+         } else {
+             document.getElementById("leanBodyMassResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculateHealthyWeight() {
+         // Placeholder logic
+         let height = parseFloat(document.getElementById("healthyWeightHeight").value);
+         let gender = document.getElementById("healthyWeightGender").value;
+         if (height && gender) {
+             // Calculate healthy weight range
+             // Example: use a formula to estimate healthy weight
+             document.getElementById("healthyWeightResult").innerText = "Healthy weight calculated.";
+         } else {
+             document.getElementById("healthyWeightResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculatePregnancy() {
+         let lastPeriod = new Date(document.getElementById("pregnancyLastPeriod").value);
+         if (!isNaN(lastPeriod)) {
+         let dueDate = new Date(lastPeriod);
+         dueDate.setDate(dueDate.getDate() + 280); // Adding 280 days (40 weeks)
+         document.getElementById("pregnancyResult").innerText = "Estimated Due Date: " + dueDate.toDateString();
+         } else {
+         document.getElementById("pregnancyResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculatePregnancyWeightGain() {
+         let weight = parseFloat(document.getElementById("pregnancyWeight").value);
+         let height = parseFloat(document.getElementById("pregnancyHeight").value) / 100;
+         
+         if (weight && height) {
+         let bmi = weight / (height * height);
+         let weightGain;
+         if (bmi < 18.5) {
+             weightGain = "12.5 - 18 kg";
+         } else if (bmi >= 18.5 && bmi < 24.9) {
+             weightGain = "11.5 - 16 kg";
+         } else if (bmi >= 25 && bmi < 29.9) {
+             weightGain = "7 - 11.5 kg";
+         } else {
+             weightGain = "5 - 9 kg";
+         }
+         document.getElementById("pregnancyWeightGainResult").innerText = "Recommended Weight Gain: " + weightGain;
+         } else {
+         document.getElementById("pregnancyWeightGainResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculateConception() {
+         let dueDate = new Date(document.getElementById("conceptionDueDate").value);
+         if (!isNaN(dueDate)) {
+         let conceptionDate = new Date(dueDate);
+         conceptionDate.setDate(conceptionDate.getDate() - 266); // Subtracting 266 days (38 weeks)
+         document.getElementById("conceptionResult").innerText = "Estimated Conception Date: " + conceptionDate.toDateString();
+         } else {
+         document.getElementById("conceptionResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculateDueDate() {
+         let lastPeriod = new Date(document.getElementById("lastPeriod").value);
+         if (!isNaN(lastPeriod)) {
+         let dueDate = new Date(lastPeriod);
+         dueDate.setDate(dueDate.getDate() + 280); // Adding 280 days (40 weeks)
+         document.getElementById("dueDateResult").innerText = "Estimated Due Date: " + dueDate.toDateString();
+         } else {
+         document.getElementById("dueDateResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculatePace() {
+         let distance = parseFloat(document.getElementById("distance").value);
+         let time = document.getElementById("time").value.split(':');
+         let hours = parseInt(time[0]);
+         let minutes = parseInt(time[1]);
+         let seconds = parseInt(time[2]);
+         
+         if (distance && !isNaN(hours) && !isNaN(minutes) && !isNaN(seconds)) {
+         let totalTimeInMinutes = hours * 60 + minutes + seconds / 60;
+         let pace = totalTimeInMinutes / distance;
+         let paceMinutes = Math.floor(pace);
+         let paceSeconds = Math.round((pace - paceMinutes) * 60);
+         document.getElementById("paceResult").innerText = `Pace: ${paceMinutes}:${paceSeconds < 10 ? '0' : ''}${paceSeconds} per km`;
+         } else {
+         document.getElementById("paceResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         
+         function calculateArmyBodyFat() {
+         let neck = parseFloat(document.getElementById("abfNeck").value);
+         let waist = parseFloat(document.getElementById("abfWaist").value);
+         let hip = parseFloat(document.getElementById("abfHip").value);
+         let height = parseFloat(document.getElementById("abfHeight").value);
+         let gender = document.getElementById("abfGender").value;
+         
+         if (neck && waist && height && (gender === "male" || hip)) {
+         let bodyFatPercentage;
+         if (gender === "male") {
+             bodyFatPercentage = 86.01 * Math.log10(waist - neck) - 70.041 * Math.log10(height) + 36.76;
+         } else {
+             bodyFatPercentage = 163.205 * Math.log10(waist + hip - neck) - 97.684 * Math.log10(height) - 78.387;
+         }
+         document.getElementById("armyBodyFatResult").innerText = "Body Fat Percentage: " + bodyFatPercentage.toFixed(2) + "%";
+         } else {
+         document.getElementById("armyBodyFatResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         function calculateCarb() {
+         let weight = parseFloat(document.getElementById("carbWeight").value);
+         let activity = parseFloat(document.getElementById("carbActivity").value);
+         
+         if (weight && activity) {
+         let carbs = weight * activity * 3; // Assuming 3g of carbs per kg of body weight per activity level
+         document.getElementById("carbResult").innerText = "Recommended Daily Carbohydrate Intake: " + carbs.toFixed(2) + " grams";
+         } else {
+         document.getElementById("carbResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Lean Body Mass Calculator
+         function calculateLBM() {
+         var weight = document.getElementById("lbmWeight").value;
+         var bodyFat = document.getElementById("lbmBodyFat").value;
+         var lbm = weight * (1 - (bodyFat / 100));
+         document.getElementById("lbmResult").innerText = "Lean Body Mass: " + lbm.toFixed(2) + " kg";
+         }
+         
+         // Healthy Weight Calculator
+         function calculateHealthyWeight() {
+         var height = document.getElementById("hwHeight").value;
+         var healthyWeight = 22.5 * Math.pow(height / 100, 2); // BMI of 22.5 as a healthy weight example
+         document.getElementById("hwResult").innerText = "Healthy Weight: " + healthyWeight.toFixed(2) + " kg";
+         }
+         
+         // Calories Burned Calculator
+         function calculateCaloriesBurned() {
+         var weight = document.getElementById("cbWeight").value;
+         var duration = document.getElementById("cbDuration").value;
+         var activity = document.getElementById("cbActivity").value;
+         var metValues = {
+         "running": 9.8,
+         "cycling": 7.5,
+         "swimming": 5.8,
+         "walking": 3.8
+         };
+         var met = metValues[activity];
+         var caloriesBurned = (met * 3.5 * weight * duration) / 200;
+         document.getElementById("cbResult").innerText = "Calories Burned: " + caloriesBurned.toFixed(2);
+         }
+         
+         // Protein Calculator
+         function calculateProtein() {
+         var weight = document.getElementById("proteinWeight").value;
+         var activityLevel = document.getElementById("proteinActivity").value;
+         var proteinIntake = weight * activityLevel;
+         document.getElementById("proteinResult").innerText = "Protein Intake: " + proteinIntake.toFixed(2) + " g";
+         }
+         
+         // Fat Intake Calculator
+         function calculateFatIntake() {
+         var weight = document.getElementById("fatWeight").value;
+         var activityLevel = document.getElementById("fatActivity").value;
+         var fatIntake = weight * activityLevel * 0.3; // Example calculation
+         document.getElementById("fatResult").innerText = "Fat Intake: " + fatIntake.toFixed(2) + " g";
+         }
+         
+         // TDEE Calculator
+         function calculateTDEE() {
+         var weight = document.getElementById("tdeeWeight").value;
+         var activityLevel = document.getElementById("tdeeActivity").value;
+         var tdee = weight * 24 * activityLevel; // Example calculation
+         document.getElementById("tdeeResult").innerText = "TDEE: " + tdee.toFixed(2) + " kcal/day";
+         }
+         
+         // Ovulation Calculator
+         function calculateOvulation() {
+         var lastPeriod = new Date(document.getElementById("ovulationLastPeriod").value);
+         var cycleLength = parseInt(document.getElementById("ovulationCycleLength").value);
+         var ovulationDay = new Date(lastPeriod.getTime() + ((cycleLength - 14) * 24 * 60 * 60 * 1000));
+         document.getElementById("ovulationResult").innerText = "Estimated Ovulation Date: " + ovulationDay.toISOString().split('T')[0];
+         }
+         
+         // Conception Calculator
+         function calculateConception() {
+         var dueDate = new Date(document.getElementById("conceptionDueDate").value);
+         var conceptionDate = new Date(dueDate.getTime() - (280 * 24 * 60 * 60 * 1000));
+         document.getElementById("conceptionResult").innerText = "Estimated Conception Date: " + conceptionDate.toISOString().split('T')[0];
+         }
+         
+         // Period Calculator
+         function calculatePeriod() {
+         var lastPeriod = new Date(document.getElementById("periodLastPeriod").value);
+         var cycleLength = parseInt(document.getElementById("periodCycleLength").value);
+         var nextPeriod = new Date(lastPeriod.getTime() + (cycleLength * 24 * 60 * 60 * 1000));
+         document.getElementById("periodResult").innerText = "Next Period Date: " + nextPeriod.toISOString().split('T')[0];
+         }
+         
+         // GFR Calculator
+         function calculateGFR() {
+         var age = document.getElementById("gfrAge").value;
+         var creatinine = document.getElementById("gfrCreatinine").value;
+         var gender = document.getElementById("gfrGender").value;
+         var genderFactor = gender === "male" ? 1 : 0.85;
+         var gfr = 175 * Math.pow(creatinine, -1.154) * Math.pow(age, -0.203) * genderFactor;
+         document.getElementById("gfrResult").innerText = "GFR: " + gfr.toFixed(2) + " mL/min/1.73m²";
+         }
+         
+         // Body Type Calculator
+         function calculateBodyType() {
+         var height = document.getElementById("btHeight").value;
+         var wrist = document.getElementById("btWrist").value;
+         var bodyType = height / wrist; // Example calculation
+         document.getElementById("btResult").innerText = "Body Type Index: " + bodyType.toFixed(2);
+         }
+         
+         // Body Surface Area Calculator
+         function calculateBSA() {
+         var height = document.getElementById("bsa-height").value;
+         var weight = document.getElementById("bsa-weight").value;
+         var bsa = Math.sqrt((height * weight) / 3600); // Du Bois formula
+         document.getElementById("bsa-result").innerText = "Body Surface Area: " + bsa.toFixed(2) + " m²";
+         }
+         
+         // BAC Calculator
+         function calculateBAC() {
+         var drinks = document.getElementById("bac-drinks").value;
+         var gender = document.getElementById("bac-gender").value;
+         var weight = document.getElementById("bac-weight").value;
+         var hours = document.getElementById("bac-hours").value;
+         var genderFactor = gender === "male" ? 0.68 : 0.55;
+         var bac = (drinks * 14) / (weight * genderFactor) - (0.015 * hours);
+         document.getElementById("bac-result").innerText = "BAC: " + bac.toFixed(4);
+         }
+         
+         // Anorexic BMI Calculator
+         function calculateAnorexicBMI() {
+         var height = document.getElementById("anorexic-height").value;
+         var weight = document.getElementById("anorexic-weight").value;
+         var bmi = weight / Math.pow(height / 100, 2);
+         document.getElementById("anorexic-bmi-result").innerText = "BMI: " + bmi.toFixed(2);
+         }
+         
+         // Weight Watcher Points Calculator
+         function calculateWWPoints() {
+         var calories = document.getElementById("ww-calories").value;
+         var fat = document.getElementById("ww-fat").value;
+         var fiber = document.getElementById("ww-fiber").value;
+         var wwPoints = (calories / 50) + (fat / 12) - (fiber / 5);
+         document.getElementById("ww-points-result").innerText = "Weight Watcher Points: " + wwPoints.toFixed(2);
+         }
+         
+         // Overweight Calculator
+         function calculateOverweight() {
+         var height = document.getElementById("overweight-height").value;
+         var waist = document.getElementById("overweight-waist").value;
+         var gender = document.getElementById("overweight-gender").value;
+         var isOverweight = (waist / height) > (gender === "male" ? 0.536 : 0.492); // Example ratios
+         document.getElementById("overweight-result").innerText = "Overweight: " + (isOverweight ? "Yes" : "No");
+         }
+         
+      </script>
+   </head>
+   <body>
+      <header>
+         <h1>Fitness and Health Calculators</h1>
+      </header>
+      <nav>
+         <a href="finance.html">Financial Calculators</a>
+         <a href="fitness.html">Fitness and Health Calculators</a>
+         <a href="math.html">Math Calculators</a>
+         <a href="other.html">Other Calculators</a>
+         <a href="landing.html">View All Calculators</a>
+      </nav>
+      <main>
+         <section id="fitness">
+            <h2>Fitness and Health Calculators</h2>
+            <div class="calculator-category">
+               <h3>Available Calculators</h3>
+               <ul>
+                  <li><a href="#bmi" onclick="showCalculator('bmi')">BMI Calculator</a></li>
+                  <li><a href="#calorie" onclick="showCalculator('calorie')">Calorie Calculator</a></li>
+                  <li><a href="#body-fat" onclick="showCalculator('body-fat')">Body Fat Calculator</a></li>
+                  <li><a href="#bmr" onclick="showCalculator('bmr')">BMR Calculator</a></li>
+                  <li><a href="#macro" onclick="showCalculator('macro')">Macro Calculator</a></li>
+                  <li><a href="#ideal-weight" onclick="showCalculator('ideal-weight')">Ideal Weight Calculator</a></li>
+                  <li><a href="#pregnancy" onclick="showCalculator('pregnancy')">Pregnancy Calculator</a></li>
+                  <li><a href="#pregnancy-weight-gain" onclick="showCalculator('pregnancy-weight-gain')">Pregnancy Weight Gain Calculator</a></li>
+                  <li><a href="#pregnancy-conception" onclick="showCalculator('pregnancy-conception')">Pregnancy Conception Calculator</a></li>
+                  <li><a href="#due-date" onclick="showCalculator('due-date')">Due Date Calculator</a></li>
+                  <li><a href="#pace" onclick="showCalculator('pace')">Pace Calculator</a></li>
+                  <li><a href="#army-body-fat" onclick="showCalculator('army-body-fat')">Army Body Fat Calculator</a></li>
+                  <li><a href="#carbohydrate" onclick="showCalculator('carbohydrate')">Carbohydrate Calculator</a></li>
+                  <li><a href="#lean-body-mass" onclick="showCalculator('lean-body-mass')">Lean Body Mass Calculator</a></li>
+                  <li><a href="#healthy-weight" onclick="showCalculator('healthy-weight')">Healthy Weight Calculator</a></li>
+                  <li><a href="#calories-burned" onclick="showCalculator('calories-burned')">Calories Burned Calculator</a></li>
+                  <li><a href="#protein" onclick="showCalculator('protein')">Protein Calculator</a></li>
+                  <li><a href="#fat-intake" onclick="showCalculator('fat-intake')">Fat Intake Calculator</a></li>
+                  <li><a href="#tdee" onclick="showCalculator('tdee')">TDEE Calculator</a></li>
+                  <li><a href="#ovulation" onclick="showCalculator('ovulation')">Ovulation Calculator</a></li>
+                  <li><a href="#conception" onclick="showCalculator('conception')">Conception Calculator</a></li>
+                  <li><a href="#period" onclick="showCalculator('period')">Period Calculator</a></li>
+                  <li><a href="#gfr" onclick="showCalculator('gfr')">GFR Calculator</a></li>
+                  <li><a href="#body-type" onclick="showCalculator('body-type')">Body Type Calculator</a></li>
+                  <li><a href="#body-surface-area" onclick="showCalculator('body-surface-area')">Body Surface Area Calculator</a></li>
+                  <li><a href="#bac" onclick="showCalculator('bac')">BAC Calculator</a></li>
+                  <li><a href="#anorexic-bmi" onclick="showCalculator('anorexic-bmi')">Anorexic BMI Calculator</a></li>
+                  <li><a href="#weight-watcher-points" onclick="showCalculator('weight-watcher-points')">Weight Watcher Points Calculator</a></li>
+                  <li><a href="#overweight" onclick="showCalculator('overweight')">Overweight Calculator</a></li>
+               </ul>
+            </div>
+         </section>
+         <section id="tool_layout" class="calculator_tool">
+            <div id="bmi" class="calculator_tool" style="display:none;">
+               <h2>BMI Calculator</h2>
+               <form>
+                  <label for="bmiWeight">Weight (kg):</label>
+                  <input type="number" id="bmiWeight" name="bmiWeight"><br>
+                  <label for="bmiHeight">Height (cm):</label>
+                  <input type="number" id="bmiHeight" name="bmiHeight"><br>
+                  <button type="button" onclick="calculateBMI()">Calculate</button>
+               </form>
+               <p id="bmiResult"></p>
+            </div>
+            <!-- Calorie Calculator -->
+            <div id="calorie" class="calculator_tool" style="display:none;">
+               <h2>Calorie Calculator</h2>
+               <form>
+                  <label for="calorieWeight">Weight (kg):</label>
+                  <input type="number" id="calorieWeight" name="calorieWeight"><br>
+                  <label for="calorieHeight">Height (cm):</label>
+                  <input type="number" id="calorieHeight" name="calorieHeight"><br>
+                  <label for="calorieAge">Age:</label>
+                  <input type="number" id="calorieAge" name="calorieAge"><br>
+                  <button type="button" onclick="calculateCalorie()">Calculate</button>
+               </form>
+               <p id="calorieResult"></p>
+            </div>
+            <!-- Body Fat Calculator -->
+            <div id="body-fat" class="calculator_tool" style="display:none;">
+               <h2>Body Fat Calculator</h2>
+               <form>
+                  <label for="bodyFatWeight">Weight (kg):</label>
+                  <input type="number" id="bodyFatWeight" name="bodyFatWeight"><br>
+                  <label for="bodyFatWaist">Waist (cm):</label>
+                  <input type="number" id="bodyFatWaist" name="bodyFatWaist"><br>
+                  <button type="button" onclick="calculateBodyFat()">Calculate</button>
+               </form>
+               <p id="bodyFatResult"></p>
+            </div>
+            <!-- BMR Calculator -->
+            <div id="bmr" class="calculator_tool" style="display:none;">
+               <h2>BMR Calculator</h2>
+               <form>
+                  <label for="bmrWeight">Weight (kg):</label>
+                  <input type="number" id="bmrWeight" name="bmrWeight"><br>
+                  <label for="bmrHeight">Height (cm):</label>
+                  <input type="number" id="bmrHeight" name="bmrHeight"><br>
+                  <label for="bmrAge">Age:</label>
+                  <input type="number" id="bmrAge" name="bmrAge"><br>
+                  <button type="button" onclick="calculateBMR()">Calculate</button>
+               </form>
+               <p id="bmrResult"></p>
+            </div>
+            <!-- Macro Calculator -->
+            <div id="macro" class="calculator_tool" style="display:none;">
+               <h2>Macro Calculator</h2>
+               <form>
+                  <label for="macroWeight">Weight (kg):</label>
+                  <input type="number" id="macroWeight" name="macroWeight"><br>
+                  <label for="macroHeight">Height (cm):</label>
+                  <input type="number" id="macroHeight" name="macroHeight"><br>
+                  <label for="macroAge">Age:</label>
+                  <input type="number" id="macroAge" name="macroAge"><br>
+                  <button type="button" onclick="calculateMacro()">Calculate</button>
+               </form>
+               <p id="macroResult"></p>
+            </div>
+            <!-- Ideal Weight Calculator -->
+            <div id="ideal-weight" class="calculator_tool" style="display:none;">
+               <h2>Ideal Weight Calculator</h2>
+               <form>
+                  <label for="idealWeightHeight">Height (cm):</label>
+                  <input type="number" id="idealWeightHeight" name="idealWeightHeight"><br>
+                  <button type="button" onclick="calculateIdealWeight()">Calculate</button>
+               </form>
+               <p id="idealWeightResult"></p>
+            </div>
+            <div id="pregnancy" class="calculator_tool" style="display:none;">
+               <h2>Pregnancy Calculator</h2>
+               <form>
+                  <label for="pregnancyLastPeriod">Last Menstrual Period (YYYY-MM-DD):</label>
+                  <input type="date" id="pregnancyLastPeriod" name="pregnancyLastPeriod"><br>
+                  <button type="button" onclick="calculatePregnancy()">Calculate</button>
+               </form>
+               <p id="pregnancyResult"></p>
+            </div>
+            <div id="pregnancy-weight-gain" class="calculator_tool" style="display:none;">
+               <h2>Pregnancy Weight Gain Calculator</h2>
+               <form>
+                  <label for="pregnancyWeight">Pre-pregnancy Weight (kg):</label>
+                  <input type="number" id="pregnancyWeight" name="pregnancyWeight"><br>
+                  <label for="pregnancyHeight">Height (cm):</label>
+                  <input type="number" id="pregnancyHeight" name="pregnancyHeight"><br>
+                  <button type="button" onclick="calculatePregnancyWeightGain()">Calculate</button>
+               </form>
+               <p id="pregnancyWeightGainResult"></p>
+            </div>
+            <div id="pregnancy-conception" class="calculator_tool" style="display:none;">
+               <h2>Pregnancy Conception Calculator</h2>
+               <form>
+                  <label for="conceptionDueDate">Estimated Due Date (YYYY-MM-DD):</label>
+                  <input type="date" id="conceptionDueDate" name="conceptionDueDate"><br>
+                  <button type="button" onclick="calculateConception()">Calculate</button>
+               </form>
+               <p id="conceptionResult"></p>
+            </div>
+            <div id="due-date" class="calculator_tool" style="display:none;">
+               <h2>Due Date Calculator</h2>
+               <form>
+                  <label for="lastPeriod">Last Menstrual Period (YYYY-MM-DD):</label>
+                  <input type="date" id="lastPeriod" name="lastPeriod"><br>
+                  <button type="button" onclick="calculateDueDate()">Calculate</button>
+               </form>
+               <p id="dueDateResult"></p>
+            </div>
+            <div id="pace" class="calculator_tool" style="display:none;">
+               <h2>Pace Calculator</h2>
+               <form>
+                  <label for="distance">Distance (km):</label>
+                  <input type="number" id="distance" name="distance"><br>
+                  <label for="time">Time (HH:MM:SS):</label>
+                  <input type="text" id="time" name="time"><br>
+                  <button type="button" onclick="calculatePace()">Calculate</button>
+               </form>
+               <p id="paceResult"></p>
+            </div>
+            <div id="army-body-fat" class="calculator_tool" style="display:none;">
+               <h2>Army Body Fat Calculator</h2>
+               <form>
+                  <label for="abfNeck">Neck (cm):</label>
+                  <input type="number" id="abfNeck" name="abfNeck"><br>
+                  <label for="abfWaist">Waist (cm):</label>
+                  <input type="number" id="abfWaist" name="abfWaist"><br>
+                  <label for="abfHip">Hip (cm) (female only):</label>
+                  <input type="number" id="abfHip" name="abfHip"><br>
+                  <label for="abfHeight">Height (cm):</label>
+                  <input type="number" id="abfHeight" name="abfHeight"><br>
+                  <label for="abfGender">Gender:</label>
+                  <select id="abfGender" name="abfGender">
+                     <option value="male">Male</option>
+                     <option value="female">Female</option>
+                  </select>
+                  <br>
+                  <button type="button" onclick="calculateArmyBodyFat()">Calculate</button>
+               </form>
+               <p id="armyBodyFatResult"></p>
+            </div>
+            <div id="carbohydrate" class="calculator_tool" style="display:none;">
+               <h2>Carbohydrate Calculator</h2>
+               <form>
+                  <label for="carbWeight">Weight (kg):</label>
+                  <input type="number" id="carbWeight" name="carbWeight"><br>
+                  <label for="carbActivity">Activity Level:</label>
+                  <select id="carbActivity" name="carbActivity">
+                     <option value="1">Sedentary</option>
+                     <option value="1.1">Lightly active</option>
+                     <option value="1.2">Moderately active</option>
+                     <option value="1.3">Very active</option>
+                     <option value="1.4">Super active</option>
+                  </select>
+                  <br>
+                  <button type="button" onclick="calculateCarb()">Calculate</button>
+               </form>
+               <p id="carbResult"></p>
+            </div>
+            <div id="lean-body-mass" class="calculator_tool" style="display:none;">
+               <h2>Lean Body Mass Calculator</h2>
+               <form>
+                  <label for="lbmWeight">Weight (kg):</label>
+                  <input type="number" id="lbmWeight" name="lbmWeight"><br>
+                  <label for="lbmBodyFat">Body Fat Percentage (%):</label>
+                  <input type="number" id="lbmBodyFat" name="lbmBodyFat"><br>
+                  <button type="button" onclick="calculateLBM()">Calculate</button>
+               </form>
+               <p id="lbmResult"></p>
+            </div>
+            <div id="healthy-weight" class="calculator_tool" style="display:none;">
+               <h2>Healthy Weight Calculator</h2>
+               <form>
+                  <label for="hwHeight">Height (cm):</label>
+                  <input type="number" id="hwHeight" name="hwHeight"><br>
+                  <button type="button" onclick="calculateHealthyWeight()">Calculate</button>
+               </form>
+               <p id="hwResult"></p>
+            </div>
+            <div id="calories-burned" class="calculator_tool" style="display:none;">
+               <h2>Calories Burned Calculator</h2>
+               <form>
+                  <label for="cbWeight">Weight (kg):</label>
+                  <input type="number" id="cbWeight" name="cbWeight"><br>
+                  <label for="cbDuration">Duration (minutes):</label>
+                  <input type="number" id="cbDuration" name="cbDuration"><br>
+                  <label for="cbActivity">Activity Type:</label>
+                  <select id="cbActivity" name="cbActivity">
+                     <option value="running">Running</option>
+                     <option value="cycling">Cycling</option>
+                     <option value="swimming">Swimming</option>
+                     <option value="walking">Walking</option>
+                  </select>
+                  <br>
+                  <button type="button" onclick="calculateCaloriesBurned()">Calculate</button>
+               </form>
+               <p id="cbResult"></p>
+            </div>
+            <div id="protein" class="calculator_tool" style="display:none;">
+               <h2>Protein Calculator</h2>
+               <form>
+                  <label for="proteinWeight">Weight (kg):</label>
+                  <input type="number" id="proteinWeight" name="proteinWeight"><br>
+                  <label for="proteinActivity">Activity Level:</label>
+                  <select id="proteinActivity" name="proteinActivity">
+                     <option value="1.2">Sedentary</option>
+                     <option value="1.5">Moderately active</option>
+                     <option value="1.8">Very active</option>
+                  </select>
+                  <br>
+                  <button type="button" onclick="calculateProtein()">Calculate</button>
+               </form>
+               <p id="proteinResult"></p>
+            </div>
+            <div id="fat-intake" class="calculator_tool" style="display:none;">
+               <h2>Fat Intake Calculator</h2>
+               <form>
+                  <label for="fatWeight">Weight (kg):</label>
+                  <input type="number" id="fatWeight" name="fatWeight"><br>
+                  <label for="fatActivity">Activity Level:</label>
+                  <select id="fatActivity" name="fatActivity">
+                     <option value="1.2">Sedentary</option>
+                     <option value="1.5">Moderately active</option>
+                     <option value="1.8">Very active</option>
+                  </select>
+                  <br>
+                  <button type="button" onclick="calculateFatIntake()">Calculate</button>
+               </form>
+               <p id="fatResult"></p>
+            </div>
+            <div id="tdee" class="calculator_tool" style="display:none;">
+               <h2>TDEE Calculator</h2>
+               <form>
+                  <label for="tdeeWeight">Weight (kg):</label>
+                  <input type="number" id="tdeeWeight" name="tdeeWeight"><br>
+                  <label for="tdeeActivity">Activity Level:</label>
+                  <select id="tdeeActivity" name="tdeeActivity">
+                     <option value="1.2">Sedentary</option>
+                     <option value="1.375">Lightly active</option>
+                     <option value="1.55">Moderately active</option>
+                     <option value="1.725">Very active</option>
+                     <option value="1.9">Super active</option>
+                  </select>
+                  <br>
+                  <button type="button" onclick="calculateTDEE()">Calculate</button>
+               </form>
+               <p id="tdeeResult"></p>
+            </div>
+            <div id="ovulation" class="calculator_tool" style="display:none;">
+               <h2>Ovulation Calculator</h2>
+               <form>
+                  <label for="ovulationLastPeriod">Last Menstrual Period (YYYY-MM-DD):</label>
+                  <input type="date" id="ovulationLastPeriod" name="ovulationLastPeriod"><br>
+                  <label for="ovulationCycleLength">Cycle Length (days):</label>
+                  <input type="number" id="ovulationCycleLength" name="ovulationCycleLength"><br>
+                  <button type="button" onclick="calculateOvulation()">Calculate</button>
+               </form>
+               <p id="ovulationResult"></p>
+            </div>
+            <div id="conception" class="calculator_tool" style="display:none;">
+               <h2>Conception Calculator</h2>
+               <form>
+                  <label for="conceptionDueDate">Estimated Due Date (YYYY-MM-DD):</label>
+                  <input type="date" id="conceptionDueDate" name="conceptionDueDate"><br>
+                  <button type="button" onclick="calculateConception()">Calculate</button>
+               </form>
+               <p id="conceptionResult"></p>
+            </div>
+            <div id="period" class="calculator_tool" style="display:none;">
+               <h2>Period Calculator</h2>
+               <form>
+                  <label for="periodLastPeriod">Last Menstrual Period (YYYY-MM-DD):</label>
+                  <input type="date" id="periodLastPeriod" name="periodLastPeriod"><br>
+                  <label for="periodCycleLength">Cycle Length (days):</label>
+                  <input type="number" id="periodCycleLength" name="periodCycleLength"><br>
+                  <button type="button" onclick="calculatePeriod()">Calculate</button>
+               </form>
+               <p id="periodResult"></p>
+            </div>
+            <div id="gfr" class="calculator_tool" style="display:none;">
+               <h2>GFR Calculator</h2>
+               <form>
+                  <label for="gfrAge">Age:</label>
+                  <input type="number" id="gfrAge" name="gfrAge"><br>
+                  <label for="gfrCreatinine">Creatinine (mg/dL):</label>
+                  <input type="number" id="gfrCreatinine" name="gfrCreatinine"><br>
+                  <label for="gfrGender">Gender:</label>
+                  <select id="gfrGender" name="gfrGender">
+                     <option value="male">Male</option>
+                     <option value="female">Female</option>
+                  </select>
+                  <br>
+                  <button type="button" onclick="calculateGFR()">Calculate</button>
+               </form>
+               <p id="gfrResult"></p>
+            </div>
+            <div id="body-type" class="calculator_tool" style="display:none;">
+               <h2>Body Type Calculator</h2>
+               <form>
+                  <label for="btHeight">Height (cm):</label>
+                  <input type="number" id="btHeight" name="btHeight"><br>
+                  <label for="btWrist">Wrist Circumference (cm):</label>
+                  <input type="number" id="btWrist" name="btWrist"><br>
+                  <button type="button" onclick="calculateBodyType()">Calculate</button>
+               </form>
+               <p id="btResult"></p>
+            </div>
+            <div id="body-surface-area" class="calculator_tool" style="display:none;">
+               <h2>Body Surface Area Calculator</h2>
+               <form>
+                  <label for="bsa-height">Height (cm):</label>
+                  <input type="number" id="bsa-height" name="bsa-height"><br>
+                  <label for="bsa-weight">Weight (kg):</label>
+                  <input type="number" id="bsa-weight" name="bsa-weight"><br>
+                  <button type="button" onclick="calculateBSA()">Calculate BSA</button>
+               </form>
+               <p id="bsa-result"></p>
+            </div>
+            <div id="bac" class="calculator_tool" style="display:none;">
+               <h2>BAC Calculator</h2>
+               <form>
+                  <label for="bac-drinks">Number of drinks consumed:</label>
+                  <input type="number" id="bac-drinks" name="bac-drinks"><br>
+                  <label for="bac-gender">Gender:</label>
+                  <select id="bac-gender" name="bac-gender">
+                     <option value="male">Male</option>
+                     <option value="female">Female</option>
+                  </select>
+                  <br>
+                  <label for="bac-weight">Weight (kg):</label>
+                  <input type="number" id="bac-weight" name="bac-weight"><br>
+                  <label for="bac-hours">Hours since first drink:</label>
+                  <input type="number" id="bac-hours" name="bac-hours"><br>
+                  <button type="button" onclick="calculateBAC()">Calculate BAC</button>
+               </form>
+               <p id="bac-result"></p>
+            </div>
+            <div id="anorexic-bmi" class="calculator_tool" style="display:none;">
+               <h2>Anorexic BMI Calculator</h2>
+               <form>
+                  <label for="anorexic-height">Height (cm):</label>
+                  <input type="number" id="anorexic-height" name="anorexic-height"><br>
+                  <label for="anorexic-weight">Weight (kg):</label>
+                  <input type="number" id="anorexic-weight" name="anorexic-weight"><br>
+                  <button type="button" onclick="calculateAnorexicBMI()">Calculate BMI</button>
+               </form>
+               <p id="anorexic-bmi-result"></p>
+            </div>
+            <div id="weight-watcher-points" class="calculator_tool" style="display:none;">
+               <h2>Weight Watcher Points Calculator</h2>
+               <form>
+                  <label for="ww-calories">Calories:</label>
+                  <input type="number" id="ww-calories" name="ww-calories"><br>
+                  <label for="ww-fat">Total fat (g):</label>
+                  <input type="number" id="ww-fat" name="ww-fat"><br>
+                  <label for="ww-fiber">Fiber (g):</label>
+                  <input type="number" id="ww-fiber" name="ww-fiber"><br>
+                  <button type="button" onclick="calculateWWPoints()">Calculate Points</button>
+               </form>
+               <p id="ww-points-result"></p>
+            </div>
+            <div id="overweight" class="calculator_tool" style="display:none;">
+               <h2>Overweight Calculator</h2>
+               <form>
+                  <label for="overweight-height">Height (cm):</label>
+                  <input type="number" id="overweight-height" name="overweight-height"><br>
+                  <label for="overweight-waist">Waist circumference (cm):</label>
+                  <input type="number" id="overweight-waist" name="overweight-waist"><br>
+                  <label for="overweight-gender">Gender:</label>
+                  <select id="overweight-gender" name="overweight-gender">
+                     <option value="male">Male</option>
+                     <option value="female">Female</option>
+                  </select>
+                  <br>
+                  <button type="button" onclick="calculateOverweight()">Check</button>
+               </form>
+               <p id="overweight-result"></p>
+            </div>
+         </section>
+      </main>
+   </body>
+</html>

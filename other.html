@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other Calculators</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        header {
+            background-color: #6c757d;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #5a6268;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: white;
+            margin: 5px 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .calculator-category {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .calculator-category h3 {
+            margin-top: 0;
+        }
+        .calculator-category ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .calculator-category ul li {
+            margin: 10px 0;
+        }
+        .calculator-category ul li a {
+            text-decoration: none;
+            color: #6c757d;
+        }
+           .calculator_tool {
+         background-color: white;
+         padding: 20px;
+         margin: 20px 0;
+         border-radius: 8px;
+         box-shadow: 0 0 10px rgba(0,0,0,0.1);
+         }
+         .calculator_tool h2 {
+         margin-top: 0;
+         color: #333; /* Adjust text color as needed */
+         }
+         .calculator_tool form {
+         margin-bottom: 15px;
+         }
+         .calculator_tool label {
+         display: block;
+         margin-bottom: 5px;
+         }
+         .calculator_tool input[type="number"],
+         .calculator_tool button {
+         width: 100%;
+         padding: 8px;
+         margin-bottom: 10px;
+         box-sizing: border-box;
+         }
+         .calculator_tool button {
+         background-color: #007BFF; /* Match your link color */
+         color: white;
+         border: none;
+         cursor: pointer;
+         }
+         .calculator_tool button:hover {
+         background-color: #0056b3; /* Darker shade for hover */
+         }
+         .calculator_tool p {
+         margin-top: 10px;
+         }
+         .calculator_tool a {
+         text-decoration: none;
+         color: #007BFF;
+         }
+         .calculator_tool a:hover {
+         text-decoration: underline;
+         }
+         @media only screen and (max-width: 600px) {
+         /* Adjust styles for smaller screens (e.g., smartphones) */
+         .calculator {
+         padding: 10px;
+         margin: 10px 0;
+         }
+         .calculator h2 {
+         font-size: 1.2em; /* Adjust font size for smaller screens */
+         }
+         .calculator input[type="number"],
+         .calculator button {
+         padding: 6px; /* Adjust padding for smaller inputs/buttons */
+         }
+    </style>
+    <script type="text/javascript">
+        
+         function showCalculator(id) {
+              // Hide all calculators
+              var calculators = document.querySelectorAll('.calculator');
+              calculators.forEach(function(calc) {
+                  calc.style.display = 'none';
+              });
+              // Show the selected calculator
+              document.getElementById(id).style.display = 'block';
+          }
+
+          // Age Calculator
+function calculateAge() {
+    const birthDate = new Date(document.getElementById('birthDate').value);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    document.getElementById('ageResult').innerText = `Age: ${age}`;
+}
+
+// Date Calculator
+function calculateDate() {
+    const startDate = new Date(document.getElementById('startDate').value);
+    const endDate = new Date(document.getElementById('endDate').value);
+    const diffTime = Math.abs(endDate - startDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    document.getElementById('dateResult').innerText = `Difference: ${diffDays} days`;
+}
+
+// Time Calculator
+function calculateTime() {
+    const startTime = document.getElementById('startTime').value;
+    const endTime = document.getElementById('endTime').value;
+    const diff = new Date(`1970-01-01T${endTime}:00`) - new Date(`1970-01-01T${startTime}:00`);
+    const hours = Math.floor(diff / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    document.getElementById('timeResult').innerText = `Difference: ${hours} hours and ${minutes} minutes`;
+}
+
+// Hours Calculator
+function calculateHours() {
+    const startHour = parseFloat(document.getElementById('startHour').value);
+    const endHour = parseFloat(document.getElementById('endHour').value);
+    const diffHours = endHour - startHour;
+    document.getElementById('hoursResult').innerText = `Difference: ${diffHours} hours`;
+}
+
+// GPA Calculator
+function calculateGPA() {
+    const numCourses = parseInt(document.getElementById('numCourses').value);
+    let totalPoints = 0;
+    let totalCredits = 0;
+    for (let i = 0; i < numCourses; i++) {
+        const grade = parseFloat(document.getElementById(`grade${i}`).value);
+        const credits = parseFloat(document.getElementById(`credits${i}`).value);
+        totalPoints += grade * credits;
+        totalCredits += credits;
+    }
+    const gpa = totalPoints / totalCredits;
+    document.getElementById('gpaResult').innerText = `GPA: ${gpa.toFixed(2)}`;
+}
+
+// Grade Calculator
+function calculateGrade() {
+    const earnedPoints = parseFloat(document.getElementById('earnedPoints').value);
+    const possiblePoints = parseFloat(document.getElementById('possiblePoints').value);
+    const grade = (earnedPoints / possiblePoints) * 100;
+    document.getElementById('gradeResult').innerText = `Grade: ${grade.toFixed(2)}%`;
+}
+
+// Height Calculator
+function calculateHeight() {
+    const feet = parseFloat(document.getElementById('feet').value);
+    const inches = parseFloat(document.getElementById('inches').value);
+    const totalInches = (feet * 12) + inches;
+    const cm = totalInches * 2.54;
+    document.getElementById('heightResult').innerText = `Height: ${cm.toFixed(2)} cm`;
+}
+
+// Concrete Calculator
+function calculateConcrete() {
+    const length = parseFloat(document.getElementById('length').value);
+    const width = parseFloat(document.getElementById('width').value);
+    const depth = parseFloat(document.getElementById('depth').value) / 12; // Convert inches to feet
+    const volume = length * width * depth;
+    const cubicYards = volume / 27;
+    document.getElementById('concreteResult').innerText = `Concrete: ${cubicYards.toFixed(2)} cubic yards`;
+}
+
+// IP Subnet Calculator
+function calculateSubnet() {
+    // This example requires more complex logic to handle subnet calculations accurately.
+    // For now, it can return a placeholder result.
+    const ipAddress = document.getElementById('ipAddress').value;
+    const subnetMask = document.getElementById('subnetMask').value;
+    // Placeholder for actual subnet calculation
+    document.getElementById('subnetResult').innerText = `Subnet result for ${ipAddress}/${subnetMask}`;
+}
+
+// Bra Size Calculator
+function calculateBraSize() {
+    const underbust = parseFloat(document.getElementById('underbust').value);
+    const overbust = parseFloat(document.getElementById('overbust').value);
+    const bandSize = Math.round(underbust + 5);
+    const cupSize = Math.round(overbust - bandSize);
+    const cupLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const braSize = `${bandSize}${cupLetters[cupSize]}`;
+    document.getElementById('braSizeResult').innerText = `Bra Size: ${braSize}`;
+}
+
+// Password Generator
+function generatePassword() {
+    const length = parseInt(document.getElementById('passwordLength').value);
+    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+        password += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    document.getElementById('passwordResult').innerText = `Password: ${password}`;
+}
+
+// Dice Roller
+function rollDice() {
+    const numDice = parseInt(document.getElementById('numDice').value);
+    const diceSides = parseInt(document.getElementById('diceSides').value);
+    let result = 0;
+    for (let i = 0; i < numDice; i++) {
+        result += Math.floor(Math.random() * diceSides) + 1;
+    }
+    document.getElementById('diceRollResult').innerText = `Roll result: ${result}`;
+}
+
+// Conversion Calculator
+function convertUnits() {
+    const conversionFrom = parseFloat(document.getElementById('conversionFrom').value);
+    const conversionTo = parseFloat(document.getElementById('conversionTo').value);
+    // Placeholder for actual conversion logic
+    const conversionResult = conversionFrom * conversionTo; // Simple multiplication for placeholder
+    document.getElementById('conversionResult').innerText = `Converted value: ${conversionResult}`;
+}
+
+// Fuel Cost Calculator
+function calculateFuelCost() {
+    const distance = parseFloat(document.getElementById('distance').value);
+    const fuelEfficiency = parseFloat(document.getElementById('fuelEfficiency').value);
+    const fuelCost = parseFloat(document.getElementById('fuelCost').value);
+    const totalCost = (distance / fuelEfficiency) * fuelCost;
+    document.getElementById('fuelCostResult').innerText = `Fuel Cost: $${totalCost.toFixed(2)}`;
+}
+
+// Voltage Drop Calculator
+function calculateVoltageDrop() {
+    const distance = parseFloat(document.getElementById('distance').value);
+    const voltage = parseFloat(document.getElementById('voltage').value);
+    const current = parseFloat(document.getElementById('current').value);
+    const wireSize = parseFloat(document.getElementById('wireSize').value);
+    // Placeholder for actual voltage drop calculation
+    const voltageDrop = (distance * current) / wireSize; // Simplified formula for placeholder
+    document.getElementById('voltageDropResult').innerText = `Voltage Drop: ${voltageDrop.toFixed(2)}V`;
+}
+
+// BTU Calculator
+function calculateBTU() {
+    const roomSize = parseFloat(document.getElementById('roomSize').value);
+    const climateZone = parseFloat(document.getElementById('climateZone').value);
+    const btu = roomSize * climateZone; // Placeholder formula
+    document.getElementById('btuResult').innerText = `BTU needed: ${btu}`;
+}
+
+// Square Footage Calculator
+function calculateSquareFootage() {
+    const length = parseFloat(document.getElementById('length').value);
+    const width = parseFloat(document.getElementById('width').value);
+    const squareFootage = length * width;
+    document.getElementById('squareFootageResult').innerText = `Square Footage: ${squareFootage} sq ft`;
+}
+
+// Time Card Calculator
+function calculateTimeCard() {
+    const startTime = document.getElementById('startTime').value;
+    const endTime = document.getElementById('endTime').value;
+    const diff = new Date(`1970-01-01T${endTime}:00`) - new Date(`1970-01-01T${startTime}:00`);
+    const hours = Math.floor(diff / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    document.getElementById('timeCardResult').innerText = `Time Worked: ${hours} hours and ${minutes} minutes`;
+}
+
+
+
+// Time Zone Calculator
+function calculateTimeZone() {
+    const startTimeZone = document.getElementById('startTimeZone').value;
+    const endTimeZone = document.getElementById('endTimeZone').value;
+    // Dummy calculation: this should be replaced with a proper time zone conversion logic
+    const result = `Start Time Zone: ${startTimeZone}, End Time Zone: ${endTimeZone}`;
+    document.getElementById('timeZoneResult').innerText = result;
+}
+
+// Love Calculator
+function calculateLove() {
+    const yourName = document.getElementById('yourName').value;
+    const partnerName = document.getElementById('partnerName').value;
+    const loveScore = Math.floor(Math.random() * 100) + 1; // Random love score
+    document.getElementById('loveResult').innerText = `Love score between ${yourName} and ${partnerName} is ${loveScore}%`;
+}
+
+// GDP Calculator
+function calculateGDP() {
+    const consumption = parseFloat(document.getElementById('consumption').value);
+    const investment = parseFloat(document.getElementById('investment').value);
+    const governmentSpending = parseFloat(document.getElementById('governmentSpending').value);
+    const netExports = parseFloat(document.getElementById('netExports').value);
+    const gdp = consumption + investment + governmentSpending + netExports;
+    document.getElementById('gdpResult').innerText = `GDP is $${gdp.toFixed(2)}`;
+}
+
+// Gas Mileage Calculator
+function calculateGasMileage() {
+    const milesDriven = parseFloat(document.getElementById('milesDriven').value);
+    const gallonsUsed = parseFloat(document.getElementById('gallonsUsed').value);
+    const mileage = milesDriven / gallonsUsed;
+    document.getElementById('gasMileageResult').innerText = `Gas mileage is ${mileage.toFixed(2)} miles per gallon`;
+}
+
+// Horsepower Calculator
+function calculateHorsepower() {
+    const torque = parseFloat(document.getElementById('torque').value);
+    const rpm = parseFloat(document.getElementById('rpm').value);
+    const horsepower = (torque * rpm) / 5252;
+    document.getElementById('horsepowerResult').innerText = `Horsepower is ${horsepower.toFixed(2)}`;
+}
+
+// Engine Horsepower Calculator
+function calculateEngineHorsepower() {
+    const engineTorque = parseFloat(document.getElementById('engineTorque').value);
+    const engineRPM = parseFloat(document.getElementById('engineRPM').value);
+    const engineHorsepower = (engineTorque * engineRPM) / 5252;
+    document.getElementById('engineHorsepowerResult').innerText = `Engine Horsepower is ${engineHorsepower.toFixed(2)}`;
+}
+
+// Stair Calculator
+function calculateStair() {
+    const totalRise = parseFloat(document.getElementById('totalRise').value);
+    const treadDepth = parseFloat(document.getElementById('treadDepth').value);
+    const numberOfSteps = Math.ceil(totalRise / 7); // Assuming 7 inches rise per step
+    document.getElementById('stairResult').innerText = `Number of steps is ${numberOfSteps}`;
+}
+
+// Resistor Calculator
+function calculateResistor() {
+    const resistorValue = parseFloat(document.getElementById('resistorValue').value);
+    document.getElementById('resistorResult').innerText = `Resistor value is ${resistorValue} ohms`;
+}
+
+// Ohm's Law Calculator
+function calculateOhmsLaw() {
+    const voltage = parseFloat(document.getElementById('voltage').value);
+    const current = parseFloat(document.getElementById('current').value);
+    const resistance = parseFloat(document.getElementById('resistance').value);
+    let result = '';
+
+    if (voltage && current && !resistance) {
+        result = `Resistance is ${voltage / current} ohms`;
+    } else if (voltage && !current && resistance) {
+        result = `Current is ${voltage / resistance} amps`;
+    } else if (!voltage && current && resistance) {
+        result = `Voltage is ${current * resistance} volts`;
+    } else {
+        result = 'Please provide two values to calculate the third';
+    }
+
+    document.getElementById('ohmsLawResult').innerText = result;
+}
+
+// Electricity Calculator
+function calculateElectricity() {
+    const wattage = parseFloat(document.getElementById('wattage').value);
+    const hours = parseFloat(document.getElementById('hours').value);
+    const electricity = (wattage * hours) / 1000;
+    document.getElementById('electricityResult').innerText = `Electricity used is ${electricity.toFixed(2)} kWh`;
+}
+
+// Tip Calculator
+function calculateTip() {
+    const billAmount = parseFloat(document.getElementById('billAmount').value);
+    const tipPercentage = parseFloat(document.getElementById('tipPercentage').value);
+    const tip = (billAmount * tipPercentage) / 100;
+    const total = billAmount + tip;
+    document.getElementById('tipResult').innerText = `Tip is $${tip.toFixed(2)}, Total is $${total.toFixed(2)}`;
+}
+
+// Mileage Calculator
+function calculateMileage() {
+    const distance = parseFloat(document.getElementById('distance').value);
+    const fuelUsed = parseFloat(document.getElementById('fuelUsed').value);
+    const mileage = distance / fuelUsed;
+    document.getElementById('mileageResult').innerText = `Mileage is ${mileage.toFixed(2)} miles per gallon`;
+}
+
+// Density Calculator
+function calculateDensity() {
+    const mass = parseFloat(document.getElementById('mass').value);
+    const volume = parseFloat(document.getElementById('volume').value);
+    const density = mass / volume;
+    document.getElementById('densityResult').innerText = `Density is ${density.toFixed(2)} g/cm³`;
+}
+
+// Mass Calculator
+function calculateMass() {
+    const density = parseFloat(document.getElementById('density').value);
+    const volume = parseFloat(document.getElementById('volume').value);
+    const mass = density * volume;
+    document.getElementById('massResult').innerText = `Mass is ${mass.toFixed(2)} kg`;
+}
+
+// Weight Calculator
+function calculateWeight() {
+    const mass = parseFloat(document.getElementById('mass').value);
+    const gravity = parseFloat(document.getElementById('gravity').value);
+    const weight = mass * gravity;
+    document.getElementById('weightResult').innerText = `Weight is ${weight.toFixed(2)} N`;
+}
+
+// Speed Calculator
+function calculateSpeed() {
+    const distance = parseFloat(document.getElementById('distance').value);
+    const time = parseFloat(document.getElementById('time').value);
+    const speed = distance / time;
+    document.getElementById('speedResult').innerText = `Speed is ${speed.toFixed(2)} m/s`;
+}
+
+// Golf Handicap Calculator
+function calculateGolfHandicap() {
+    const numRounds = parseInt(document.getElementById('numRounds').value);
+    const scores = [];
+    for (let i = 1; i <= numRounds; i++) {
+        const score = parseFloat(document.getElementById(`round${i}`).value);
+        scores.push(score);
+    }
+    const averageScore = scores.reduce((a, b) => a + b, 0) / numRounds;
+    const handicap = (averageScore - 72) * 0.96; // Simplified calculation
+    document.getElementById('golfHandicapResult').innerText = `Golf handicap is ${handicap.toFixed(2)}`;
+}
+
+// Sleep Calculator
+function calculateSleep() {
+    const wakeUpTime = document.getElementById('wakeUpTime').value;
+    const sleepTimes = [];
+    const wakeUpDate = new Date(`1970-01-01T${wakeUpTime}:00`);
+    for (let i = 1; i <= 6; i++) {
+        const sleepTime = new Date(wakeUpDate.getTime() - i * 90 * 60000);
+        sleepTimes.push(sleepTime.toTimeString().substring(0, 5));
+    }
+    document.getElementById('sleepResult').innerText = `Best sleep times: ${sleepTimes.join(', ')}`;
+}
+
+// Tire Size Calculator
+function calculateTireSize() {
+    const width = parseFloat(document.getElementById('width').value);
+    const aspectRatio = parseFloat(document.getElementById('aspectRatio').value);
+    const diameter = parseFloat(document.getElementById('diameter').value);
+    const sidewallHeight = (width * aspectRatio) / 100;
+    const overallDiameter = (2 * sidewallHeight / 25.4) + diameter;
+    document.getElementById('tireSizeResult').innerText = `Overall diameter is ${overallDiameter.toFixed(2)} inches`;
+}
+
+// Roofing Calculator
+function calculateRoofing() {
+    const roofLength = parseFloat(document.getElementById('roofLength').value);
+    const roofWidth = parseFloat(document.getElementById('roofWidth').value);
+    const area = roofLength * roofWidth;
+    document.getElementById('roofingResult').innerText = `Roof area is ${area.toFixed(2)} square feet`;
+}
+
+// Tile Calculator
+function calculateTile() {
+    const roomLength = parseFloat(document.getElementById('roomLength').value);
+    const roomWidth = parseFloat(document.getElementById('roomWidth').value);
+
+    if (!isNaN(roomLength) && !isNaN(roomWidth)) {
+        const area = roomLength * roomWidth;
+        const resultElement = document.getElementById('tileResult');
+        resultElement.textContent = `Tiles needed: ${area.toFixed(2)} square feet`;
+    } else {
+        alert('Please enter valid numbers for Room Length and Room Width.');
+    }
+}
+
+// Mulch Calculator
+function calculateMulch() {
+    const bedLength = parseFloat(document.getElementById('bedLength').value);
+    const bedWidth = parseFloat(document.getElementById('bedWidth').value);
+    const depthInches = parseFloat(document.getElementById('depth').value);
+
+    if (!isNaN(bedLength) && !isNaN(bedWidth) && !isNaN(depthInches)) {
+        const areaSqFeet = bedLength * bedWidth;
+        const depthFeet = depthInches / 12;
+        const volumeCubicFeet = areaSqFeet * depthFeet;
+        const resultElement = document.getElementById('mulchResult');
+        resultElement.textContent = `Mulch needed: ${volumeCubicFeet.toFixed(2)} cubic feet`;
+    } else {
+        alert('Please enter valid numbers for Bed Length, Bed Width, and Depth.');
+    }
+}
+
+// Gravel Calculator
+function calculateGravel() {
+    const areaLength = parseFloat(document.getElementById('areaLength').value);
+    const areaWidth = parseFloat(document.getElementById('areaWidth').value);
+    const depthInches = parseFloat(document.getElementById('depth').value);
+
+    if (!isNaN(areaLength) && !isNaN(areaWidth) && !isNaN(depthInches)) {
+        const areaSqFeet = areaLength * areaWidth;
+        const depthFeet = depthInches / 12;
+        const volumeCubicFeet = areaSqFeet * depthFeet;
+        const resultElement = document.getElementById('gravelResult');
+        resultElement.textContent = `Gravel needed: ${volumeCubicFeet.toFixed(2)} cubic feet`;
+    } else {
+        alert('Please enter valid numbers for Area Length, Area Width, and Depth.');
+    }
+}
+
+// Wind Chill Calculator
+function calculateWindChill() {
+    const temperature = parseFloat(document.getElementById('temperature').value);
+    const windSpeed = parseFloat(document.getElementById('windSpeed').value);
+
+    if (!isNaN(temperature) && !isNaN(windSpeed)) {
+        const windChill = 35.74 + (0.6215 * temperature) - (35.75 * Math.pow(windSpeed, 0.16)) + (0.4275 * temperature * Math.pow(windSpeed, 0.16));
+        const resultElement = document.getElementById('windChillResult');
+        resultElement.textContent = `Wind Chill: ${windChill.toFixed(2)} °F`;
+    } else {
+        alert('Please enter valid numbers for Temperature and Wind Speed.');
+    }
+}
+
+// Heat Index Calculator
+function calculateHeatIndex() {
+    const temperature = parseFloat(document.getElementById('temperature').value);
+    const humidity = parseFloat(document.getElementById('humidity').value);
+
+    if (!isNaN(temperature) && !isNaN(humidity)) {
+        const heatIndex = -42.379 + 2.04901523 * temperature + 10.14333127 * humidity - 0.22475541 * temperature * humidity - 0.00683783 * temperature * temperature - 0.05481717 * humidity * humidity + 0.00122874 * temperature * temperature * humidity + 0.00085282 * temperature * humidity * humidity - 0.00000199 * temperature * temperature * humidity * humidity;
+        const resultElement = document.getElementById('heatIndexResult');
+        resultElement.textContent = `Heat Index: ${heatIndex.toFixed(2)} °F`;
+    } else {
+        alert('Please enter valid numbers for Temperature and Humidity.');
+    }
+}
+
+// Dew Point Calculator
+function calculateDewPoint() {
+    const temperature = parseFloat(document.getElementById('temperature').value);
+    const humidity = parseFloat(document.getElementById('humidity').value);
+
+    if (!isNaN(temperature) && !isNaN(humidity)) {
+        const dewPoint = temperature - ((100 - humidity) / 5);
+        const resultElement = document.getElementById('dewPointResult');
+        resultElement.textContent = `Dew Point: ${dewPoint.toFixed(2)} °F`;
+    } else {
+        alert('Please enter valid numbers for Temperature and Humidity.');
+    }
+}
+
+// Bandwidth Calculator
+function calculateBandwidth() {
+    const fileSize = parseFloat(document.getElementById('fileSize').value);
+    const transferTime = parseFloat(document.getElementById('transferTime').value);
+
+    if (!isNaN(fileSize) && !isNaN(transferTime)) {
+        const bandwidth = (fileSize * 8) / transferTime;
+        const resultElement = document.getElementById('bandwidthResult');
+        resultElement.textContent = `Bandwidth: ${bandwidth.toFixed(2)} Mbps`;
+    } else {
+        alert('Please enter valid numbers for File Size and Transfer Time.');
+    }
+}
+
+// Time Duration Calculator
+function calculateTimeDuration() {
+    const startTime = document.getElementById('startTime').value;
+    const endTime = document.getElementById('endTime').value;
+
+    if (startTime && endTime) {
+        const start = new Date(`1970-01-01T${startTime}`);
+        const end = new Date(`1970-01-01T${endTime}`);
+        let duration = (end.getTime() - start.getTime()) / 1000;
+        const hours = Math.floor(duration / 3600);
+        duration %= 3600;
+        const minutes = Math.floor(duration / 60);
+        duration %= 60;
+        const seconds = Math.floor(duration);
+        const resultElement = document.getElementById('timeDurationResult');
+        resultElement.textContent = `Duration: ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+    } else {
+        alert('Please select both Start Time and End Time.');
+    }
+}
+
+// Day Counter
+function countDays() {
+    const startDate = new Date(document.getElementById('startDate').value);
+    const endDate = new Date(document.getElementById('endDate').value);
+
+    if (startDate && endDate) {
+        const timeDifference = Math.abs(endDate.getTime() - startDate.getTime());
+        const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+        const resultElement = document.getElementById('dayCountResult');
+        resultElement.textContent = `Days between: ${daysDifference} days`;
+    } else {
+        alert('Please select both Start Date and End Date.');
+    }
+}
+
+// Day of the Week Calculator
+function calculateDayOfWeek() {
+    const dateInput = document.getElementById('date');
+
+    if (dateInput) {
+        const dateString = dateInput.value.trim();
+
+        if (dateString !== '') {
+            const date = new Date(dateString);
+
+            if (!isNaN(date.getTime())) {
+                const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const dayOfWeek = days[date.getDay()];
+                const resultElement = document.getElementById('dayOfWeekResult');
+                resultElement.textContent = `Day of the week: ${dayOfWeek}`;
+            } else {
+                alert('Please enter a valid date.');
+            }
+        } else {
+            alert('Please enter a valid date.');
+        }
+    } else {
+        alert('Date input element not found.');
+    }
+}
+
+
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Other Calculators</h1>
+    </header>
+    <nav>
+        <a href="finance.html">Financial Calculators</a>
+        <a href="fitness.html">Fitness and Health Calculators</a>
+        <a href="math.html">Math Calculators</a>
+        <a href="other.html">Other Calculators</a>
+         <a href="landing.html">View All Calculators</a>
+    </nav>
+    <main>
+        <section id="other">
+            <h2>Other Calculators</h2>
+            <div class="calculator-category">
+                <h3>Available Calculators</h3>
+                <ul>
+                 <li><a href="#age" onclick="showCalculator('age')">Age Calculator</a></li>
+<li><a href="#date" onclick="showCalculator('date')">Date Calculator</a></li>
+<li><a href="#time" onclick="showCalculator('time')">Time Calculator</a></li>
+<li><a href="#hours" onclick="showCalculator('hours')">Hours Calculator</a></li>
+<li><a href="#gpa" onclick="showCalculator('gpa')">GPA Calculator</a></li>
+<li><a href="#grade" onclick="showCalculator('grade')">Grade Calculator</a></li>
+<li><a href="#height" onclick="showCalculator('height')">Height Calculator</a></li>
+<li><a href="#concrete" onclick="showCalculator('concrete')">Concrete Calculator</a></li>
+<li><a href="#ip-subnet" onclick="showCalculator('ip-subnet')">IP Subnet Calculator</a></li>
+<li><a href="#bra-size" onclick="showCalculator('bra-size')">Bra Size Calculator</a></li>
+<li><a href="#password-generator" onclick="showCalculator('password-generator')">Password Generator</a></li>
+<li><a href="#dice-roller" onclick="showCalculator('dice-roller')">Dice Roller</a></li>
+<li><a href="#conversion" onclick="showCalculator('conversion')">Conversion Calculator</a></li>
+<li><a href="#fuel-cost" onclick="showCalculator('fuel-cost')">Fuel Cost Calculator</a></li>
+<li><a href="#voltage-drop" onclick="showCalculator('voltage-drop')">Voltage Drop Calculator</a></li>
+<li><a href="#btu" onclick="showCalculator('btu')">BTU Calculator</a></li>
+<li><a href="#square-footage" onclick="showCalculator('square-footage')">Square Footage Calculator</a></li>
+<li><a href="#time-card" onclick="showCalculator('time-card')">Time Card Calculator</a></li>
+<li><a href="#time-zone" onclick="showCalculator('time-zone')">Time Zone Calculator</a></li>
+<li><a href="#love" onclick="showCalculator('love')">Love Calculator</a></li>
+<li><a href="#gdp" onclick="showCalculator('gdp')">GDP Calculator</a></li>
+<li><a href="#gas-mileage" onclick="showCalculator('gas-mileage')">Gas Mileage Calculator</a></li>
+<li><a href="#horsepower" onclick="showCalculator('horsepower')">Horsepower Calculator</a></li>
+<li><a href="#engine-horsepower" onclick="showCalculator('engine-horsepower')">Engine Horsepower Calculator</a></li>
+<li><a href="#stair" onclick="showCalculator('stair')">Stair Calculator</a></li>
+<li><a href="#resistor" onclick="showCalculator('resistor')">Resistor Calculator</a></li>
+<li><a href="#ohms-law" onclick="showCalculator('ohms-law')">Ohms Law Calculator</a></li>
+<li><a href="#electricity" onclick="showCalculator('electricity')">Electricity Calculator</a></li>
+<li><a href="#tip" onclick="showCalculator('tip')">Tip Calculator</a></li>
+<li><a href="#mileage" onclick="showCalculator('mileage')">Mileage Calculator</a></li>
+<li><a href="#density" onclick="showCalculator('density')">Density Calculator</a></li>
+<li><a href="#mass" onclick="showCalculator('mass')">Mass Calculator</a></li>
+<li><a href="#weight" onclick="showCalculator('weight')">Weight Calculator</a></li>
+<li><a href="#speed" onclick="showCalculator('speed')">Speed Calculator</a></li>
+<li><a href="#golf-handicap" onclick="showCalculator('golf-handicap')">Golf Handicap Calculator</a></li>
+<li><a href="#sleep" onclick="showCalculator('sleep')">Sleep Calculator</a></li>
+<li><a href="#tire-size" onclick="showCalculator('tire-size')">Tire Size Calculator</a></li>
+<li><a href="#roofing" onclick="showCalculator('roofing')">Roofing Calculator</a></li>
+<li><a href="#tile" onclick="showCalculator('tile')">Tile Calculator</a></li>
+<li><a href="#mulch" onclick="showCalculator('mulch')">Mulch Calculator</a></li>
+<li><a href="#gravel" onclick="showCalculator('gravel')">Gravel Calculator</a></li>
+<li><a href="#wind-chill" onclick="showCalculator('wind-chill')">Wind Chill Calculator</a></li>
+<li><a href="#heat-index" onclick="showCalculator('heat-index')">Heat Index Calculator</a></li>
+<li><a href="#dew-point" onclick="showCalculator('dew-point')">Dew Point Calculator</a></li>
+<li><a href="#bandwidth" onclick="showCalculator('bandwidth')">Bandwidth Calculator</a></li>
+<li><a href="#time-duration" onclick="showCalculator('time-duration')">Time Duration Calculator</a></li>
+<li><a href="#day-counter" onclick="showCalculator('day-counter')">Day Counter</a></li>
+<li><a href="#day-of-the-week" onclick="showCalculator('day-of-the-week')">Day of the Week Calculator</a></li>
+
+                </ul>
+            </div>
+        </section>
+        <section class="calculator-category">
+            
+            <div id="age" class="calculator_tool" style="display:none;">
+    <h2>Age Calculator</h2>
+    <form>
+        <label for="birthDate">Date of Birth:</label>
+        <input type="date" id="birthDate" name="birthDate"><br>
+        <button type="button" onclick="calculateAge()">Calculate</button>
+    </form>
+    <p id="ageResult"></p>
+</div>
+
+<div id="date" class="calculator_tool" style="display:none;">
+    <h2>Date Calculator</h2>
+    <form>
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate"><br>
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate"><br>
+        <button type="button" onclick="calculateDate()">Calculate</button>
+    </form>
+    <p id="dateResult"></p>
+</div>
+
+<div id="time" class="calculator_tool" style="display:none;">
+    <h2>Time Calculator</h2>
+    <form>
+        <label for="startTime">Start Time:</label>
+        <input type="time" id="startTime" name="startTime"><br>
+        <label for="endTime">End Time:</label>
+        <input type="time" id="endTime" name="endTime"><br>
+        <button type="button" onclick="calculateTime()">Calculate</button>
+    </form>
+    <p id="timeResult"></p>
+</div>
+
+<div id="hours" class="calculator_tool" style="display:none;">
+    <h2>Hours Calculator</h2>
+    <form>
+        <label for="startHour">Start Hour:</label>
+        <input type="number" id="startHour" name="startHour"><br>
+        <label for="endHour">End Hour:</label>
+        <input type="number" id="endHour" name="endHour"><br>
+        <button type="button" onclick="calculateHours()">Calculate</button>
+    </form>
+    <p id="hoursResult"></p>
+</div>
+
+<div id="gpa" class="calculator_tool" style="display:none;">
+    <h2>GPA Calculator</h2>
+    <form>
+        <label for="numCourses">Number of Courses:</label>
+        <input type="number" id="numCourses" name="numCourses"><br>
+        <!-- Inputs for each course grade and credit -->
+        <div id="courseInputs">
+            <!-- JavaScript will dynamically add inputs based on numCourses -->
+        </div>
+        <button type="button" onclick="calculateGPA()">Calculate</button>
+    </form>
+    <p id="gpaResult"></p>
+</div>
+
+<div id="grade" class="calculator_tool" style="display:none;">
+    <h2>Grade Calculator</h2>
+    <form>
+        <label for="earnedPoints">Earned Points:</label>
+        <input type="number" id="earnedPoints" name="earnedPoints"><br>
+        <label for="possiblePoints">Possible Points:</label>
+        <input type="number" id="possiblePoints" name="possiblePoints"><br>
+        <button type="button" onclick="calculateGrade()">Calculate</button>
+    </form>
+    <p id="gradeResult"></p>
+</div>
+
+<div id="height" class="calculator_tool" style="display:none;">
+    <h2>Height Calculator</h2>
+    <form>
+        <label for="feet">Feet:</label>
+        <input type="number" id="feet" name="feet"><br>
+        <label for="inches">Inches:</label>
+        <input type="number" id="inches" name="inches"><br>
+        <button type="button" onclick="calculateHeight()">Calculate</button>
+    </form>
+    <p id="heightResult"></p>
+</div>
+
+<div id="concrete" class="calculator_tool" style="display:none;">
+    <h2>Concrete Calculator</h2>
+    <form>
+        <label for="length">Length (feet):</label>
+        <input type="number" id="length" name="length"><br>
+        <label for="width">Width (feet):</label>
+        <input type="number" id="width" name="width"><br>
+        <label for="depth">Depth (inches):</label>
+        <input type="number" id="depth" name="depth"><br>
+        <button type="button" onclick="calculateConcrete()">Calculate</button>
+    </form>
+    <p id="concreteResult"></p>
+</div>
+
+<div id="ip-subnet" class="calculator_tool" style="display:none;">
+    <h2>IP Subnet Calculator</h2>
+    <form>
+        <label for="ipAddress">IP Address:</label>
+        <input type="text" id="ipAddress" name="ipAddress"><br>
+        <label for="subnetMask">Subnet Mask:</label>
+        <input type="text" id="subnetMask" name="subnetMask"><br>
+        <button type="button" onclick="calculateSubnet()">Calculate</button>
+    </form>
+    <p id="subnetResult"></p>
+</div>
+
+<div id="bra-size" class="calculator_tool" style="display:none;">
+    <h2>Bra Size Calculator</h2>
+    <form>
+        <label for="underbust">Underbust Measurement (inches):</label>
+        <input type="number" id="underbust" name="underbust"><br>
+        <label for="overbust">Overbust Measurement (inches):</label>
+        <input type="number" id="overbust" name="overbust"><br>
+        <button type="button" onclick="calculateBraSize()">Calculate</button>
+    </form>
+    <p id="braSizeResult"></p>
+</div>
+
+<div id="password-generator" class="calculator_tool" style="display:none;">
+    <h2>Password Generator</h2>
+    <form>
+        <label for="passwordLength">Password Length:</label>
+        <input type="number" id="passwordLength" name="passwordLength"><br>
+        <button type="button" onclick="generatePassword()">Generate Password</button>
+    </form>
+    <p id="passwordResult"></p>
+</div>
+
+<div id="dice-roller" class="calculator_tool" style="display:none;">
+    <h2>Dice Roller</h2>
+    <form>
+        <label for="numDice">Number of Dice:</label>
+        <input type="number" id="numDice" name="numDice"><br>
+        <label for="diceSides">Number of Sides:</label>
+        <input type="number" id="diceSides" name="diceSides"><br>
+        <button type="button" onclick="rollDice()">Roll Dice</button>
+    </form>
+    <p id="diceRollResult"></p>
+</div>
+
+<div id="conversion" class="calculator_tool" style="display:none;">
+    <h2>Conversion Calculator</h2>
+    <form>
+        <label for="conversionFrom">Convert From:</label>
+        <input type="number" id="conversionFrom" name="conversionFrom"><br>
+        <label for="conversionTo">Convert To:</label>
+        <input type="number" id="conversionTo" name="conversionTo"><br>
+        <button type="button" onclick="convertUnits()">Convert</button>
+    </form>
+    <p id="conversionResult"></p>
+</div>
+
+<div id="fuel-cost" class="calculator_tool" style="display:none;">
+    <h2>Fuel Cost Calculator</h2>
+    <form>
+        <label for="distance">Distance (miles):</label>
+        <input type="number" id="distance" name="distance"><br>
+        <label for="fuelEfficiency">Fuel Efficiency (mpg):</label>
+        <input type="number" id="fuelEfficiency" name="fuelEfficiency"><br>
+        <label for="fuelCost">Fuel Cost per Gallon ($):</label>
+        <input type="number" id="fuelCost" name="fuelCost"><br>
+        <button type="button" onclick="calculateFuelCost()">Calculate</button>
+    </form>
+    <p id="fuelCostResult"></p>
+</div>
+
+<div id="voltage-drop" class="calculator_tool" style="display:none;">
+    <h2>Voltage Drop Calculator</h2>
+    <form>
+        <label for="distance">Distance (feet):</label>
+        <input type="number" id="distance" name="distance"><br>
+        <label for="voltage">Voltage (volts):</label>
+        <input type="number" id="voltage" name="voltage"><br>
+        <label for="current">Current (amps):</label>
+        <input type="number" id="current" name="current"><br>
+        <label for="wireSize">Wire Size (AWG):</label>
+        <input type="number" id="wireSize" name="wireSize"><br>
+        <button type="button" onclick="calculateVoltageDrop()">Calculate</button>
+    </form>
+    <p id="voltageDropResult"></p>
+</div>
+
+<div id="btu" class="calculator_tool" style="display:none;">
+    <h2>BTU Calculator</h2>
+    <form>
+        <label for="roomSize">Room Size (sq. ft.):</label>
+        <input type="number" id="roomSize" name="roomSize"><br>
+        <label for="climateZone">Climate Zone:</label>
+        <input type="number" id="climateZone" name="climateZone"><br>
+        <button type="button" onclick="calculateBTU()">Calculate</button>
+    </form>
+    <p id="btuResult"></p>
+</div>
+
+<div id="square-footage" class="calculator_tool" style="display:none;">
+    <h2>Square Footage Calculator</h2>
+    <form>
+        <label for="length">Length (feet):</label>
+        <input type="number" id="length" name="length"><br>
+        <label for="width">Width (feet):</label>
+        <input type="number" id="width" name="width"><br>
+        <button type="button" onclick="calculateSquareFootage()">Calculate</button>
+    </form>
+    <p id="squareFootageResult"></p>
+</div>
+
+<div id="time-card" class="calculator_tool" style="display:none;">
+    <h2>Time Card Calculator</h2>
+    <form>
+        <label for="startTime">Start Time:</label>
+        <input type="time" id="startTime" name="startTime"><br>
+        <label for="endTime">End Time:</label>
+        <input type="time" id="endTime" name="endTime"><br>
+        <button type="button" onclick="calculateTimeCard()">Calculate</button>
+    </form>
+    <p id="timeCardResult"></p>
+</div>
+
+<div id="time-zone" class="calculator_tool" style="display:none;">
+    <h2>Time Zone Calculator</h2>
+    <form>
+        <label for="startTimeZone">Start Time Zone:</label>
+        <input type="text" id="startTimeZone" name="startTimeZone"><br>
+        <label for="endTimeZone">End Time Zone:</label>
+        <input type="text" id="endTimeZone" name="endTimeZone"><br>
+        <button type="button" onclick="calculateTimeZone()">Calculate</button>
+    </form>
+    <p id="timeZoneResult"></p>
+</div>
+
+<div id="love" class="calculator_tool" style="display:none;">
+    <h2>Love Calculator</h2>
+    <form>
+        <label for="yourName">Your Name:</label>
+        <input type="text" id="yourName" name="yourName"><br>
+        <label for="partnerName">Partner's Name:</label>
+        <input type="text" id="partnerName" name="partnerName"><br>
+        <button type="button" onclick="calculateLove()">Calculate</button>
+    </form>
+    <p id="loveResult"></p>
+</div>
+
+<div id="gdp" class="calculator_tool" style="display:none;">
+    <h2>GDP Calculator</h2>
+    <form>
+        <label for="consumption">Consumption:</label>
+        <input type="number" id="consumption" name="consumption"><br>
+        <label for="investment">Investment:</label>
+        <input type="number" id="investment" name="investment"><br>
+        <label for="governmentSpending">Government Spending:</label>
+        <input type="number" id="governmentSpending" name="governmentSpending"><br>
+        <label for="netExports">Net Exports:</label>
+        <input type="number" id="netExports" name="netExports"><br>
+        <button type="button" onclick="calculateGDP()">Calculate</button>
+    </form>
+    <p id="gdpResult"></p>
+</div>
+
+<div id="gas-mileage" class="calculator_tool" style="display:none;">
+    <h2>Gas Mileage Calculator</h2>
+    <form>
+        <label for="milesDriven">Miles Driven:</label>
+        <input type="number" id="milesDriven" name="milesDriven"><br>
+        <label for="gallonsUsed">Gallons Used:</label>
+        <input type="number" id="gallonsUsed" name="gallonsUsed"><br>
+        <button type="button" onclick="calculateGasMileage()">Calculate</button>
+    </form>
+    <p id="gasMileageResult"></p>
+</div>
+
+<div id="horsepower" class="calculator_tool" style="display:none;">
+    <h2>Horsepower Calculator</h2>
+    <form>
+        <label for="torque">Torque (lb-ft):</label>
+        <input type="number" id="torque" name="torque"><br>
+        <label for="rpm">RPM:</label>
+        <input type="number" id="rpm" name="rpm"><br>
+        <button type="button" onclick="calculateHorsepower()">Calculate</button>
+    </form>
+    <p id="horsepowerResult"></p>
+</div>
+
+<div id="engine-horsepower" class="calculator_tool" style="display:none;">
+    <h2>Engine Horsepower Calculator</h2>
+    <form>
+        <label for="engineTorque">Engine Torque (lb-ft):</label>
+        <input type="number" id="engineTorque" name="engineTorque"><br>
+        <label for="engineRPM">Engine RPM:</label>
+        <input type="number" id="engineRPM" name="engineRPM"><br>
+        <button type="button" onclick="calculateEngineHorsepower()">Calculate</button>
+    </form>
+    <p id="engineHorsepowerResult"></p>
+</div>
+
+<div id="stair" class="calculator_tool" style="display:none;">
+    <h2>Stair Calculator</h2>
+    <form>
+        <label for="totalRise">Total Rise (inches):</label>
+        <input type="number" id="totalRise" name="totalRise"><br>
+        <label for="treadDepth">Tread Depth (inches):</label>
+        <input type="number" id="treadDepth" name="treadDepth"><br>
+        <button type="button" onclick="calculateStair()">Calculate</button>
+    </form>
+    <p id="stairResult"></p>
+</div>
+
+<div id="resistor" class="calculator_tool" style="display:none;">
+    <h2>Resistor Calculator</h2>
+    <form>
+        <label for="resistorValue">Resistor Value (ohms):</label>
+        <input type="number" id="resistorValue" name="resistorValue"><br>
+        <button type="button" onclick="calculateResistor()">Calculate</button>
+    </form>
+    <p id="resistorResult"></p>
+</div>
+
+<div id="ohms-law" class="calculator_tool" style="display:none;">
+    <h2>Ohm's Law Calculator</h2>
+    <form>
+        <label for="voltage">Voltage (V):</label>
+        <input type="number" id="voltage" name="voltage"><br>
+        <label for="current">Current (I):</label>
+        <input type="number" id="current" name="current"><br>
+        <label for="resistance">Resistance (R):</label>
+        <input type="number" id="resistance" name="resistance"><br>
+        <button type="button" onclick="calculateOhmsLaw()">Calculate</button>
+    </form>
+    <p id="ohmsLawResult"></p>
+</div>
+
+<div id="electricity" class="calculator_tool" style="display:none;">
+    <h2>Electricity Calculator</h2>
+    <form>
+        <label for="wattage">Wattage (W):</label>
+        <input type="number" id="wattage" name="wattage"><br>
+        <label for="hours">Hours Used:</label>
+        <input type="number" id="hours" name="hours"><br>
+        <button type="button" onclick="calculateElectricity()">Calculate</button>
+    </form>
+    <p id="electricityResult"></p>
+</div>
+
+<div id="tip" class="calculator_tool" style="display:none;">
+    <h2>Tip Calculator</h2>
+    <form>
+        <label for="billAmount">Bill Amount ($):</label>
+        <input type="number" id="billAmount" name="billAmount"><br>
+        <label for="tipPercentage">Tip Percentage (%):</label>
+        <input type="number" id="tipPercentage" name="tipPercentage"><br>
+        <button type="button" onclick="calculateTip()">Calculate</button>
+    </form>
+    <p id="tipResult"></p>
+</div>
+
+<div id="mileage" class="calculator_tool" style="display:none;">
+    <h2>Mileage Calculator</h2>
+    <form>
+        <label for="distance">Distance (miles):</label>
+        <input type="number" id="distance" name="distance"><br>
+        <label for="fuelUsed">Fuel Used (gallons):</label
+        <input type="number" id="fuelUsed" name="fuelUsed"><br>
+        <button type="button" onclick="calculateMileage()">Calculate</button>
+    </form>
+    <p id="mileageResult"></p>
+</div>
+
+<div id="density" class="calculator_tool" style="display:none;">
+    <h2>Density Calculator</h2>
+    <form>
+        <label for="mass">Mass (grams):</label>
+        <input type="number" id="mass" name="mass"><br>
+        <label for="volume">Volume (cm<sup>3</sup>):</label>
+        <input type="number" id="volume" name="volume"><br>
+        <button type="button" onclick="calculateDensity()">Calculate</button>
+    </form>
+    <p id="densityResult"></p>
+</div>
+
+<div id="mass" class="calculator_tool" style="display:none;">
+    <h2>Mass Calculator</h2>
+    <form>
+        <label for="density">Density (kg/m³):</label>
+        <input type="number" id="density" name="density"><br>
+        <label for="volume">Volume (m³):</label>
+        <input type="number" id="volume" name="volume"><br>
+        <button type="button" onclick="calculateMass()">Calculate</button>
+    </form>
+    <p id="massResult"></p>
+</div>
+
+
+<div id="weight" class="calculator_tool" style="display:none;">
+    <h2>Weight Calculator</h2>
+    <form>
+        <label for="mass">Mass (kg):</label>
+        <input type="number" id="mass" name="mass"><br>
+        <label for="gravity">Gravity (m/s<sup>2</sup>):</label>
+        <input type="number" id="gravity" name="gravity"><br>
+        <button type="button" onclick="calculateWeight()">Calculate</button>
+    </form>
+    <p id="weightResult"></p>
+</div>
+
+<div id="speed" class="calculator_tool" style="display:none;">
+    <h2>Speed Calculator</h2>
+    <form>
+        <label for="distance">Distance (meters):</label>
+        <input type="number" id="distance" name="distance"><br>
+        <label for="time">Time (seconds):</label>
+        <input type="number" id="time" name="time"><br>
+        <button type="button" onclick="calculateSpeed()">Calculate</button>
+    </form>
+    <p id="speedResult"></p>
+</div>
+
+<div id="golf-handicap" class="calculator_tool" style="display:none;">
+    <h2>Golf Handicap Calculator</h2>
+    <form>
+        <label for="numRounds">Number of Rounds:</label>
+        <input type="number" id="numRounds" name="numRounds"><br>
+        <!-- Inputs for each round score -->
+        <div id="roundInputs">
+            <!-- JavaScript will dynamically add inputs based on numRounds -->
+        </div>
+        <button type="button" onclick="calculateGolfHandicap()">Calculate</button>
+    </form>
+    <p id="golfHandicapResult"></p>
+</div>
+
+<div id="sleep" class="calculator_tool" style="display:none;">
+    <h2>Sleep Calculator</h2>
+    <form>
+        <label for="wakeUpTime">Wake Up Time:</label>
+        <input type="time" id="wakeUpTime" name="wakeUpTime"><br>
+        <button type="button" onclick="calculateSleep()">Calculate</button>
+    </form>
+    <p id="sleepResult"></p>
+</div>
+
+<div id="tire-size" class="calculator_tool" style="display:none;">
+    <h2>Tire Size Calculator</h2>
+    <form>
+        <label for="width">Width (mm):</label>
+        <input type="number" id="width" name="width"><br>
+        <label for="aspectRatio">Aspect Ratio (%):</label>
+        <input type="number" id="aspectRatio" name="aspectRatio"><br>
+        <label for="diameter">Diameter (inches):</label>
+        <input type="number" id="diameter" name="diameter"><br>
+        <button type="button" onclick="calculateTireSize()">Calculate</button>
+    </form>
+    <p id="tireSizeResult"></p>
+</div>
+
+<div id="roofing" class="calculator_tool" style="display:none;">
+    <h2>Roofing Calculator</h2>
+    <form>
+        <label for="roofLength">Roof Length (feet):</label>
+        <input type="number" id="roofLength" name="roofLength"><br>
+        <label for="roofWidth">Roof Width (feet):</label>
+        <input type="number" id="roofWidth" name="roofWidth"><br>
+        <button type="button" onclick="calculateRoofing()">Calculate</button>
+    </form>
+    <p id="roofingResult"></p>
+</div>
+
+<div id="tile" class="calculator_tool" style="display:none;">
+    <h2>Tile Calculator</h2>
+    <form>
+        <label for="roomLength">Room Length (feet):</label>
+        <input type="number" id="roomLength" name="roomLength"><br>
+        <label for="roomWidth">Room Width (feet):</label>
+        <input type="number" id="roomWidth" name="roomWidth"><br>
+        <button type="button" onclick="calculateTile()">Calculate</button>
+    </form>
+    <p id="tileResult"></p>
+</div>
+
+<div id="mulch" class="calculator_tool" style="display:none;">
+    <h2>Mulch Calculator</h2>
+    <form>
+        <label for="bedLength">Bed Length (feet):</label>
+        <input type="number" id="bedLength" name="bedLength"><br>
+        <label for="bedWidth">Bed Width (feet):</label>
+        <input type="number" id="bedWidth" name="bedWidth"><br>
+        <label for="depth">Depth (inches):</label>
+        <input type="number" id="depth" name="depth"><br>
+        <button type="button" onclick="calculateMulch()">Calculate</button>
+    </form>
+    <p id="mulchResult"></p>
+</div>
+
+<div id="gravel" class="calculator_tool" style="display:none;">
+    <h2>Gravel Calculator</h2>
+    <form>
+        <label for="areaLength">Area Length (feet):</label>
+        <input type="number" id="areaLength" name="areaLength"><br>
+        <label for="areaWidth">Area Width (feet):</label>
+        <input type="number" id="areaWidth" name="areaWidth"><br>
+        <label for="depth">Depth (inches):</label>
+        <input type="number" id="depth" name="depth"><br>
+        <button type="button" onclick="calculateGravel()">Calculate</button>
+    </form>
+    <p id="gravelResult"></p>
+</div>
+
+<div id="wind-chill" class="calculator_tool" style="display:none;">
+    <h2>Wind Chill Calculator</h2>
+    <form>
+        <label for="temperature">Temperature (°F):</label>
+        <input type="number" id="temperature" name="temperature"><br>
+        <label for="windSpeed">Wind Speed (mph):</label>
+        <input type="number" id="windSpeed" name="windSpeed"><br>
+        <button type="button" onclick="calculateWindChill()">Calculate</button>
+    </form>
+    <p id="windChillResult"></p>
+</div>
+
+<div id="heat-index" class="calculator_tool" style="display:none;">
+    <h2>Heat Index Calculator</h2>
+    <form>
+        <label for="temperature">Temperature (°F):</label>
+        <input type="number" id="temperature" name="temperature"><br>
+        <label for="humidity">Humidity (%):</label>
+        <input type="number" id="humidity" name="humidity"><br>
+        <button type="button" onclick="calculateHeatIndex()">Calculate</button>
+    </form>
+    <p id="heatIndexResult"></p>
+</div>
+
+<div id="dew-point" class="calculator_tool" style="display:none;">
+    <h2>Dew Point Calculator</h2>
+    <form>
+        <label for="temperature">Temperature (°F):</label>
+        <input type="number" id="temperature" name="temperature"><br>
+        <label for="humidity">Humidity (%):</label>
+        <input type="number" id="humidity" name="humidity"><br>
+        <button type="button" onclick="calculateDewPoint()">Calculate</button>
+    </form>
+    <p id="dewPointResult"></p>
+</div>
+
+<div id="bandwidth" class="calculator_tool" style="display:none;">
+    <h2>Bandwidth Calculator</h2>
+    <form>
+        <label for="fileSize">File Size (MB):</label>
+        <input type="number" id="fileSize" name="fileSize"><br>
+        <label for="transferTime">Transfer Time (seconds):</label>
+        <input type="number" id="transferTime" name="transferTime"><br>
+        <button type="button" onclick="calculateBandwidth()">Calculate</button>
+    </form>
+    <p id="bandwidthResult"></p>
+</div>
+
+<div id="time-duration" class="calculator_tool" style="display:none;">
+    <h2>Time Duration Calculator</h2>
+    <form>
+        <label for="startTime">Start Time:</label>
+        <input type="time" id="startTime" name="startTime"><br>
+        <label for="endTime">End Time:</label>
+        <input type="time" id="endTime" name="endTime"><br>
+        <button type="button" onclick="calculateTimeDuration()">Calculate</button>
+    </form>
+    <p id="timeDurationResult"></p>
+</div>
+
+<div id="day-counter" class="calculator_tool" style="display:none;">
+    <h2>Day Counter</h2>
+    <form>
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate"><br>
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate"><br>
+        <button type="button" onclick="countDays()">Calculate</button>
+    </form>
+    <p id="dayCountResult"></p>
+</div>
+
+<div id="day-of-the-week" class="calculator_tool" style="display:none;">
+    <h2>Day of the Week Calculator</h2>
+    <form>
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date"><br>
+        <button type="button" onclick="calculateDayOfWeek()">Calculate</button>
+    </form>
+    <p id="dayOfWeekResult"></p>
+</div>
+        </section>
+    </main>
+</body>
+</html>

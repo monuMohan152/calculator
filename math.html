@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Math Calculators</title>
+      <style>
+         body {
+         font-family: 'Arial', sans-serif;
+         margin: 0;
+         padding: 0;
+         background-color: #f0f2f5;
+         color: #333;
+         }
+         header {
+         background-color: #17a2b8;
+         color: white;
+         padding: 20px;
+         text-align: center;
+         }
+         nav {
+         background-color: #138496;
+         padding: 10px;
+         display: flex;
+         justify-content: center;
+         flex-wrap: wrap;
+         }
+         nav a {
+         color: white;
+         margin: 5px 15px;
+         text-decoration: none;
+         font-weight: bold;
+         }
+         main {
+         padding: 20px;
+         max-width: 1200px;
+         margin: auto;
+         }
+         .calculator-category {
+         background-color: white;
+         padding: 20px;
+         margin: 20px 0;
+         border-radius: 8px;
+         box-shadow: 0 0 10px rgba(0,0,0,0.1);
+         }
+         .calculator-category h3 {
+         margin-top: 0;
+         }
+         .calculator-category ul {
+         list-style-type: none;
+         padding: 0;
+         }
+         .calculator-category ul li {
+         margin: 10px 0;
+         }
+         .calculator-category ul li a {
+         text-decoration: none;
+         color: #17a2b8;
+         }
+         .calculator_tool {
+         background-color: white;
+         padding: 20px;
+         margin: 20px 0;
+         border-radius: 8px;
+         box-shadow: 0 0 10px rgba(0,0,0,0.1);
+         }
+         .calculator_tool h2 {
+         margin-top: 0;
+         color: #333; /* Adjust text color as needed */
+         }
+         .calculator_tool form {
+         margin-bottom: 15px;
+         }
+         .calculator_tool label {
+         display: block;
+         margin-bottom: 5px;
+         }
+         .calculator_tool input[type="number"],
+         .calculator_tool button {
+         width: 100%;
+         padding: 8px;
+         margin-bottom: 10px;
+         box-sizing: border-box;
+         }
+         .calculator_tool button {
+         background-color: #007BFF; /* Match your link color */
+         color: white;
+         border: none;
+         cursor: pointer;
+         }
+         .calculator_tool button:hover {
+         background-color: #0056b3; /* Darker shade for hover */
+         }
+         .calculator_tool p {
+         margin-top: 10px;
+         }
+         .calculator_tool a {
+         text-decoration: none;
+         color: #007BFF;
+         }
+         .calculator_tool a:hover {
+         text-decoration: underline;
+         }
+         @media only screen and (max-width: 600px) {
+         /* Adjust styles for smaller screens (e.g., smartphones) */
+         .calculator {
+         padding: 10px;
+         margin: 10px 0;
+         }
+         .calculator h2 {
+         font-size: 1.2em; /* Adjust font size for smaller screens */
+         }
+         .calculator input[type="number"],
+         .calculator button {
+         padding: 6px; /* Adjust padding for smaller inputs/buttons */
+         }
+      </style>
+      <script>
+         function showCalculator(id) {
+             // Hide all calculators
+             var calculators = document.querySelectorAll('.calculator');
+             calculators.forEach(function(calc) {
+                 calc.style.display = 'none';
+             });
+             // Show the selected calculator
+             document.getElementById(id).style.display = 'block';
+         }
+         function calculateScientific() {
+         var expression = document.getElementById('scientificExpression').value;
+         try {
+         var result = eval(expression);
+         document.getElementById('scientificResult').innerText = 'Result: ' + result;
+         } catch (error) {
+         document.getElementById('scientificResult').innerText = 'Error: Invalid Expression';
+         }
+         }
+         
+         // Fraction Calculator
+         function calculateFraction() {
+         var num1 = parseInt(document.getElementById('fractionNum1').value);
+         var denom1 = parseInt(document.getElementById('fractionDenom1').value);
+         var num2 = parseInt(document.getElementById('fractionNum2').value);
+         var denom2 = parseInt(document.getElementById('fractionDenom2').value);
+         
+         // Check if denominators are zero
+         if (denom1 === 0 || denom2 === 0) {
+         document.getElementById('fractionResult').innerText = 'Error: Denominator cannot be zero';
+         } else {
+         var resultNum = num1 * denom2 + num2 * denom1;
+         var resultDenom = denom1 * denom2;
+         document.getElementById('fractionResult').innerText = 'Result: ' + resultNum + '/' + resultDenom;
+         }
+         }
+         
+         // Percentage Calculator
+         function calculatePercentage() {
+         var part = parseFloat(document.getElementById('percentagePart').value);
+         var whole = parseFloat(document.getElementById('percentageWhole').value);
+         var percentage = (part / whole) * 100;
+         document.getElementById('percentageResult').innerText = 'Percentage: ' + percentage.toFixed(2) + '%';
+         }
+         
+         // Triangle Calculator
+         function calculateTriangle() {
+         var base = parseFloat(document.getElementById('triangleBase').value);
+         var height = parseFloat(document.getElementById('triangleHeight').value);
+         var area = 0.5 * base * height;
+         document.getElementById('triangleResult').innerText = 'Area: ' + area.toFixed(2) + ' sq.cm';
+         }
+         
+         // Volume Calculator
+         function calculateVolume() {
+         var side = parseFloat(document.getElementById('volumeSide').value);
+         var volume = Math.pow(side, 3);
+         document.getElementById('volumeResult').innerText = 'Volume: ' + volume.toFixed(2) + ' cubic cm';
+         }
+         
+         // Standard Deviation Calculator
+         function calculateStandardDeviation() {
+         var numbers = document.getElementById('stdNumbers').value.split(',').map(Number);
+         var mean = numbers.reduce((acc, val) => acc + val, 0) / numbers.length;
+         var variance = numbers.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / numbers.length;
+         var stdDev = Math.sqrt(variance);
+         document.getElementById('stdResult').innerText = 'Standard Deviation: ' + stdDev.toFixed(2);
+         }
+         
+         // Random Number Generator
+         function generateRandomNumber() {
+         var min = parseInt(document.getElementById('randomMin').value);
+         var max = parseInt(document.getElementById('randomMax').value);
+         var randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+         document.getElementById('randomResult').innerText = 'Random Number: ' + randomNumber;
+         }
+         
+         // Number Sequence Calculator
+         function calculateNumberSequence() {
+         var start = parseInt(document.getElementById('seqStart').value);
+         var diff = parseInt(document.getElementById('seqDiff').value);
+         var terms = parseInt(document.getElementById('seqTerms').value);
+         
+         var sequence = [];
+         for (var i = 0; i < terms; i++) {
+         sequence.push(start + i * diff);
+         }
+         document.getElementById('seqResult').innerText = 'Sequence: ' + sequence.join(', ');
+         }
+         
+         // Percent Error Calculator
+         function calculatePercentError() {
+         var actual = parseFloat(document.getElementById('errorActual').value);
+         var measured = parseFloat(document.getElementById('errorMeasured').value);
+         var error = Math.abs((actual - measured) / actual) * 100;
+         document.getElementById('percentErrorResult').innerText = 'Percent Error: ' + error.toFixed(2) + '%';
+         }
+         
+         // Exponent Calculator
+         function calculateExponent() {
+         var base = parseFloat(document.getElementById('base').value);
+         var exponent = parseInt(document.getElementById('exponent').value);
+         var result = Math.pow(base, exponent);
+         document.getElementById('exponentResult').innerText = 'Result: ' + result;
+         }
+         
+         // Binary Calculator
+         function calculateBinary() {
+         var num1 = parseInt(document.getElementById('binaryNum1').value);
+         var num2 = parseInt(document.getElementById('binaryNum2').value);
+         var sum = num1 + num2;
+         var product = num1 * num2;
+         document.getElementById('binaryResult').innerText = 'Sum: ' + sum + ', Product: ' + product;
+         }
+         
+         // Hex Calculator
+         function calculateHex() {
+         var num1 = parseInt(document.getElementById('hexNum1').value);
+         var num2 = parseInt(document.getElementById('hexNum2').value);
+         var sum = num1 + num2;
+         var product = num1 * num2;
+         document.getElementById('hexResult').innerText = 'Sum: ' + sum + ', Product: ' + product;
+         }
+         
+         // Half-Life Calculator
+         function calculateHalfLife() {
+         var initialAmount = parseFloat(document.getElementById('initialAmount').value);
+         var halfLife = parseFloat(document.getElementById('halfLife').value);
+         var timeElapsed = parseFloat(document.getElementById('timeElapsed').value);
+         var remainingAmount = initialAmount * Math.exp(-timeElapsed / halfLife);
+         document.getElementById('halfLifeResult').innerText = 'Remaining Amount: ' + remainingAmount.toFixed(2);
+         }
+         
+         // Quadratic Formula Calculator
+         function calculateQuadratic() {
+         var a = parseFloat(document.getElementById('a').value);
+         var b = parseFloat(document.getElementById('b').value);
+         var c = parseFloat(document.getElementById('c').value);
+         
+         var discriminant = b * b - 4 * a * c;
+         if (discriminant > 0) {
+         var root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+         var root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+         document.getElementById('quadraticResult').innerText = 'Roots: ' + root1.toFixed(2) + ', ' + root2.toFixed(2);
+         } else if (discriminant === 0) {
+         var root = -b / (2 * a);
+         document.getElementById('quadraticResult').innerText = 'Double Root: ' + root.toFixed(2);
+         } else {
+         document.getElementById('quadraticResult').innerText = 'Complex Roots';
+         }
+         }
+         
+         // Slope Calculator
+         function calculateSlope() {
+         var x1 = parseFloat(document.getElementById('x1').value);
+         var y1 = parseFloat(document.getElementById('y1').value);
+         var x2 = parseFloat(document.getElementById('x2').value);
+         var y2 = parseFloat(document.getElementById('y2').value);
+         
+         var slope = (y2 - y1) / (x2 - x1);
+         document.getElementById('slopeResult').innerText = 'Slope: ' + slope.toFixed(2);
+         }
+         
+         // Log Calculator
+         function calculateLog() {
+         var base = parseFloat(document.getElementById('logBase').value);
+         var number = parseFloat(document.getElementById('logNumber').value);
+         var result = Math.log(number) / Math.log(base);
+         document.getElementById('logResult').innerText = 'Log Base ' + base + ' of ' + number + ': ' + result.toFixed(2);
+         }
+         
+         // Area Calculator
+         function calculateArea() {
+         var shape = document.getElementById('shape').value;
+         var result = 0;
+         
+         switch (shape) {
+         case 'rectangle':
+            var length = parseFloat(document.getElementById('rectLength').value);
+            var width = parseFloat(document.getElementById('rectWidth').value);
+            result = length * width;
+            break;
+         case 'circle':
+            var radius = parseFloat(document.getElementById('circleRadius').value);
+            result = Math.PI * radius * radius;
+            break;
+         case 'triangle':
+            var base = parseFloat(document.getElementById('triBase').value);
+            var height = parseFloat(document.getElementById('triHeight').value);
+            result = 0.5 * base * height;
+            break;
+         }
+         
+         document.getElementById('areaResult').innerText = 'Area: ' + result.toFixed(2);
+         }
+         
+         // Sample Size Calculator
+         function calculateSampleSize() {
+         var populationSize = parseInt(document.getElementById('populationSize').value);
+         var marginOfError = parseFloat(document.getElementById('marginOfError').value);
+         var confidenceLevel = parseFloat(document.getElementById('confidenceLevel').value);
+         
+         var zScore = Math.abs(zScoreFromConfidence(confidenceLevel / 100));
+         var sampleSize = Math.ceil(Math.pow(zScore / (marginOfError / 100), 2) * (populationSize) / (populationSize - 1));
+         
+         document.getElementById('sampleSizeResult').innerText = 'Sample Size: ' + sampleSize;
+         }
+         
+         // Helper function to calculate z-score for confidence level
+         function zScoreFromConfidence(confidence) {
+         if (confidence === 0.90) return 1.645;
+         if (confidence === 0.95) return 1.960;
+         if (confidence === 0.99) return 2.576;
+         return 0;
+         }
+         
+         // Probability Calculator
+         function calculateProbability() {
+         var favorable = parseInt(document.getElementById('favorableOutcomes').value);
+         var total = parseInt(document.getElementById('totalOutcomes').value);
+         var probability = favorable / total;
+         document.getElementById('probabilityResult').innerText = 'Probability: ' + probability.toFixed(2);
+         }
+         
+         function calculateStatistics() {
+         var numbersInput = document.getElementById("statNumbers").value;
+         var numbers = numbersInput.split(",").map(Number);
+         
+         // Calculate statistics
+         var sum = numbers.reduce(function(a, b) { return a + b; }, 0);
+         var mean = sum / numbers.length;
+         
+         numbers.sort(function(a, b) { return a - b; });
+         var median;
+         if (numbers.length % 2 === 0) {
+         median = (numbers[numbers.length / 2 - 1] + numbers[numbers.length / 2]) / 2;
+         } else {
+         median = numbers[(numbers.length - 1) / 2];
+         }
+         
+         var modeMap = {};
+         var maxCount = 0;
+         var modes = [];
+         
+         numbers.forEach(function(number) {
+         if (!modeMap[number]) modeMap[number] = 0;
+         modeMap[number]++;
+         if (modeMap[number] > maxCount) {
+            modes = [number];
+            maxCount = modeMap[number];
+         } else if (modeMap[number] === maxCount) {
+            modes.push(number);
+         }
+         });
+         
+         var range = numbers[numbers.length - 1] - numbers[0];
+         
+         // Display results
+         var statResult = document.getElementById("statResult");
+         statResult.innerHTML = "Mean: " + mean.toFixed(2) + "<br>" +
+                            "Median: " + median.toFixed(2) + "<br>" +
+                            "Mode: " + modes.join(", ") + "<br>" +
+                            "Range: " + range;
+         }
+         
+         // Function to calculate mean, median, mode, range
+         function calculateMeanMedianModeRange() {
+         var numbersInput = document.getElementById("mmmrNumbers").value;
+         var numbers = numbersInput.split(",").map(Number);
+         
+         // Calculate mean
+         var sum = numbers.reduce(function(a, b) { return a + b; }, 0);
+         var mean = sum / numbers.length;
+         
+         // Calculate median
+         numbers.sort(function(a, b) { return a - b; });
+         var median;
+         if (numbers.length % 2 === 0) {
+         median = (numbers[numbers.length / 2 - 1] + numbers[numbers.length / 2]) / 2;
+         } else {
+         median = numbers[(numbers.length - 1) / 2];
+         }
+         
+         // Calculate mode
+         var modeMap = {};
+         var maxCount = 0;
+         var modes = [];
+         
+         numbers.forEach(function(number) {
+         if (!modeMap[number]) modeMap[number] = 0;
+         modeMap[number]++;
+         if (modeMap[number] > maxCount) {
+            modes = [number];
+            maxCount = modeMap[number];
+         } else if (modeMap[number] === maxCount) {
+            modes.push(number);
+         }
+         });
+         
+         // Calculate range
+         var range = numbers[numbers.length - 1] - numbers[0];
+         
+         // Display results
+         var mmmrResult = document.getElementById("mmmrResult");
+         mmmrResult.innerHTML = "Mean: " + mean.toFixed(2) + "<br>" +
+                            "Median: " + median.toFixed(2) + "<br>" +
+                            "Mode: " + modes.join(", ") + "<br>" +
+                            "Range: " + range;
+         }
+         
+         // Function to calculate permutation and combination
+         function calculatePermutationCombination() {
+         var n = parseInt(document.getElementById("n").value);
+         var r = parseInt(document.getElementById("r").value);
+         var calcType = document.getElementById("calcType").value;
+         
+         // Calculate permutation and combination
+         var result;
+         if (calcType === "permutation") {
+         result = factorial(n) / factorial(n - r);
+         } else if (calcType === "combination") {
+         result = factorial(n) / (factorial(r) * factorial(n - r));
+         }
+         
+         // Display result
+         var permutationCombinationResult = document.getElementById("permutationCombinationResult");
+         permutationCombinationResult.innerHTML = result;
+         }
+         
+         // Helper function to calculate factorial
+         function factorial(num) {
+         if (num === 0 || num === 1) {
+         return 1;
+         }
+         for (var i = num - 1; i >= 1; i--) {
+         num *= i;
+         }
+         return num;
+         }
+         
+         // Function to calculate Z-score
+         function calculateZScore() {
+         var mean = parseFloat(document.getElementById("zMean").value);
+         var stdDev = parseFloat(document.getElementById("zStandardDeviation").value);
+         var score = parseFloat(document.getElementById("zScore").value);
+         
+         // Calculate Z-score
+         var zScore = (score - mean) / stdDev;
+         
+         // Display result
+         var zScoreResult = document.getElementById("zScoreResult");
+         zScoreResult.innerHTML = "Z-score: " + zScore.toFixed(4);
+         }
+         
+         // Function to calculate confidence interval
+         function calculateConfidenceInterval() {
+         var mean = parseFloat(document.getElementById("ciMean").value);
+         var stdDev = parseFloat(document.getElementById("ciStandardDeviation").value);
+         var sampleSize = parseInt(document.getElementById("ciSampleSize").value);
+         var confidenceLevel = parseFloat(document.getElementById("ciConfidenceLevel").value);
+         
+         // Calculate confidence interval
+         var marginOfError = zScore(confidenceLevel) * (stdDev / Math.sqrt(sampleSize));
+         var lowerBound = mean - marginOfError;
+         var upperBound = mean + marginOfError;
+         
+         // Display result
+         var ciResult = document.getElementById("ciResult");
+         ciResult.innerHTML = "Confidence Interval: [" + lowerBound.toFixed(4) + ", " + upperBound.toFixed(4) + "]";
+         }
+         
+         // Helper function to get Z-score from confidence level
+         function zScore(confidenceLevel) {
+         // Using a lookup table or calculation based on standard normal distribution
+         // For simplicity, let's assume a direct value for common confidence levels
+         switch (confidenceLevel) {
+         case 90:
+            return 1.645;
+         case 95:
+            return 1.96;
+         case 99:
+            return 2.576;
+         default:
+            return 1.96; // Default to 95% confidence level
+         }
+         }
+         
+         // Function to calculate ratio
+         function calculateRatio() {
+         var num1 = parseFloat(document.getElementById("ratioNum1").value);
+         var num2 = parseFloat(document.getElementById("ratioNum2").value);
+         
+         // Calculate ratio
+         var ratio = num1 / num2;
+         
+         // Display result
+         var ratioResult = document.getElementById("ratioResult");
+         ratioResult.innerHTML = "Ratio: " + ratio.toFixed(4);
+         }
+         
+         // Function to calculate distance between two points
+         function calculateDistance() {
+         var x1 = parseFloat(document.getElementById("x1").value);
+         var y1 = parseFloat(document.getElementById("y1").value);
+         var x2 = parseFloat(document.getElementById("x2").value);
+         var y2 = parseFloat(document.getElementById("y2").value);
+         
+         // Calculate distance
+         var distance = Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+         
+         // Display result
+         var distanceResult = document.getElementById("distanceResult");
+         distanceResult.innerHTML = "Distance: " + distance.toFixed(4);
+         }
+         
+         // Function to calculate area and circumference of a circle
+         function calculateCircle() {
+         var radius = parseFloat(document.getElementById("circleRadius").value);
+         var area = Math.PI * radius * radius;
+         var circumference = 2 * Math.PI * radius;
+         
+         // Display results
+         var circleResult = document.getElementById("circleResult");
+         circleResult.innerHTML = "Area: " + area.toFixed(4) + "<br>" +
+                             "Circumference: " + circumference.toFixed(4);
+         }
+         
+         function calculateSurfaceArea() {
+         var shape = document.getElementById("shape").value;
+         var result = document.getElementById("surfaceAreaResult");
+         
+         if (shape === "cube") {
+         var side = parseFloat(document.getElementById("cubeSide").value);
+         var surfaceArea = 6 * side * side;
+         result.innerHTML = "Surface Area: " + surfaceArea.toFixed(2);
+         } else if (shape === "cylinder") {
+         var radius = parseFloat(document.getElementById("cylinderRadius").value);
+         var height = parseFloat(document.getElementById("cylinderHeight").value);
+         var surfaceArea = 2 * Math.PI * radius * (radius + height);
+         result.innerHTML = "Surface Area: " + surfaceArea.toFixed(2);
+         } else if (shape === "sphere") {
+         var radius = parseFloat(document.getElementById("sphereRadius").value);
+         var surfaceArea = 4 * Math.PI * radius * radius;
+         result.innerHTML = "Surface Area: " + surfaceArea.toFixed(2);
+         } else {
+         result.innerHTML = "Invalid shape selection.";
+         }
+         }
+         
+         function calculatePythagorean() {
+         var sideA = parseFloat(document.getElementById("sideA").value);
+         var sideB = parseFloat(document.getElementById("sideB").value);
+         var result = document.getElementById("pythagoreanResult");
+         
+         if (!isNaN(sideA) && !isNaN(sideB) && sideA > 0 && sideB > 0) {
+         var hypotenuse = Math.sqrt(sideA * sideA + sideB * sideB);
+         result.innerHTML = "Hypotenuse: " + hypotenuse.toFixed(2);
+         } else {
+         result.innerHTML = "Please enter valid positive numbers for Side A and Side B.";
+         }
+         }
+         
+         function calculateRightTriangle() {
+         var side1 = parseFloat(document.getElementById("triangleSide1").value);
+         var side2 = parseFloat(document.getElementById("triangleSide2").value);
+         var result = document.getElementById("rightTriangleResult");
+         
+         if (!isNaN(side1) && !isNaN(side2) && side1 > 0 && side2 > 0) {
+         var hypotenuse = Math.sqrt(side1 * side1 + side2 * side2);
+         var area = 0.5 * side1 * side2;
+         result.innerHTML = "Hypotenuse: " + hypotenuse.toFixed(2) + "<br>Area: " + area.toFixed(2);
+         } else {
+         result.innerHTML = "Please enter valid positive numbers for Side 1 and Side 2.";
+         }
+         }
+         
+         function calculateRoot() {
+         var number = parseFloat(document.getElementById("number").value);
+         var rootDegree = parseFloat(document.getElementById("rootDegree").value);
+         var result = document.getElementById("rootResult");
+         
+         if (!isNaN(number) && !isNaN(rootDegree) && number >= 0 && rootDegree > 0) {
+         var root = Math.pow(number, 1 / rootDegree);
+         result.innerHTML = "Root: " + root.toFixed(2);
+         } else {
+         result.innerHTML = "Please enter valid numbers (number >= 0, root degree > 0).";
+         }
+         }
+         
+         function calculateLCM() {
+         var num1 = parseInt(document.getElementById("num1").value);
+         var num2 = parseInt(document.getElementById("num2").value);
+         var result = document.getElementById("lcmResult");
+         
+         if (!isNaN(num1) && !isNaN(num2) && num1 > 0 && num2 > 0) {
+         var lcm = (num1 * num2) / calculateGCD(num1, num2);
+         result.innerHTML = "LCM: " + lcm.toFixed(0);
+         } else {
+         result.innerHTML = "Please enter valid positive integers.";
+         }
+         }
+         
+         
+         function calculateGCD() {
+         var num1 = parseInt(document.getElementById("gcdNum1").value);
+         var num2 = parseInt(document.getElementById("gcdNum2").value);
+         var result = document.getElementById("gcdResult");
+         
+         if (!isNaN(num1) && !isNaN(num2) && num1 > 0 && num2 > 0) {
+         var gcd = findGCD(num1, num2);
+         result.innerHTML = "GCD: " + gcd;
+         } else {
+         result.innerHTML = "Please enter valid positive integers.";
+         }
+         }
+         
+         function findGCD(x, y) {
+         while (y !== 0) {
+         var temp = y;
+         y = x % y;
+         x = temp;
+         }
+         return x;
+         }
+         
+         function calculateFactors() {
+         var number = parseInt(document.getElementById("factorNumber").value);
+         var result = document.getElementById("factorResult");
+         
+         if (!isNaN(number) && number > 0) {
+         var factors = [];
+         for (var i = 1; i <= number; i++) {
+            if (number % i === 0) {
+                factors.push(i);
+            }
+         }
+         result.innerHTML = "Factors: " + factors.join(", ");
+         } else {
+         result.innerHTML = "Please enter a valid positive integer.";
+         }
+         }
+         
+         
+         function calculateRounding() {
+         var number = parseFloat(document.getElementById("roundNumber").value);
+         var decimalPlaces = parseInt(document.getElementById("roundDecimal").value);
+         var result = document.getElementById("roundingResult");
+         
+         if (!isNaN(number) && !isNaN(decimalPlaces) && decimalPlaces >= 0) {
+         var roundedNumber = number.toFixed(decimalPlaces);
+         result.innerHTML = "Rounded Number: " + roundedNumber;
+         } else {
+         result.innerHTML = "Please enter a valid number and non-negative decimal places.";
+         }
+         }
+         
+         function createMatrix() {
+         var rows = parseInt(document.getElementById("matrixRows").value);
+         var cols = parseInt(document.getElementById("matrixCols").value);
+         var result = document.getElementById("matrixResult");
+         
+         if (!isNaN(rows) && !isNaN(cols) && rows > 0 && cols > 0) {
+         var matrix = [];
+         for (var i = 0; i < rows; i++) {
+            matrix.push([]);
+            for (var j = 0; j < cols; j++) {
+                matrix[i].push(0);
+            }
+         }
+         result.innerHTML = "Matrix created with " + rows + " rows and " + cols + " columns.";
+         } else {
+         result.innerHTML = "Please enter valid positive integers for rows and columns.";
+         }
+         }
+         
+         function calculateMatrix() {
+         var matrix = [];  // Initialize an empty matrix
+         
+         // Get the number of rows and columns from the input fields
+         var rows = parseInt(document.getElementById("matrixRows").value);
+         var cols = parseInt(document.getElementById("matrixCols").value);
+         var result = document.getElementById("matrixResult");
+         
+         // Validate the input
+         if (!isNaN(rows) && !isNaN(cols) && rows > 0 && cols > 0) {
+         // Populate the matrix with values from the input fields
+         for (var i = 0; i < rows; i++) {
+            matrix.push([]);
+            for (var j = 0; j < cols; j++) {
+                var cellValue = parseFloat(document.getElementById("matrixCell_" + i + "_" + j).value);
+                // Check if cell value is a number, if not set it to 0
+                matrix[i].push(isNaN(cellValue) ? 0 : cellValue);
+            }
+         }
+         
+         // Example: Calculate the sum of all elements in the matrix
+         var sum = 0;
+         for (var i = 0; i < rows; i++) {
+            for (var j = 0; j < cols; j++) {
+                sum += matrix[i][j];
+            }
+         }
+         
+         // Display the result in the result paragraph
+         result.innerHTML = "Sum of Matrix Elements: " + sum;
+         } else {
+         result.innerHTML = "Please enter valid positive integers for rows and columns.";
+         }
+         }
+         
+         
+         function calculateScientificNotation() {
+         var number = parseFloat(document.getElementById("sciNum").value);
+         var result = document.getElementById("scientificNotationResult");
+         
+         if (!isNaN(number)) {
+         var notation = number.toExponential();
+         result.innerHTML = "Scientific Notation: " + notation;
+         } else {
+         result.innerHTML = "Please enter a valid number.";
+         }
+         }
+         
+         
+         function calculateBigNumber() {
+         var num1 = BigInt(document.getElementById("bigNum1").value);
+         var num2 = BigInt(document.getElementById("bigNum2").value);
+         var result = document.getElementById("bigNumberResult");
+         
+         if (!isNaN(num1) && !isNaN(num2)) {
+         var sum = num1 + num2;
+         result.innerHTML = "Sum: " + sum.toString();
+         } else {
+         result.innerHTML = "Please enter valid big integers.";
+         }
+         }
+         
+         function calculatePrimeFactorization() {
+         var number = parseInt(document.getElementById("primeNum").value);
+         var result = document.getElementById("primeFactorizationResult");
+         
+         if (!isNaN(number) && number > 0) {
+         var factors = [];
+         var originalNumber = number;
+         for (var i = 2; i <= Math.sqrt(number); i++) {
+            while (number % i === 0) {
+                factors.push(i);
+                number /= i;
+            }
+         }
+         if (number > 1) {
+            factors.push(number);
+         }
+         result.innerHTML = "Prime Factors of " + originalNumber + ": " + factors.join(", ");
+         } else {
+         result.innerHTML = "Please enter a valid positive integer.";
+         }
+         }
+         
+         function calculateCommonFactor() {
+         var num1 = parseInt(document.getElementById("commonNum1").value);
+         var num2 = parseInt(document.getElementById("commonNum2").value);
+         var result = document.getElementById("commonFactorResult");
+         
+         if (!isNaN(num1) && !isNaN(num2) && num1 > 0 && num2 > 0) {
+         var commonFactors = [];
+         for (var i = 1; i <= num1 && i <= num2; i++) {
+            if (num1 % i === 0 && num2 % i === 0) {
+                commonFactors.push(i);
+            }
+         }
+         result.innerHTML = "Common Factors: " + commonFactors.join(", ");
+         } else {
+         result.innerHTML = "Please enter valid positive integers.";
+         }
+         }
+         
+         function calculateBasic() {
+         var expression = document.getElementById("basicExpression").value;
+         var result = document.getElementById("basicResult");
+         
+         try {
+         var calculatedResult = eval(expression);
+         result.innerHTML = "Result: " + calculatedResult;
+         } catch (error) {
+         result.innerHTML = "Error: " + error.message;
+         }
+         }
+         
+         function calculateLongDivision() {
+         var dividend = parseFloat(document.getElementById("dividend").value);
+         var divisor = parseFloat(document.getElementById("divisor").value);
+         var result = document.getElementById("longDivisionResult");
+         
+         if (!isNaN(dividend) && !isNaN(divisor) && divisor !== 0) {
+         var quotient = dividend / divisor;
+         var remainder = dividend % divisor;
+         result.innerHTML = "Quotient: " + quotient.toFixed(2) + ", Remainder: " + remainder.toFixed(2);
+         } else {
+         result.innerHTML = "Please enter valid numbers. Divisor cannot be zero.";
+         }
+         }
+         
+         function calculateAverage() {
+         var numbersString = document.getElementById("avgNumbers").value;
+         var result = document.getElementById("averageResult");
+         
+         // Split numbers by comma and trim whitespace
+         var numbers = numbersString.split(",").map(num => parseFloat(num.trim()));
+         
+         // Calculate average
+         var sum = numbers.reduce((acc, val) => acc + val, 0);
+         var average = sum / numbers.length;
+         
+         if (!isNaN(average)) {
+         result.innerHTML = "Average: " + average.toFixed(2);
+         } else {
+         result.innerHTML = "Please enter valid numbers.";
+         }
+         }
+         
+         function calculatePValue() {
+         var pValue = parseFloat(document.getElementById("pValue").value);
+         var significanceLevel = parseFloat(document.getElementById("significanceLevel").value);
+         var result = document.getElementById("pValueResult");
+         
+         if (!isNaN(pValue) && !isNaN(significanceLevel) && significanceLevel >= 0 && significanceLevel <= 1) {
+         if (pValue < significanceLevel) {
+            result.innerHTML = "P-value is less than significance level. Reject null hypothesis.";
+         } else {
+            result.innerHTML = "P-value is greater than or equal to significance level. Fail to reject null hypothesis.";
+         }
+         } else {
+         result.innerHTML = "Please enter valid numbers. Significance level should be between 0 and 1.";
+         }
+         }
+         
+         
+      </script>
+   </head>
+   <body>
+      <header>
+         <h1>Math Calculators</h1>
+      </header>
+      <nav>
+         <a href="finance.html">Financial Calculators</a>
+         <a href="fitness.html">Fitness and Health Calculators</a>
+         <a href="math.html">Math Calculators</a>
+         <a href="other.html">Other Calculators</a>
+          <a href="landing.html">View All Calculators</a>
+      </nav>
+      <main>
+         <section id="math">
+            <h2>Math Calculators</h2>
+            <div class="calculator-category">
+               <h3>Available Calculators</h3>
+               <ul>
+                  <li><a href="#scientific" onclick="showCalculator('scientific')">Scientific Calculator</a></li>
+                  <li><a href="#fraction" onclick="showCalculator('fraction')">Fraction Calculator</a></li>
+                  <li><a href="#percentage" onclick="showCalculator('percentage')">Percentage Calculator</a></li>
+                  <li><a href="#triangle" onclick="showCalculator('triangle')">Triangle Calculator</a></li>
+                  <li><a href="#volume" onclick="showCalculator('volume')">Volume Calculator</a></li>
+                  <li><a href="#standard-deviation" onclick="showCalculator('standard-deviation')">Standard Deviation Calculator</a></li>
+                  <li><a href="#random-number" onclick="showCalculator('random-number')">Random Number Generator</a></li>
+                  <li><a href="#number-sequence" onclick="showCalculator('number-sequence')">Number Sequence Calculator</a></li>
+                  <li><a href="#percent-error" onclick="showCalculator('percent-error')">Percent Error Calculator</a></li>
+                  <li><a href="#exponent" onclick="showCalculator('exponent')">Exponent Calculator</a></li>
+                  <li><a href="#binary" onclick="showCalculator('binary')">Binary Calculator</a></li>
+                  <li><a href="#hex" onclick="showCalculator('hex')">Hex Calculator</a></li>
+                  <li><a href="#half-life" onclick="showCalculator('half-life')">Half-Life Calculator</a></li>
+                  <li><a href="#quadratic-formula" onclick="showCalculator('quadratic-formula')">Quadratic Formula Calculator</a></li>
+                  <li><a href="#slope" onclick="showCalculator('slope')">Slope Calculator</a></li>
+                  <li><a href="#log" onclick="showCalculator('log')">Log Calculator</a></li>
+                  <li><a href="#area" onclick="showCalculator('area')">Area Calculator</a></li>
+                  <li><a href="#sample-size" onclick="showCalculator('sample-size')">Sample Size Calculator</a></li>
+                  <li><a href="#probability" onclick="showCalculator('probability')">Probability Calculator</a></li>
+                  <li><a href="#statistics" onclick="showCalculator('statistics')">Statistics Calculator</a></li>
+                  <li><a href="#mean-median-mode-range" onclick="showCalculator('mean-median-mode-range')">Mean, Median, Mode, Range Calculator</a></li>
+                  <li><a href="#permutation-combination" onclick="showCalculator('permutation-combination')">Permutation and Combination Calculator</a></li>
+                  <li><a href="#z-score" onclick="showCalculator('z-score')">Z-score Calculator</a></li>
+                  <li><a href="#confidence-interval" onclick="showCalculator('confidence-interval')">Confidence Interval Calculator</a></li>
+                  <li><a href="#ratio" onclick="showCalculator('ratio')">Ratio Calculator</a></li>
+                  <li><a href="#distance" onclick="showCalculator('distance')">Distance Calculator</a></li>
+                  <li><a href="#circle" onclick="showCalculator('circle')">Circle Calculator</a></li>
+                  <li><a href="#surface-area" onclick="showCalculator('surface-area')">Surface Area Calculator</a></li>
+                  <li><a href="#pythagorean-theorem" onclick="showCalculator('pythagorean-theorem')">Pythagorean Theorem Calculator</a></li>
+                  <li><a href="#right-triangle" onclick="showCalculator('right-triangle')">Right Triangle Calculator</a></li>
+                  <li><a href="#root" onclick="showCalculator('root')">Root Calculator</a></li>
+                  <li><a href="#least-common-multiple" onclick="showCalculator('least-common-multiple')">Least Common Multiple Calculator</a></li>
+                  <li><a href="#greatest-common-factor" onclick="showCalculator('greatest-common-factor')">Greatest Common Factor Calculator</a></li>
+                  <li><a href="#factor" onclick="showCalculator('factor')">Factor Calculator</a></li>
+                  <li><a href="#rounding" onclick="showCalculator('rounding')">Rounding Calculator</a></li>
+                  <li><a href="#matrix" onclick="showCalculator('matrix')">Matrix Calculator</a></li>
+                  <li><a href="#scientific-notation" onclick="showCalculator('scientific-notation')">Scientific Notation Calculator</a></li>
+                  <li><a href="#big-number" onclick="showCalculator('big-number')">Big Number Calculator</a></li>
+                  <li><a href="#prime-factorization" onclick="showCalculator('prime-factorization')">Prime Factorization Calculator</a></li>
+                  <li><a href="#common-factor" onclick="showCalculator('common-factor')">Common Factor Calculator</a></li>
+                  <li><a href="#basic" onclick="showCalculator('basic')">Basic Calculator</a></li>
+                  <li><a href="#long-division" onclick="showCalculator('long-division')">Long Division Calculator</a></li>
+                  <li><a href="#average" onclick="showCalculator('average')">Average Calculator</a></li>
+                  <li><a href="#p-value" onclick="showCalculator('p-value')">P-value Calculator</a></li>
+               </ul>
+            </div>
+         </section>
+         <section class="calculator-category">
+            <div id="scientific" class="calculator_tool" style="display:none;">
+               <h2>Scientific Calculator</h2>
+               <form>
+                  <label for="scientificExpression">Expression eg: ((1+2)*3 / 3 - 1 = 2):</label>
+                  <input type="text" id="scientificExpression" name="scientificExpression"><br>
+                  <button type="button" onclick="calculateScientific()">Calculate</button>
+               </form>
+               <p id="scientificResult"></p>
+            </div>
+            <div id="fraction" class="calculator_tool" style="display:none;">
+               <h2>Fraction Calculator</h2>
+               <form>
+                  <label for="fractionNum1">Numerator 1:</label>
+                  <input type="number" id="fractionNum1" name="fractionNum1"><br>
+                  <label for="fractionDenom1">Denominator 1:</label>
+                  <input type="number" id="fractionDenom1" name="fractionDenom1"><br>
+                  <label for="fractionNum2">Numerator 2:</label>
+                  <input type="number" id="fractionNum2" name="fractionNum2"><br>
+                  <label for="fractionDenom2">Denominator 2:</label>
+                  <input type="number" id="fractionDenom2" name="fractionDenom2"><br>
+                  <button type="button" onclick="calculateFraction()">Calculate</button>
+               </form>
+               <p id="fractionResult"></p>
+            </div>
+            <div id="percentage" class="calculator_tool" style="display:none;">
+               <h2>Percentage Calculator</h2>
+               <form>
+                  <label for="percentagePart">Part:</label>
+                  <input type="number" id="percentagePart" name="percentagePart"><br>
+                  <label for="percentageWhole">Whole:</label>
+                  <input type="number" id="percentageWhole" name="percentageWhole"><br>
+                  <button type="button" onclick="calculatePercentage()">Calculate</button>
+               </form>
+               <p id="percentageResult"></p>
+            </div>
+            <div id="triangle" class="calculator_tool" style="display:none;">
+               <h2>Triangle Calculator</h2>
+               <form>
+                  <label for="triangleBase">Base (cm):</label>
+                  <input type="number" id="triangleBase" name="triangleBase"><br>
+                  <label for="triangleHeight">Height (cm):</label>
+                  <input type="number" id="triangleHeight" name="triangleHeight"><br>
+                  <button type="button" onclick="calculateTriangle()">Calculate</button>
+               </form>
+               <p id="triangleResult"></p>
+            </div>
+            <div id="volume" class="calculator_tool" style="display:none;">
+               <h2>Volume Calculator</h2>
+               <form>
+                  <label for="volumeSide">Side Length (cm):</label>
+                  <input type="number" id="volumeSide" name="volumeSide"><br>
+                  <button type="button" onclick="calculateVolume()">Calculate</button>
+               </form>
+               <p id="volumeResult"></p>
+            </div>
+            <div id="standard-deviation" class="calculator_tool" style="display:none;">
+               <h2>Standard Deviation Calculator</h2>
+               <form>
+                  <label for="stdNumbers">Numbers (comma-separated):</label>
+                  <input type="text" id="stdNumbers" name="stdNumbers"><br>
+                  <button type="button" onclick="calculateStandardDeviation()">Calculate</button>
+               </form>
+               <p id="stdResult"></p>
+            </div>
+            <div id="random-number" class="calculator_tool" style="display:none;">
+               <h2>Random Number Generator</h2>
+               <form>
+                  <label for="randomMin">Min:</label>
+                  <input type="number" id="randomMin" name="randomMin"><br>
+                  <label for="randomMax">Max:</label>
+                  <input type="number" id="randomMax" name="randomMax"><br>
+                  <button type="button" onclick="generateRandomNumber()">Generate</button>
+               </form>
+               <p id="randomResult"></p>
+            </div>
+            <div id="number-sequence" class="calculator_tool" style="display:none;">
+               <h2>Number Sequence Calculator</h2>
+               <form>
+                  <label for="seqStart">Start Number:</label>
+                  <input type="number" id="seqStart" name="seqStart"><br>
+                  <label for="seqDiff">Difference:</label>
+                  <input type="number" id="seqDiff" name="seqDiff"><br>
+                  <label for="seqTerms">Number of Terms:</label>
+                  <input type="number" id="seqTerms" name="seqTerms"><br>
+                  <button type="button" onclick="calculateNumberSequence()">Calculate</button>
+               </form>
+               <p id="seqResult"></p>
+            </div>
+            <div id="percent-error" class="calculator_tool" style="display:none;">
+               <h2>Percent Error Calculator</h2>
+               <form>
+                  <label for="errorActual">Actual Value:</label>
+                  <input type="number" id="errorActual" name="errorActual"><br>
+                  <label for="errorMeasured">Measured Value:</label>
+                  <input type="number" id="errorMeasured" name="errorMeasured"><br>
+                  <button type="button" onclick="calculatePercentError()">Calculate</button>
+               </form>
+               <p id="percentErrorResult"></p>
+            </div>
+            <div id="exponent" class="calculator_tool" style="display:none;">
+               <h2>Exponent Calculator</h2>
+               <form>
+                  <label for="base">Base:</label>
+                  <input type="number" id="base" name="base"><br>
+                  <label for="exponent">Exponent:</label>
+                  <input type="number" id="exponent" name="exponent"><br>
+                  <button type="button" onclick="calculateExponent()">Calculate</button>
+               </form>
+               <p id="exponentResult"></p>
+            </div>
+            <div id="binary" class="calculator_tool" style="display:none;">
+               <h2>Binary Calculator</h2>
+               <form>
+                  <label for="binaryNum1">Number 1:</label>
+                  <input type="number" id="binaryNum1" name="binaryNum1"><br>
+                  <label for="binaryNum2">Number 2:</label>
+                  <input type="number" id="binaryNum2" name="binaryNum2"><br>
+                  <button type="button" onclick="calculateBinary()">Calculate</button>
+               </form>
+               <p id="binaryResult"></p>
+            </div>
+            <div id="hex" class="calculator_tool" style="display:none;">
+               <h2>Hex Calculator</h2>
+               <form>
+                  <label for="hexNum1">Number 1:</label>
+                  <input type="number" id="hexNum1" name="hexNum1"><br>
+                  <label for="hexNum2">Number 2:</label>
+                  <input type="number" id="hexNum2" name="hexNum2"><br>
+                  <button type="button" onclick="calculateHex()">Calculate</button>
+               </form>
+               <p id="hexResult"></p>
+            </div>
+            <div id="half-life" class="calculator_tool" style="display:none;">
+               <h2>Half-Life Calculator</h2>
+               <form>
+                  <label for="initialAmount">Initial Amount:</label>
+                  <input type="number" id="initialAmount" name="initialAmount"><br>
+                  <label for="halfLife">Half-Life (days):</label>
+                  <input type="number" id="halfLife" name="halfLife"><br>
+                  <label for="timeElapsed">Time Elapsed (days):</label>
+                  <input type="number" id="timeElapsed" name="timeElapsed"><br>
+                  <button type="button" onclick="calculateHalfLife()">Calculate</button>
+               </form>
+               <p id="halfLifeResult"></p>
+            </div>
+            <div id="quadratic-formula" class="calculator_tool" style="display:none;">
+               <h2>Quadratic Formula Calculator</h2>
+               <form>
+                  <label for="a">a:</label>
+                  <input type="number" id="a" name="a"><br>
+                  <label for="b">b:</label>
+                  <input type="number" id="b" name="b"><br>
+                  <label for="c">c:</label>
+                  <input type="number" id="c" name="c"><br>
+                  <button type="button" onclick="calculateQuadratic()">Calculate</button>
+               </form>
+               <p id="quadraticResult"></p>
+            </div>
+            <div id="slope" class="calculator_tool" style="display:none;">
+               <h2>Slope Calculator</h2>
+               <form>
+                  <label for="x1">x1:</label>
+                  <input type="number" id="x1" name="x1"><br>
+                  <label for="y1">y1:</label>
+                  <input type="number" id="y1" name="y1"><br>
+                  <label for="x2">x2:</label>
+                  <input type="number" id="x2" name="x2"><br>
+                  <label for="y2">y2:</label>
+                  <input type="number" id="y2" name="y2"><br>
+                  <button type="button" onclick="calculateSlope()">Calculate</button>
+               </form>
+               <p id="slopeResult"></p>
+            </div>
+            <div id="log" class="calculator_tool" style="display:none;">
+               <h2>Log Calculator</h2>
+               <form>
+                  <label for="logBase">Base:</label>
+                  <input type="number" id="logBase" name="logBase"><br>
+                  <label for="logNumber">Number:</label>
+                  <input type="number" id="logNumber" name="logNumber"><br>
+                  <button type="button" onclick="calculateLog()">Calculate</button>
+               </form>
+               <p id="logResult"></p>
+            </div>
+            <div id="area" class="calculator_tool" style="display:none;">
+               <h2>Area Calculator</h2>
+               <form>
+                  <label for="shape">Shape:</label>
+                  <select id="shape" name="shape">
+                     <option value="rectangle">Rectangle</option>
+                     <option value="circle">Circle</option>
+                     <option value="triangle">Triangle</option>
+                  </select>
+                  <br>
+                  <div id="rectangleInputs" style="display:none;">
+                     <label for="rectLength">Length:</label>
+                     <input type="number" id="rectLength" name="rectLength"><br>
+                     <label for="rectWidth">Width:</label>
+                     <input type="number" id="rectWidth" name="rectWidth"><br>
+                  </div>
+                  <div id="circleInputs" style="display:none;">
+                     <label for="circleRadius">Radius:</label>
+                     <input type="number" id="circleRadius" name="circleRadius"><br>
+                  </div>
+                  <div id="triangleInputs" style="display:none;">
+                     <label for="triBase">Base:</label>
+                     <input type="number" id="triBase" name="triBase"><br>
+                     <label for="triHeight">Height:</label>
+                     <input type="number" id="triHeight" name="triHeight"><br>
+                  </div>
+                  <button type="button" onclick="calculateArea()">Calculate</button>
+               </form>
+               <p id="areaResult"></p>
+            </div>
+            <div id="sample-size" class="calculator_tool" style="display:none;">
+               <h2>Sample Size Calculator</h2>
+               <form>
+                  <label for="populationSize">Population Size:</label>
+                  <input type="number" id="populationSize" name="populationSize"><br>
+                  <label for="marginOfError">Margin of Error (%):</label>
+                  <input type="number" id="marginOfError" name="marginOfError"><br>
+                  <label for="confidenceLevel">Confidence Level (%):</label>
+                  <input type="number" id="confidenceLevel" name="confidenceLevel"><br>
+                  <button type="button" onclick="calculateSampleSize()">Calculate</button>
+               </form>
+               <p id="sampleSizeResult"></p>
+            </div>
+            <div id="probability" class="calculator_tool" style="display:none;">
+               <h2>Probability Calculator</h2>
+               <form>
+                  <label for="favorableOutcomes">Favorable Outcomes:</label>
+                  <input type="number" id="favorableOutcomes" name="favorableOutcomes"><br>
+                  <label for="totalOutcomes">Total Outcomes:</label>
+                  <input type="number" id="totalOutcomes" name="totalOutcomes"><br>
+                  <button type="button" onclick="calculateProbability()">Calculate</button>
+               </form>
+               <p id="probabilityResult"></p>
+            </div>
+            <div id="statistics" class="calculator_tool" style="display:none;">
+               <h2>Statistics Calculator</h2>
+               <form>
+                  <label for="statNumbers">Numbers (comma-separated):</label>
+                  <input type="text" id="statNumbers" name="statNumbers"><br>
+                  <button type="button" onclick="calculateStatistics()">Calculate</button>
+               </form>
+               <p id="statResult"></p>
+            </div>
+            <div id="mean-median-mode-range" class="calculator_tool" style="display:none;">
+               <h2>Mean, Median, Mode, Range Calculator</h2>
+               <form>
+                  <label for="mmmrNumbers">Numbers (comma-separated):</label>
+                  <input type="text" id="mmmrNumbers" name="mmmrNumbers"><br>
+                  <button type="button" onclick="calculateMeanMedianModeRange()">Calculate</button>
+               </form>
+               <p id="mmmrResult"></p>
+            </div>
+            <div id="permutation-combination" class="calculator_tool" style="display:none;">
+               <h2>Permutation and Combination Calculator</h2>
+               <form>
+                  <label for="n">n:</label>
+                  <input type="number" id="n" name="n"><br>
+                  <label for="r">r:</label>
+                  <input type="number" id="r" name="r"><br>
+                  <label for="calcType">Calculate:</label>
+                  <select id="calcType" name="calcType">
+                     <option value="permutation">Permutation</option>
+                     <option value="combination">Combination</option>
+                  </select>
+                  <br>
+                  <button type="button" onclick="calculatePermutationCombination()">Calculate</button>
+               </form>
+               <p id="permutationCombinationResult"></p>
+            </div>
+            <div id="z-score" class="calculator_tool" style="display:none;">
+               <h2>Z-score Calculator</h2>
+               <form>
+                  <label for="zMean">Mean:</label>
+                  <input type="number" id="zMean" name="zMean"><br>
+                  <label for="zStandardDeviation">Standard Deviation:</label>
+                  <input type="number" id="zStandardDeviation" name="zStandardDeviation"><br>
+                  <label for="zScore">Score:</label>
+                  <input type="number" id="zScore" name="zScore"><br>
+                  <button type="button" onclick="calculateZScore()">Calculate</button>
+               </form>
+               <p id="zScoreResult"></p>
+            </div>
+            <div id="confidence-interval" class="calculator_tool" style="display:none;">
+               <h2>Confidence Interval Calculator</h2>
+               <form>
+                  <label for="ciMean">Mean:</label>
+                  <input type="number" id="ciMean" name="ciMean"><br>
+                  <label for="ciStandardDeviation">Standard Deviation:</label>
+                  <input type="number" id="ciStandardDeviation" name="ciStandardDeviation"><br>
+                  <label for="ciSampleSize">Sample Size:</label>
+                  <input type="number" id="ciSampleSize" name="ciSampleSize"><br>
+                  <label for="ciConfidenceLevel">Confidence Level (%):</label>
+                  <input type="number" id="ciConfidenceLevel" name="ciConfidenceLevel"><br>
+                  <button type="button" onclick="calculateConfidenceInterval()">Calculate</button>
+               </form>
+               <p id="ciResult"></p>
+            </div>
+            <div id="ratio" class="calculator_tool" style="display:none;">
+               <h2>Ratio Calculator</h2>
+               <form>
+                  <label for="ratioNum1">Number 1:</label>
+                  <input type="number" id="ratioNum1" name="ratioNum1"><br>
+                  <label for="ratioNum2">Number 2:</label>
+                  <input type="number" id="ratioNum2" name="ratioNum2"><br>
+                  <button type="button" onclick="calculateRatio()">Calculate</button>
+               </form>
+               <p id="ratioResult"></p>
+            </div>
+            <div id="distance" class="calculator_tool" style="display:none;">
+               <h2>Distance Calculator</h2>
+               <form>
+                  <label for="x1">x1:</label>
+                  <input type="number" id="x1" name="x1"><br>
+                  <label for="y1">y1:</label>
+                  <input type="number" id="y1" name="y1"><br>
+                  <label for="x2">x2:</label>
+                  <input type="number" id="x2" name="x2"><br>
+                  <label for="y2">y2:</label>
+                  <input type="number" id="y2" name="y2"><br>
+                  <button type="button" onclick="calculateDistance()">Calculate</button>
+               </form>
+               <p id="distanceResult"></p>
+            </div>
+            <div id="circle" class="calculator_tool" style="display:none;">
+               <h2>Circle Calculator</h2>
+               <form>
+                  <label for="circleRadius">Radius:</label>
+                  <input type="number" id="circleRadius" name="circleRadius"><br>
+                  <button type="button" onclick="calculateCircle()">Calculate</button>
+               </form>
+               <p id="circleResult"></p>
+            </div>
+            <div id="surface-area" class="calculator_tool" style="display:none;">
+               <h2>Surface Area Calculator</h2>
+               <form>
+                  <!-- Input fields specific to Surface Area Calculator -->
+                  <label for="shape">Select Shape:</label>
+                  <select id="shape" name="shape">
+                     <option value="cube">Cube</option>
+                     <option value="cylinder">Cylinder</option>
+                     <option value="sphere">Sphere</option>
+                  </select>
+                  <br>
+                  <div id="cubeInputs" style="display:none;">
+                     <label for="cubeSide">Side Length:</label>
+                     <input type="number" id="cubeSide" name="cubeSide"><br>
+                  </div>
+                  <div id="cylinderInputs" style="display:none;">
+                     <label for="cylinderRadius">Radius:</label>
+                     <input type="number" id="cylinderRadius" name="cylinderRadius"><br>
+                     <label for="cylinderHeight">Height:</label>
+                     <input type="number" id="cylinderHeight" name="cylinderHeight"><br>
+                  </div>
+                  <div id="sphereInputs" style="display:none;">
+                     <label for="sphereRadius">Radius:</label>
+                     <input type="number" id="sphereRadius" name="sphereRadius"><br>
+                  </div>
+                  <button type="button" onclick="calculateSurfaceArea()">Calculate</button>
+               </form>
+               <p id="surfaceAreaResult"></p>
+            </div>
+            <div id="pythagorean-theorem" class="calculator_tool" style="display:none;">
+               <h2>Pythagorean Theorem Calculator</h2>
+               <form>
+                  <label for="sideA">Side A:</label>
+                  <input type="number" id="sideA" name="sideA"><br>
+                  <label for="sideB">Side B:</label>
+                  <input type="number" id="sideB" name="sideB"><br>
+                  <button type="button" onclick="calculatePythagorean()">Calculate</button>
+               </form>
+               <p id="pythagoreanResult"></p>
+            </div>
+            <div id="right-triangle" class="calculator_tool" style="display:none;">
+               <h2>Right Triangle Calculator</h2>
+               <form>
+                  <label for="triangleSide1">Side 1:</label>
+                  <input type="number" id="triangleSide1" name="triangleSide1"><br>
+                  <label for="triangleSide2">Side 2:</label>
+                  <input type="number" id="triangleSide2" name="triangleSide2"><br>
+                  <button type="button" onclick="calculateRightTriangle()">Calculate</button>
+               </form>
+               <p id="rightTriangleResult"></p>
+            </div>
+            <div id="root" class="calculator_tool" style="display:none;">
+               <h2>Root Calculator</h2>
+               <form>
+                  <label for="number">Number:</label>
+                  <input type="number" id="number" name="number"><br>
+                  <label for="rootDegree">Root Degree:</label>
+                  <input type="number" id="rootDegree" name="rootDegree"><br>
+                  <button type="button" onclick="calculateRoot()">Calculate</button>
+               </form>
+               <p id="rootResult"></p>
+            </div>
+            <div id="least-common-multiple" class="calculator_tool" style="display:none;">
+               <h2>Least Common Multiple Calculator</h2>
+               <form>
+                  <label for="num1">Number 1:</label>
+                  <input type="number" id="num1" name="num1"><br>
+                  <label for="num2">Number 2:</label>
+                  <input type="number" id="num2" name="num2"><br>
+                  <button type="button" onclick="calculateLCM()">Calculate</button>
+               </form>
+               <p id="lcmResult"></p>
+            </div>
+            <div id="greatest-common-factor" class="calculator_tool" style="display:none;">
+               <h2>Greatest Common Factor Calculator</h2>
+               <form>
+                  <label for="gcdNum1">Number 1:</label>
+                  <input type="number" id="gcdNum1" name="gcdNum1"><br>
+                  <label for="gcdNum2">Number 2:</label>
+                  <input type="number" id="gcdNum2" name="gcdNum2"><br>
+                  <button type="button" onclick="calculateGCD()">Calculate</button>
+               </form>
+               <p id="gcdResult"></p>
+            </div>
+            <div id="factor" class="calculator_tool" style="display:none;">
+               <h2>Factor Calculator</h2>
+               <form>
+                  <label for="factorNumber">Number:</label>
+                  <input type="number" id="factorNumber" name="factorNumber"><br>
+                  <button type="button" onclick="calculateFactors()">Calculate</button>
+               </form>
+               <p id="factorResult"></p>
+            </div>
+            <div id="rounding" class="calculator_tool" style="display:none;">
+               <h2>Rounding Calculator</h2>
+               <form>
+                  <label for="roundNumber">Number:</label>
+                  <input type="number" id="roundNumber" name="roundNumber"><br>
+                  <label for="roundDecimal">Decimal Places:</label>
+                  <input type="number" id="roundDecimal" name="roundDecimal"><br>
+                  <button type="button" onclick="calculateRounding()">Calculate</button>
+               </form>
+               <p id="roundingResult"></p>
+            </div>
+            <div id="matrix" class="calculator_tool" style="display:none;">
+               <h2>Matrix Calculator</h2>
+               <form>
+                  <label for="matrixRows">Rows:</label>
+                  <input type="number" id="matrixRows" name="matrixRows"><br>
+                  <label for="matrixCols">Columns:</label>
+                  <input type="number" id="matrixCols" name="matrixCols"><br>
+                  <button type="button" onclick="createMatrix()">Create Matrix</button>
+                  <button type="button" onclick="calculateMatrix()">Calculate</button>
+               </form>
+               <p id="matrixResult"></p>
+            </div>
+            <div id="scientific-notation" class="calculator_tool" style="display:none;">
+               <h2>Scientific Notation Calculator</h2>
+               <form>
+                  <label for="sciNum">Number:</label>
+                  <input type="number" id="sciNum" name="sciNum"><br>
+                  <button type="button" onclick="calculateScientificNotation()">Calculate</button>
+               </form>
+               <p id="scientificNotationResult"></p>
+            </div>
+            <div id="big-number" class="calculator_tool" style="display:none;">
+               <h2>Big Number Calculator</h2>
+               <form>
+                  <label for="bigNum1">Number 1:</label>
+                  <input type="text" id="bigNum1" name="bigNum1"><br>
+                  <label for="bigNum2">Number 2:</label>
+                  <input type="text" id="bigNum2" name="bigNum2"><br>
+                  <button type="button" onclick="calculateBigNumber()">Calculate</button>
+               </form>
+               <p id="bigNumberResult"></p>
+            </div>
+            <div id="prime-factorization" class="calculator_tool" style="display:none;">
+               <h2>Prime Factorization Calculator</h2>
+               <form>
+                  <label for="primeNum">Number:</label>
+                  <input type="number" id="primeNum" name="primeNum"><br>
+                  <button type="button" onclick="calculatePrimeFactorization()">Calculate</button>
+               </form>
+               <p id="primeFactorizationResult"></p>
+            </div>
+            <div id="common-factor" class="calculator_tool" style="display:none;">
+               <h2>Common Factor Calculator</h2>
+               <form>
+                  <label for="commonNum1">Number 1:</label>
+                  <input type="number" id="commonNum1" name="commonNum1"><br>
+                  <label for="commonNum2">Number 2:</label>
+                  <input type="number" id="commonNum2" name="commonNum2"><br>
+                  <button type="button" onclick="calculateCommonFactor()">Calculate</button>
+               </form>
+               <p id="commonFactorResult"></p>
+            </div>
+            <div id="basic" class="calculator_tool" style="display:none;">
+               <h2>Basic Calculator</h2>
+               <form>
+                  <label for="basicExpression">Expression:</label>
+                  <input type="text" id="basicExpression" name="basicExpression"><br>
+                  <button type="button" onclick="calculateBasic()">Calculate</button>
+               </form>
+               <p id="basicResult"></p>
+            </div>
+            <div id="long-division" class="calculator_tool" style="display:none;">
+               <h2>Long Division Calculator</h2>
+               <form>
+                  <label for="dividend">Dividend:</label>
+                  <input type="number" id="dividend" name="dividend"><br>
+                  <label for="divisor">Divisor:</label>
+                  <input type="number" id="divisor" name="divisor"><br>
+                  <button type="button" onclick="calculateLongDivision()">Calculate</button>
+               </form>
+               <p id="longDivisionResult"></p>
+            </div>
+            <div id="average" class="calculator_tool" style="display:none;">
+               <h2>Average Calculator</h2>
+               <form>
+                  <label for="avgNumbers">Numbers (comma-separated):</label>
+                  <input type="text" id="avgNumbers" name="avgNumbers"><br>
+                  <button type="button" onclick="calculateAverage()">Calculate</button>
+               </form>
+               <p id="averageResult"></p>
+            </div>
+            <div id="p-value" class="calculator_tool" style="display:none;">
+               <h2>P-value Calculator</h2>
+               <form>
+                  <label for="pValue">P-value:</label>
+                  <input type="number" id="pValue" name="pValue"><br>
+                  <label for="significanceLevel">Significance Level:</label>
+                  <input type="number" id="significanceLevel" name="significanceLevel"><br>
+                  <button type="button" onclick="calculatePValue()">Calculate</button>
+               </form>
+               <p id="pValueResult"></p>
+            </div>
+         </section>
+      </main>
+   </body>
+</html>

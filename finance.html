@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Financial Calculators</title>
+      <style>
+         body {
+         font-family: 'Arial', sans-serif;
+         margin: 0;
+         padding: 0;
+         background-color: #f0f2f5;
+         color: #333;
+         }
+         header {
+         background-color: #007BFF;
+         color: white;
+         padding: 20px;
+         text-align: center;
+         }
+         nav {
+         background-color: #0056b3;
+         padding: 10px;
+         display: flex;
+         justify-content: center;
+         flex-wrap: wrap;
+         }
+         nav a {
+         color: white;
+         margin: 5px 15px;
+         text-decoration: none;
+         font-weight: bold;
+         }
+         main {
+         padding: 20px;
+         max-width: 1200px;
+         margin: auto;
+         }
+         .calculator-category {
+         background-color: white;
+         padding: 20px;
+         margin: 20px 0;
+         border-radius: 8px;
+         box-shadow: 0 0 10px rgba(0,0,0,0.1);
+         }
+         .calculator-category h3 {
+         margin-top: 0;
+         }
+         .calculator-category ul {
+         list-style-type: none;
+         padding: 0;
+         }
+         .calculator-category ul li {
+         margin: 10px 0;
+         }
+         .calculator-category ul li a {
+         text-decoration: none;
+         color: #007BFF;
+         }
+         .calculator_tool {
+         background-color: white;
+         padding: 20px;
+         margin: 20px 0;
+         border-radius: 8px;
+         box-shadow: 0 0 10px rgba(0,0,0,0.1);
+         }
+         .calculator_tool h2 {
+         margin-top: 0;
+         color: #333; /* Adjust text color as needed */
+         }
+         .calculator_tool form {
+         margin-bottom: 15px;
+         }
+         .calculator_tool label {
+         display: block;
+         margin-bottom: 5px;
+         }
+         .calculator_tool input[type="number"],
+         .calculator_tool button {
+         width: 100%;
+         padding: 8px;
+         margin-bottom: 10px;
+         box-sizing: border-box;
+         }
+         .calculator_tool button {
+         background-color: #007BFF; /* Match your link color */
+         color: white;
+         border: none;
+         cursor: pointer;
+         }
+         .calculator_tool button:hover {
+         background-color: #0056b3; /* Darker shade for hover */
+         }
+         .calculator_tool p {
+         margin-top: 10px;
+         }
+         .calculator_tool a {
+         text-decoration: none;
+         color: #007BFF;
+         }
+         .calculator_tool a:hover {
+         text-decoration: underline;
+         }
+         @media only screen and (max-width: 600px) {
+         /* Adjust styles for smaller screens (e.g., smartphones) */
+         .calculator {
+         padding: 10px;
+         margin: 10px 0;
+         }
+         .calculator h2 {
+         font-size: 1.2em; /* Adjust font size for smaller screens */
+         }
+         .calculator input[type="number"],
+         .calculator button {
+         padding: 6px; /* Adjust padding for smaller inputs/buttons */
+         }
+         }
+      </style>
+      <script>
+         function showCalculator(id) {
+             // Hide all calculators
+             var calculators = document.querySelectorAll('.calculator');
+             calculators.forEach(function(calc) {
+                 calc.style.display = 'none';
+             });
+             // Show the selected calculator
+             document.getElementById(id).style.display = 'block';
+         }
+         // Mortgage Calculator
+         function calculateMortgage() {
+         let amount = parseFloat(document.getElementById("mortgageAmount").value);
+         let rate = parseFloat(document.getElementById("interestRate").value) / 100 / 12;
+         let term = parseInt(document.getElementById("loanTerm").value) * 12;
+         
+         if (amount && rate && term) {
+         let monthlyPayment = (amount * rate) / (1 - Math.pow(1 + rate, -term));
+         document.getElementById("mortgageResult").innerText = "Monthly Payment: " + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("mortgageResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Loan Calculator
+         function calculateLoan() {
+         let amount = parseFloat(document.getElementById("loanAmount").value);
+         let rate = parseFloat(document.getElementById("loanInterestRate").value) / 100 / 12;
+         let term = parseInt(document.getElementById("loanTermYears").value) * 12;
+         
+         if (amount && rate && term) {
+         let monthlyPayment = (amount * rate) / (1 - Math.pow(1 + rate, -term));
+         document.getElementById("loanResult").innerText = "Monthly Payment: " + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("loanResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Auto Loan Calculator
+         function calculateAutoLoan() {
+         let amount = parseFloat(document.getElementById("autoLoanAmount").value);
+         let rate = parseFloat(document.getElementById("autoLoanInterestRate").value) / 100 / 12;
+         let term = parseInt(document.getElementById("autoLoanTermYears").value) * 12;
+         
+         if (amount && rate && term) {
+         let monthlyPayment = (amount * rate) / (1 - Math.pow(1 + rate, -term));
+         document.getElementById("autoLoanResult").innerText = "Monthly Payment: " + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("autoLoanResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Interest Calculator
+         function calculateInterest() {
+         let principal = parseFloat(document.getElementById("principalAmount").value);
+         let rate = parseFloat(document.getElementById("annualInterestRate").value) / 100;
+         let time = parseInt(document.getElementById("timePeriod").value);
+         
+         if (principal && rate && time) {
+         let interest = principal * rate * time;
+         document.getElementById("interestResult").innerText = "Interest: " + interest.toFixed(2);
+         } else {
+         document.getElementById("interestResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Payment Calculator
+         function calculatePayment() {
+         let amount = parseFloat(document.getElementById("paymentLoanAmount").value);
+         let rate = parseFloat(document.getElementById("paymentInterestRate").value) / 100 / 12;
+         let term = parseInt(document.getElementById("paymentTermYears").value) * 12;
+         
+         if (amount && rate && term) {
+         let monthlyPayment = (amount * rate) / (1 - Math.pow(1 + rate, -term));
+         document.getElementById("paymentResult").innerText = "Monthly Payment: " + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("paymentResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Retirement Calculator
+         function calculateRetirement() {
+         let currentAge = parseInt(document.getElementById("currentAge").value);
+         let retirementAge = parseInt(document.getElementById("retirementAge").value);
+         let currentSavings = parseFloat(document.getElementById("currentSavings").value);
+         let annualContribution = parseFloat(document.getElementById("annualContribution").value);
+         let annualReturn = parseFloat(document.getElementById("annualReturn").value) / 100;
+         
+         if (currentAge && retirementAge && currentSavings && annualContribution && annualReturn) {
+         let yearsToGrow = retirementAge - currentAge;
+         let futureValue = currentSavings * Math.pow(1 + annualReturn, yearsToGrow) +
+            annualContribution * (Math.pow(1 + annualReturn, yearsToGrow) - 1) / annualReturn;
+         document.getElementById("retirementResult").innerText = "Retirement Savings: " + futureValue.toFixed(2);
+         } else {
+         document.getElementById("retirementResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Amortization Calculator
+         function calculateAmortization() {
+         let amount = parseFloat(document.getElementById("amortizationLoanAmount").value);
+         let rate = parseFloat(document.getElementById("amortizationInterestRate").value) / 100 / 12;
+         let term = parseInt(document.getElementById("amortizationTermYears").value) * 12;
+         
+         if (amount && rate && term) {
+         let monthlyPayment = (amount * rate) / (1 - Math.pow(1 + rate, -term));
+         document.getElementById("amortizationResult").innerText = "Monthly Payment: " + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("amortizationResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Investment Calculator
+         function calculateInvestment() {
+         let initialInvestment = parseFloat(document.getElementById("initialInvestment").value);
+         let annualReturn = parseFloat(document.getElementById("investmentAnnualReturn").value) / 100;
+         let years = parseInt(document.getElementById("investmentYears").value);
+         
+         if (initialInvestment && annualReturn && years) {
+         let futureValue = initialInvestment * Math.pow(1 + annualReturn, years);
+         document.getElementById("investmentResult").innerText = "Future Value: " + futureValue.toFixed(2);
+         } else {
+         document.getElementById("investmentResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Currency Calculator
+         function calculateCurrency() {
+         let amount = parseFloat(document.getElementById("amountToConvert").value);
+         let rate = parseFloat(document.getElementById("conversionRate").value);
+         
+         if (amount && rate) {
+         let convertedAmount = amount * rate;
+         document.getElementById("currencyResult").innerText = "Converted Amount: " + convertedAmount.toFixed(2);
+         } else {
+         document.getElementById("currencyResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Inflation Calculator
+         function calculateInflation() {
+         let initialPrice = parseFloat(document.getElementById("initialPrice").value);
+         let inflationRate = parseFloat(document.getElementById("inflationRate").value) / 100;
+         let years = parseInt(document.getElementById("inflationYears").value);
+         
+         if (initialPrice && inflationRate && years) {
+         let futurePrice = initialPrice * Math.pow(1 + inflationRate, years);
+         document.getElementById("inflationResult").innerText = "Future Price: " + futurePrice.toFixed(2);
+         } else {
+         document.getElementById("inflationResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Finance Calculator
+         function calculateFinance() {
+         let principal = parseFloat(document.getElementById("financePrincipal").value);
+         let rate = parseFloat(document.getElementById("financeRate").value) / 100;
+         let time = parseInt(document.getElementById("financeTime").value);
+         
+         if (principal && rate && time) {
+         let interest = principal * rate * time;
+         document.getElementById("financeResult").innerText = "Interest: " + interest.toFixed(2);
+         } else {
+         document.getElementById("financeResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Mortgage Payoff Calculator
+         function calculateMortgagePayoff() {
+         let amount = parseFloat(document.getElementById("mortgagePayoffAmount").value);
+         let extra = parseFloat(document.getElementById("mortgagePayoffExtra").value);
+         let rate = parseFloat(document.getElementById("mortgagePayoffInterestRate").value) / 100 / 12;
+         
+         if (amount && extra && rate) {
+         let newTerm = Math.log(extra / (extra - amount * rate)) / Math.log(1 + rate);
+         document.getElementById("mortgagePayoffResult").innerText = "Months to Payoff: " + newTerm.toFixed(0);
+         } else {
+         document.getElementById("mortgagePayoffResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Income Tax Calculator
+         function calculateIncomeTax() {
+         let income = parseFloat(document.getElementById("annualIncome").value);
+         let rate = parseFloat(document.getElementById("taxRate").value) / 100;
+         
+         if (income && rate) {
+         let tax = income * rate;
+         document.getElementById("incomeTaxResult").innerText = "Income Tax: " + tax.toFixed(2);
+         } else {
+         document.getElementById("incomeTaxResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Compound Interest Calculator
+         function calculateCompoundInterest() {
+         let principal = parseFloat(document.getElementById("compoundPrincipal").value);
+         let rate = parseFloat(document.getElementById("compoundRate").value) / 100;
+         let time = parseInt(document.getElementById("compoundYears").value);
+         
+         if (principal && rate && time) {
+         let futureValue = principal * Math.pow(1 + rate, time);
+         document.getElementById("compoundInterestResult").innerText = "Future Value: " + futureValue.toFixed(2);
+         } else {
+         document.getElementById("compoundInterestResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Salary Calculator
+         function calculateSalary() {
+         let hourlyWage = parseFloat(document.getElementById("hourlyWage").value);
+         let hoursPerWeek = parseFloat(document.getElementById("hoursPerWeek").value);
+         
+         if (hourlyWage && hoursPerWeek) {
+         let annualSalary = hourlyWage * hoursPerWeek * 52;
+         document.getElementById("salaryResult").innerText = "Annual Salary: " + annualSalary.toFixed(2);
+         } else {
+         document.getElementById("salaryResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // 401K Calculator
+         function calculate401k() {
+         let contribution = parseFloat(document.getElementById("contribution").value);
+         let employerMatch = parseFloat(document.getElementById("employerMatch").value) / 100;
+         let rateOfReturn = parseFloat(document.getElementById("rateOfReturn").value) / 100;
+         let yearsToGrow = parseInt(document.getElementById("yearsToGrow").value);
+         
+         if (contribution && employerMatch && rateOfReturn && yearsToGrow) {
+         let futureValue = contribution * (1 + employerMatch) * ((Math.pow(1 + rateOfReturn, yearsToGrow) - 1) / rateOfReturn);
+         document.getElementById("401kResult").innerText = "Future Value: " + futureValue.toFixed(2);
+         } else {
+         document.getElementById("401kResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Interest Rate Calculator
+         function calculateInterestRate() {
+         let principal = parseFloat(document.getElementById("principalAmountRate").value);
+         let rate = parseFloat(document.getElementById("interestRateRate").value) / 100;
+         let time = parseInt(document.getElementById("timePeriodRate").value);
+         
+         if (principal && rate && time) {
+         let interest = principal * rate * time;
+         document.getElementById("interestRateResult").innerText = "Interest: " + interest.toFixed(2);
+         } else {
+         document.getElementById("interestRateResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Sales Tax Calculator
+         function calculateSalesTax() {
+         let amount = parseFloat(document.getElementById("purchaseAmount").value);
+         let rate = parseFloat(document.getElementById("salesTaxRate").value) / 100;
+         
+         if (amount && rate) {
+         let tax = amount * rate;
+         document.getElementById("salesTaxResult").innerText = "Sales Tax: " + tax.toFixed(2);
+         } else {
+         document.getElementById("salesTaxResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // House Affordability Calculator
+         function calculateHouseAffordability() {
+         let income = parseFloat(document.getElementById("annualIncomeHouse").value);
+         let downPayment = parseFloat(document.getElementById("downPayment").value);
+         let term = parseInt(document.getElementById("loanTermHouse").value) * 12;
+         let rate = parseFloat(document.getElementById("houseInterestRate").value) / 100 / 12;
+         
+         if (income && downPayment && term && rate) {
+         let affordableHousePrice = (income / 3 - downPayment * rate) * (1 - Math.pow(1 + rate, -term)) / rate + downPayment;
+         document.getElementById("houseAffordabilityResult").innerText = "Affordable House Price: " + affordableHousePrice.toFixed(2);
+         } else {
+         document.getElementById("houseAffordabilityResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Savings Calculator
+         function calculateSavings() {
+         let initialSavings = parseFloat(document.getElementById("initialSavings").value);
+         let monthlyContribution = parseFloat(document.getElementById("monthlyContribution").value);
+         let rate = parseFloat(document.getElementById("annualInterestRateSavings").value) / 100 / 12;
+         let years = parseInt(document.getElementById("yearsSavings").value) * 12;
+         
+         if (initialSavings && monthlyContribution && rate && years) {
+         let futureValue = initialSavings * Math.pow(1 + rate, years) + monthlyContribution * ((Math.pow(1 + rate, years) - 1) / rate);
+         document.getElementById("savingsResult").innerText = "Future Savings: " + futureValue.toFixed(2);
+         } else {
+         document.getElementById("savingsResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Rent Calculator
+         function calculateRent() {
+         let monthlyRent = parseFloat(document.getElementById("monthlyRent").value);
+         let rentTerm = parseInt(document.getElementById("rentTerm").value);
+         
+         if (monthlyRent && rentTerm) {
+         let totalRent = monthlyRent * rentTerm;
+         document.getElementById("rentResult").innerText = "Total Rent: " + totalRent.toFixed(2);
+         } else {
+         document.getElementById("rentResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Marriage Tax Calculator
+         function calculateMarriageTax() {
+         let income1 = parseFloat(document.getElementById("incomeSpouse1").value);
+         let income2 = parseFloat(document.getElementById("incomeSpouse2").value);
+         let rate = parseFloat(document.getElementById("marriageTaxRate").value) / 100;
+         
+         if (income1 && income2 && rate) {
+         let tax = (income1 + income2) * rate;
+         document.getElementById("marriageTaxResult").innerText = "Marriage Tax: " + tax.toFixed(2);
+         } else {
+         document.getElementById("marriageTaxResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Estate Tax Calculator
+         function calculateEstateTax() {
+         let estateValue = parseFloat(document.getElementById("estateValue").value);
+         let rate = parseFloat(document.getElementById("estateTaxRate").value) / 100;
+         
+         if (estateValue && rate) {
+         let tax = estateValue * rate;
+         document.getElementById("estateTaxResult").innerText = "Estate Tax: " + tax.toFixed(2);
+         } else {
+         document.getElementById("estateTaxResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Pension Calculator
+         function calculatePension() {
+         let currentAge = parseInt(document.getElementById("currentAgePension").value);
+         let retirementAge = parseInt(document.getElementById("retirementAgePension").value);
+         let annualPension = parseFloat(document.getElementById("annualPension").value);
+         
+         if (currentAge && retirementAge && annualPension) {
+         let yearsToGrow = retirementAge - currentAge;
+         let futurePension = annualPension * yearsToGrow;
+         document.getElementById("pensionResult").innerText = "Total Pension: " + futurePension.toFixed(2);
+         } else {
+         document.getElementById("pensionResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Social Security Calculator
+         function calculateSocialSecurity() {
+         let currentAge = parseInt(document.getElementById("currentAgeSS").value);
+         let retirementAge = parseInt(document.getElementById("retirementAgeSS").value);
+         let monthlySS = parseFloat(document.getElementById("monthlySS").value);
+         
+         if (currentAge && retirementAge && monthlySS) {
+         let yearsToGrow = retirementAge - currentAge;
+         let totalSS = monthlySS * 12 * yearsToGrow;
+         document.getElementById("socialSecurityResult").innerText = "Total Social Security: " + totalSS.toFixed(2);
+         } else {
+         document.getElementById("socialSecurityResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Annuity Calculator
+         function calculateAnnuity() {
+         let initialInvestment = parseFloat(document.getElementById("initialAnnuity").value);
+         let annualReturn = parseFloat(document.getElementById("annualReturnAnnuity").value) / 100;
+         let years = parseInt(document.getElementById("annuityYears").value);
+         
+         if (initialInvestment && annualReturn && years) {
+         let futureValue = initialInvestment * Math.pow(1 + annualReturn, years);
+         document.getElementById("annuityResult").innerText = "Future Value: " + futureValue.toFixed(2);
+         } else {
+         document.getElementById("annuityResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Annuity Payout Calculator
+         function calculateAnnuityPayout() {
+         let initialInvestment = parseFloat(document.getElementById("initialAnnuityPayout").value);
+         let annualReturn = parseFloat(document.getElementById("annualReturnAnnuityPayout").value) / 100;
+         let years = parseInt(document.getElementById("annuityPayoutYears").value);
+         
+         if (initialInvestment && annualReturn && years) {
+         let annualPayout = (initialInvestment * annualReturn) / (1 - Math.pow(1 + annualReturn, -years));
+         document.getElementById("annuityPayoutResult").innerText = "Annual Payout: " + annualPayout.toFixed(2);
+         } else {
+         document.getElementById("annuityPayoutResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Credit Card Calculator
+         function calculateCreditCard() {
+         let balance = parseFloat(document.getElementById("creditCardBalance").value);
+         let rate = parseFloat(document.getElementById("creditCardRate").value) / 100 / 12;
+         let payment = parseFloat(document.getElementById("creditCardMonthlyPayment").value);
+         
+         if (balance && rate && payment) {
+         let monthsToPayoff = Math.log(payment / (payment - balance * rate)) / Math.log(1 + rate);
+         document.getElementById("creditCardResult").innerText = "Months to Payoff: " + monthsToPayoff.toFixed(0);
+         } else {
+         document.getElementById("creditCardResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Credit Cards Payoff Calculator
+         function calculateCreditCardsPayoff() {
+         let balance = parseFloat(document.getElementById("creditCardsBalance").value);
+         let rate = parseFloat(document.getElementById("creditCardsRate").value) / 100 / 12;
+         let payment = parseFloat(document.getElementById("creditCardsMonthlyPayment").value);
+         
+         if (balance && rate && payment) {
+         let monthsToPayoff = Math.log(payment / (payment - balance * rate)) / Math.log(1 + rate);
+         document.getElementById("creditCardsPayoffResult").innerText = "Months to Payoff: " + monthsToPayoff.toFixed(0);
+         } else {
+         document.getElementById("creditCardsPayoffResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Debt Payoff Calculator
+         function calculateDebtPayoff() {
+         let balance = parseFloat(document.getElementById("debtPayoffBalance").value);
+         let rate = parseFloat(document.getElementById("debtPayoffRate").value) / 100 / 12;
+         let payment = parseFloat(document.getElementById("debtPayoffMonthlyPayment").value);
+         
+         if (balance && rate && payment) {
+         let monthsToPayoff = Math.log(payment / (payment - balance * rate)) / Math.log(1 + rate);
+         document.getElementById("debtPayoffResult").innerText = "Months to Payoff: " + monthsToPayoff.toFixed(0);
+         } else {
+         document.getElementById("debtPayoffResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Debt Consolidation Calculator
+         function calculateDebtConsolidation() {
+         let balance = parseFloat(document.getElementById("debtConsolidationBalance").value);
+         let rate = parseFloat(document.getElementById("debtConsolidationRate").value) / 100 / 12;
+         let payment = parseFloat(document.getElementById("debtConsolidationMonthlyPayment").value);
+         
+         if (balance && rate && payment) {
+         let monthsToPayoff = Math.log(payment / (payment - balance * rate)) / Math.log(1 + rate);
+         document.getElementById("debtConsolidationResult").innerText = "Months to Payoff: " + monthsToPayoff.toFixed(0);
+         } else {
+         document.getElementById("debtConsolidationResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Repayment Calculator
+         function calculateRepayment() {
+         let balance = parseFloat(document.getElementById("repaymentBalance").value);
+         let rate = parseFloat(document.getElementById("repaymentRate").value) / 100 / 12;
+         let payment = parseFloat(document.getElementById("repaymentMonthlyPayment").value);
+         
+         if (balance && rate && payment) {
+         let monthsToPayoff = Math.log(payment / (payment - balance * rate)) / Math.log(1 + rate);
+         document.getElementById("repaymentResult").innerText = "Months to Payoff: " + monthsToPayoff.toFixed(0);
+         } else {
+         document.getElementById("repaymentResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Student Loan Calculator
+         function calculateStudentLoan() {
+         let amount = parseFloat(document.getElementById("studentLoanAmount").value);
+         let rate = parseFloat(document.getElementById("studentLoanRate").value) / 100 / 12;
+         let term = parseInt(document.getElementById("studentLoanTerm").value) * 12;
+         
+         if (amount && rate && term) {
+         let monthlyPayment = (amount * rate) / (1 - Math.pow(1 + rate, -term));
+         document.getElementById("studentLoanResult").innerText = "Monthly Payment: " + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("studentLoanResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // College Cost Calculator
+         function calculateCollegeCost() {
+         let tuition = parseFloat(document.getElementById("collegeTuition").value);
+         let years = parseInt(document.getElementById("collegeYears").value);
+         let savings = parseFloat(document.getElementById("collegeSavings").value);
+         let rate = parseFloat(document.getElementById("collegeInterestRate").value) / 100;
+         
+         if (tuition && years && savings && rate) {
+         let totalCost = tuition * years - savings * Math.pow(1 + rate, years);
+         document.getElementById("collegeCostResult").innerText = "Total College Cost: " + totalCost.toFixed(2);
+         } else {
+         document.getElementById("collegeCostResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Simple Interest Calculator
+         function calculateSimpleInterest() {
+         let principal = parseFloat(document.getElementById("simpleInterestPrincipal").value);
+         let rate = parseFloat(document.getElementById("simpleInterestRate").value) / 100;
+         let time = parseInt(document.getElementById("simpleInterestTime").value);
+         
+         if (principal && rate && time) {
+         let interest = principal * rate * time;
+         document.getElementById("simpleInterestResult").innerText = "Interest: " + interest.toFixed(2);
+         } else {
+         document.getElementById("simpleInterestResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // CD Calculator
+         function calculateCD() {
+         let principal = parseFloat(document.getElementById("cdPrincipal").value);
+         let rate = parseFloat(document.getElementById("cdRate").value) / 100;
+         let time = parseInt(document.getElementById("cdYears").value);
+         
+         if (principal && rate && time) {
+         let futureValue = principal * Math.pow(1 + rate, time);
+         document.getElementById("cdResult").innerText = "Future Value: " + futureValue.toFixed(2);
+         } else {
+         document.getElementById("cdResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Bond Calculator
+         function calculateBond() {
+         let principal = parseFloat(document.getElementById("bondPrincipal").value);
+         let rate = parseFloat(document.getElementById("bondRate").value) / 100;
+         let time = parseInt(document.getElementById("bondYears").value);
+         
+         if (principal && rate && time) {
+         let futureValue = principal * Math.pow(1 + rate, time);
+         document.getElementById("bondResult").innerText = "Future Value: " + futureValue.toFixed(2);
+         } else {
+         document.getElementById("bondResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Roth IRA Calculator
+         function calculateRothIRA() {
+         let contribution = parseFloat(document.getElementById("rothIRAContribution").value);
+         let returnRate = parseFloat(document.getElementById("rothIRAReturn").value) / 100;
+         let years = parseInt(document.getElementById("rothIRAYears").value);
+         
+         if (contribution && returnRate && years) {
+         let futureValue = contribution * ((Math.pow(1 + returnRate, years) - 1) / returnRate);
+         document.getElementById("rothIRAResult").innerText = "Future Value: " + futureValue.toFixed(2);
+         } else {
+         document.getElementById("rothIRAResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // IRA Calculator
+         function calculateIRA() {
+         let contribution = parseFloat(document.getElementById("iraContribution").value);
+         let returnRate = parseFloat(document.getElementById("iraReturn").value) / 100;
+         let years = parseInt(document.getElementById("iraYears").value);
+         
+         if (contribution && returnRate && years) {
+         let futureValue = contribution * ((Math.pow(1 + returnRate, years) - 1) / returnRate);
+         document.getElementById("iraResult").innerText = "Future Value: " + futureValue.toFixed(2);
+         } else {
+         document.getElementById("iraResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // RMD Calculator
+         function calculateRMD() {
+         let age = parseInt(document.getElementById("rmdAge").value);
+         let balance = parseFloat(document.getElementById("rmdBalance").value);
+         
+         if (age && balance) {
+         let rmdFactor = 27.4 - (age - 70);
+         let rmd = balance / rmdFactor;
+         document.getElementById("rmdResult").innerText = "RMD: " + rmd.toFixed(2);
+         } else {
+         document.getElementById("rmdResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // VAT Calculator
+         function calculateVAT() {
+         let amount = parseFloat(document.getElementById("vatAmount").value);
+         let rate = parseFloat(document.getElementById("vatRate").value) / 100;
+         
+         if (amount && rate) {
+         let vat = amount * rate;
+         document.getElementById("vatResult").innerText = "VAT: " + vat.toFixed(2);
+         } else {
+         document.getElementById("vatResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Cash Back Calculator
+         function calculateCashBack() {
+         let purchaseAmount = parseFloat(document.getElementById("purchaseAmountCB").value);
+         let cashBackRate = parseFloat(document.getElementById("cashBackRate").value) / 100;
+         let interestRate = parseFloat(document.getElementById("interestRateCB").value) / 100 / 12;
+         
+         if (purchaseAmount && cashBackRate && interestRate) {
+         let cashBack = purchaseAmount * cashBackRate;
+         let interest = purchaseAmount * interestRate;
+         document.getElementById("cashBackResult").innerText = "Cash Back: " + cashBack.toFixed(2) + ", Interest: " + interest.toFixed(2);
+         } else {
+         document.getElementById("cashBackResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Auto Lease Calculator
+         function calculateAutoLease() {
+         let leasePrice = parseFloat(document.getElementById("leasePrice").value);
+         let leaseTerm = parseInt(document.getElementById("leaseTerm").value);
+         let leaseRate = parseFloat(document.getElementById("leaseRate").value) / 100 / 12;
+         
+         if (leasePrice && leaseTerm && leaseRate) {
+         let monthlyPayment = (leasePrice * leaseRate) / (1 - Math.pow(1 + leaseRate, -leaseTerm));
+         document.getElementById("autoLeaseResult").innerText = "Monthly Payment: " + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("autoLeaseResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Depreciation Calculator
+         function calculateDepreciation() {
+         let initialValue = parseFloat(document.getElementById("initialValue").value);
+         let depreciationRate = parseFloat(document.getElementById("depreciationRate").value) / 100;
+         let years = parseInt(document.getElementById("depreciationYears").value);
+         
+         if (initialValue && depreciationRate && years) {
+         let finalValue = initialValue * Math.pow(1 - depreciationRate, years);
+         document.getElementById("depreciationResult").innerText = "Depreciated Value: " + finalValue.toFixed(2);
+         } else {
+         document.getElementById("depreciationResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Average Return Calculator
+         function calculateAverageReturn() {
+         let initialInvestment = parseFloat(document.getElementById("initialInvestmentAR").value);
+         let annualReturn = parseFloat(document.getElementById("annualReturnAR").value) / 100;
+         let years = parseInt(document.getElementById("yearsAR").value);
+         
+         if (initialInvestment && annualReturn && years) {
+         let futureValue = initialInvestment * Math.pow(1 + annualReturn, years);
+         document.getElementById("averageReturnResult").innerText = "Average Return: " + futureValue.toFixed(2);
+         } else {
+         document.getElementById("averageReturnResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Margin Calculator
+         function calculateMargin() {
+         let costPrice = parseFloat(document.getElementById("costPrice").value);
+         let sellingPrice = parseFloat(document.getElementById("sellingPrice").value);
+         
+         if (costPrice && sellingPrice) {
+         let margin = ((sellingPrice - costPrice) / sellingPrice) * 100;
+         document.getElementById("marginResult").innerText = "Margin: " + margin.toFixed(2) + "%";
+         } else {
+         document.getElementById("marginResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Discount Calculator
+         function calculateDiscount() {
+         let originalPrice = parseFloat(document.getElementById("originalPrice").value);
+         let discountRate = parseFloat(document.getElementById("discountRate").value) / 100;
+         
+         if (originalPrice && discountRate) {
+         let discountAmount = originalPrice * discountRate;
+         let finalPrice = originalPrice - discountAmount;
+         document.getElementById("discountResult").innerText = "Discount Amount: " + discountAmount.toFixed(2) + ", Final Price: " + finalPrice.toFixed(2);
+         } else {
+         document.getElementById("discountResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Business Loan Calculator
+         function calculateBusinessLoan() {
+         let amount = parseFloat(document.getElementById("businessLoanAmount").value);
+         let rate = parseFloat(document.getElementById("businessLoanRate").value) / 100 / 12;
+         let term = parseInt(document.getElementById("businessLoanTerm").value) * 12;
+         
+         if (amount && rate && term) {
+         let monthlyPayment = (amount * rate) / (1 - Math.pow(1 + rate, -term));
+         document.getElementById("businessLoanResult").innerText = "Monthly Payment: " + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("businessLoanResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Debt-to-Income Ratio Calculator
+         function calculateDebtToIncome() {
+         let totalDebt = parseFloat(document.getElementById("totalDebt").value);
+         let totalIncome = parseFloat(document.getElementById("totalIncome").value);
+         
+         if (totalDebt && totalIncome) {
+         let ratio = (totalDebt / totalIncome) * 100;
+         document.getElementById("debtToIncomeResult").innerText = "Debt-to-Income Ratio: " + ratio.toFixed(2) + "%";
+         } else {
+         document.getElementById("debtToIncomeResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Real Estate Calculator
+         function calculateRealEstate() {
+         let price = parseFloat(document.getElementById("realEstatePrice").value);
+         let term = parseInt(document.getElementById("realEstateLoanTerm").value) * 12;
+         let rate = parseFloat(document.getElementById("realEstateRate").value) / 100 / 12;
+         
+         if (price && term && rate) {
+         let monthlyPayment = (price * rate) / (1 - Math.pow(1 + rate, -term));
+         document.getElementById("realEstateResult").innerText = "Monthly Payment: " + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("realEstateResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Take-Home Paycheck Calculator
+         function calculateTakeHomePaycheck() {
+         let grossPay = parseFloat(document.getElementById("grossPay").value);
+         let taxWithheld = parseFloat(document.getElementById("taxWithheld").value) / 100;
+         
+         if (grossPay && taxWithheld) {
+         let netPay = grossPay * (1 - taxWithheld);
+         document.getElementById("takeHomePaycheckResult").innerText = "Net Pay: " + netPay.toFixed(2);
+         } else {
+         document.getElementById("takeHomePaycheckResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Personal Loan Calculator
+         function calculatePersonalLoan() {
+         let amount = parseFloat(document.getElementById("personalLoanAmount").value);
+         let rate = parseFloat(document.getElementById("personalLoanRate").value) / 100 / 12;
+         let term = parseInt(document.getElementById("personalLoanTerm").value) * 12;
+         
+         if (amount && rate && term) {
+         let monthlyPayment = (amount * rate) / (1 - Math.pow(1 + rate, -term));
+         document.getElementById("personalLoanResult").innerText = "Monthly Payment: " + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("personalLoanResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Lease Calculator
+         function calculateLease() {
+         let leasePrice = parseFloat(document.getElementById("leasePriceCalculator").value);
+         let leaseTerm = parseInt(document.getElementById("leaseTermCalculator").value);
+         let leaseRate = parseFloat(document.getElementById("leaseRateCalculator").value) / 100 / 12;
+         
+         if (leasePrice && leaseTerm && leaseRate) {
+         let monthlyPayment = (leasePrice * leaseRate) / (1 - Math.pow(1 + leaseRate, -leaseTerm));
+         document.getElementById("leaseResult").innerText = "Monthly Payment: " + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("leaseResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Refinance Calculator
+         function calculateRefinance() {
+         let amount = parseFloat(document.getElementById("refinanceAmount").value);
+         let rate = parseFloat(document.getElementById("refinanceRate").value) / 100 / 12;
+         let term = parseInt(document.getElementById("refinanceTerm").value) * 12;
+         
+         if (amount && rate && term) {
+         let monthlyPayment = (amount * rate) / (1 - Math.pow(1 + rate, -term));
+         document.getElementById("refinanceResult").innerText = "Monthly Payment: " + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("refinanceResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Budget Calculator
+         function calculateBudget() {
+         let income = parseFloat(document.getElementById("income").value);
+         let expenses = parseFloat(document.getElementById("expenses").value);
+         
+         if (income && expenses) {
+         let balance = income - expenses;
+         document.getElementById("budgetResult").innerText = "Monthly Balance: " + balance.toFixed(2);
+         } else {
+         document.getElementById("budgetResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Rental Property Calculator
+         function calculateRentalProperty() {
+         let propertyPrice = parseFloat(document.getElementById("propertyPrice").value);
+         let rentalIncome = parseFloat(document.getElementById("rentalIncome").value);
+         let rentalExpenses = parseFloat(document.getElementById("rentalExpenses").value);
+         
+         if (propertyPrice && rentalIncome && rentalExpenses) {
+         let netIncome = rentalIncome - rentalExpenses;
+         let roi = (netIncome / propertyPrice) * 100;
+         document.getElementById("rentalPropertyResult").innerText = "Annual ROI: " + roi.toFixed(2) + "%";
+         } else {
+         document.getElementById("rentalPropertyResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // ROI Calculator
+         function calculateROI() {
+         let investment = parseFloat(document.getElementById("investment").value);
+         let returnAmount = parseFloat(document.getElementById("returnAmount").value);
+         
+         if (investment && returnAmount) {
+         let roi = ((returnAmount - investment) / investment) * 100;
+         document.getElementById("roiResult").innerText = "ROI: " + roi.toFixed(2) + "%";
+         } else {
+         document.getElementById("roiResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // APR Calculator
+         function calculateAPR() {
+         let amount = parseFloat(document.getElementById("aprLoanAmount").value);
+         let rate = parseFloat(document.getElementById("aprRate").value) / 100 / 12;
+         let term = parseInt(document.getElementById("aprTerm").value) * 12;
+         
+         if (amount && rate && term) {
+         let monthlyPayment = (amount * rate) / (1 - Math.pow(1 + rate, -term));
+         document.getElementById("aprResult").innerText = "Monthly Payment: " + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("aprResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // FHA Loan Calculator
+         function calculateFHALoan() {
+         let amount = parseFloat(document.getElementById("fhaLoanAmount").value);
+         let rate = parseFloat(document.getElementById("fhaRate").value) / 100 / 12;
+         let term = parseInt(document.getElementById("fhaTerm").value) * 12;
+         
+         if (amount && rate && term) {
+         let monthlyPayment = (amount * rate) / (1 - Math.pow(1 + rate, -term));
+         document.getElementById("fhaLoanResult").innerText = "Monthly Payment: " + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("fhaLoanResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // VA Mortgage Calculator
+         function calculateVAMortgage() {
+         let amount = parseFloat(document.getElementById("vaMortgageAmount").value);
+         let rate = parseFloat(document.getElementById("vaRate").value) / 100 / 12;
+         let term = parseInt(document.getElementById("vaTerm").value) * 12;
+         
+         if (amount && rate && term) {
+         let monthlyPayment = (amount * rate) / (1 - Math.pow(1 + rate, -term));
+         document.getElementById("vaMortgageResult").innerText = "Monthly Payment: " + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("vaMortgageResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Down Payment Calculator
+         function calculateDownPayment() {
+         let homePrice = parseFloat(document.getElementById("homePrice").value);
+         let downPaymentRate = parseFloat(document.getElementById("downPaymentRate").value) / 100;
+         
+         if (homePrice && downPaymentRate) {
+         let downPayment = homePrice * downPaymentRate;
+         document.getElementById("downPaymentResult").innerText = "Down Payment: " + downPayment.toFixed(2);
+         } else {
+         document.getElementById("downPaymentResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Rent vs. Buy Calculator
+         function calculateRentVsBuy() {
+         let rentAmount = parseFloat(document.getElementById("rentAmount").value);
+         let homePrice = parseFloat(document.getElementById("homePriceRvB").value);
+         let downPaymentRate = parseFloat(document.getElementById("downPaymentRvB").value) / 100;
+         
+         if (rentAmount && homePrice && downPaymentRate) {
+         let downPayment = homePrice * downPaymentRate;
+         let monthlyMortgage = (homePrice - downPayment) * (0.04 / 12); // assuming a 4% annual mortgage rate
+         document.getElementById("rentVsBuyResult").innerText = "Rent: " + rentAmount.toFixed(2) + " vs. Buy: " + monthlyMortgage.toFixed(2) + " per month";
+         } else {
+         document.getElementById("rentVsBuyResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Payback Period Calculator
+         function calculatePaybackPeriod() {
+         let initialInvestment = parseFloat(document.getElementById("initialInvestmentPB").value);
+         let annualCashFlow = parseFloat(document.getElementById("annualCashFlow").value);
+         
+         if (initialInvestment && annualCashFlow) {
+         let paybackPeriod = initialInvestment / annualCashFlow;
+         document.getElementById("paybackPeriodResult").innerText = "Payback Period: " + paybackPeriod.toFixed(2) + " years";
+         } else {
+         document.getElementById("paybackPeriodResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Present Value Calculator
+         function calculatePresentValue() {
+         let futureValue = parseFloat(document.getElementById("futureValue").value);
+         let discountRate = parseFloat(document.getElementById("discountRate").value) / 100;
+         let timePeriod = parseInt(document.getElementById("timePeriodPV").value);
+         
+         if (futureValue && discountRate && timePeriod) {
+         let presentValue = futureValue / Math.pow(1 + discountRate, timePeriod);
+         document.getElementById("presentValueResult").innerText = "Present Value: " + presentValue.toFixed(2);
+         } else {
+         document.getElementById("presentValueResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Future Value Calculator
+         function calculateFutureValue() {
+         let presentValue = parseFloat(document.getElementById("presentValue").value);
+         let futureRate = parseFloat(document.getElementById("futureRate").value) / 100;
+         let futureYears = parseInt(document.getElementById("futureYears").value);
+         
+         if (presentValue && futureRate && futureYears) {
+         let futureValue = presentValue * Math.pow(1 + futureRate, futureYears);
+         document.getElementById("futureValueResult").innerText = "Future Value: " + futureValue.toFixed(2);
+         } else {
+         document.getElementById("futureValueResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Commission Calculator
+         function calculateCommission() {
+         let saleAmount = parseFloat(document.getElementById("saleAmount").value);
+         let commissionRate = parseFloat(document.getElementById("commissionRate").value) / 100;
+         
+         if (saleAmount && commissionRate) {
+         let commission = saleAmount * commissionRate;
+         document.getElementById("commissionResult").innerText = "Commission: " + commission.toFixed(2);
+         } else {
+         document.getElementById("commissionResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Mortgage Calculator UK
+         function calculateMortgageUK() {
+         let amount = parseFloat(document.getElementById("mortgageAmountUK").value);
+         let rate = parseFloat(document.getElementById("interestRateUK").value) / 100 / 12;
+         let term = parseInt(document.getElementById("loanTermUK").value) * 12;
+         
+         if (amount && rate && term) {
+         let monthlyPayment = (amount * rate) / (1 - Math.pow(1 + rate, -term));
+         document.getElementById("mortgageUKResult").innerText = "Monthly Payment: £" + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("mortgageUKResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Canadian Mortgage Calculator
+         function calculateCanadianMortgage() {
+         let amount = parseFloat(document.getElementById("mortgageAmountCA").value);
+         let rate = parseFloat(document.getElementById("interestRateCA").value) / 100 / 12;
+         let term = parseInt(document.getElementById("loanTermCA").value) * 12;
+         
+         if (amount && rate && term) {
+         let monthlyPayment = (amount * rate) / (1 - Math.pow(1 + rate, -term));
+         document.getElementById("canadianMortgageResult").innerText = "Monthly Payment: C$" + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("canadianMortgageResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Mortgage Amortization Calculator
+         function calculateMortgageAmortization() {
+         let amount = parseFloat(document.getElementById("mortgageAmortizationAmount").value);
+         let rate = parseFloat(document.getElementById("amortizationRate").value) / 100 / 12;
+         let term = parseInt(document.getElementById("amortizationTerm").value) * 12;
+         
+         if (amount && rate && term) {
+         let monthlyPayment = (amount * rate) / (1 - Math.pow(1 + rate, -term));
+         document.getElementById("mortgageAmortizationResult").innerText = "Monthly Payment: " + monthlyPayment.toFixed(2);
+         } else {
+         document.getElementById("mortgageAmortizationResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+         // Percent Off Calculator
+         function calculatePercentOff() {
+         let originalPrice = parseFloat(document.getElementById("originalPricePercentOff").value);
+         let percentOffRate = parseFloat(document.getElementById("percentOffRate").value) / 100;
+         
+         if (originalPrice && percentOffRate) {
+         let discountAmount = originalPrice * percentOffRate;
+         let finalPrice = originalPrice - discountAmount;
+         document.getElementById("percentOffResult").innerText = "Discount Amount: " + discountAmount.toFixed(2) + ", Final Price: " + finalPrice.toFixed(2);
+         } else {
+         document.getElementById("percentOffResult").innerText = "Please fill in all fields.";
+         }
+         }
+         
+      </script>
+   </head>
+   <body>
+      <header>
+         <h1>Financial Calculators</h1>
+      </header>
+      <nav>
+         <a href="#financial">Financial Calculators</a>
+         <a href="fitness.html">Fitness and Health Calculators</a>
+         <a href="math.html">Math Calculators</a>
+         <a href="other.html">Other Calculators</a>
+         <a href="landing.html">View All Calculators</a>
+      </nav>
+      <main>
+         <section id="financial">
+            <h2>Financial Calculators</h2>
+            <div class="calculator-category">
+               <h3>Available Calculators</h3>
+               <ul>
+                  <li><a href="#mortgage" onclick="showCalculator('mortgage')">Mortgage Calculator</a></li>
+                  <li><a href="#loan" onclick="showCalculator('loan')">Loan Calculator</a></li>
+                  <li><a href="#auto-loan" onclick="showCalculator('auto-loan')">Auto Loan Calculator</a></li>
+                  <li><a href="#interest" onclick="showCalculator('interest')">Interest Calculator</a></li>
+                  <li><a href="#payment" onclick="showCalculator('payment')">Payment Calculator</a></li>
+                  <li><a href="#retirement" onclick="showCalculator('retirement')">Retirement Calculator</a></li>
+                  <li><a href="#amortization" onclick="showCalculator('amortization')">Amortization Calculator</a></li>
+                  <li><a href="#investment" onclick="showCalculator('investment')">Investment Calculator</a></li>
+                  <li><a href="#currency" onclick="showCalculator('currency')">Currency Calculator</a></li>
+                  <li><a href="#inflation" onclick="showCalculator('inflation')">Inflation Calculator</a></li>
+                  <li><a href="#finance" onclick="showCalculator('finance')">Finance Calculator</a></li>
+                  <li><a href="#mortgage-payoff" onclick="showCalculator('mortgage-payoff')">Mortgage Payoff Calculator</a></li>
+                  <li><a href="#income-tax" onclick="showCalculator('income-tax')">Income Tax Calculator</a></li>
+                  <li><a href="#compound-interest" onclick="showCalculator('compound-interest')">Compound Interest Calculator</a></li>
+                  <li><a href="#salary" onclick="showCalculator('salary')">Salary Calculator</a></li>
+                  <li><a href="#401k" onclick="showCalculator('401k')">401K Calculator</a></li>
+                  <li><a href="#interest-rate" onclick="showCalculator('interest-rate')">Interest Rate Calculator</a></li>
+                  <li><a href="#sales-tax" onclick="showCalculator('sales-tax')">Sales Tax Calculator</a></li>
+                  <li><a href="#house-affordability" onclick="showCalculator('house-affordability')">House Affordability Calculator</a></li>
+                  <li><a href="#savings" onclick="showCalculator('savings')">Savings Calculator</a></li>
+                  <li><a href="#rent" onclick="showCalculator('rent')">Rent Calculator</a></li>
+                  <li><a href="#marriage-tax" onclick="showCalculator('marriage-tax')">Marriage Tax Calculator</a></li>
+                  <li><a href="#estate-tax" onclick="showCalculator('estate-tax')">Estate Tax Calculator</a></li>
+                  <li><a href="#pension" onclick="showCalculator('pension')">Pension Calculator</a></li>
+                  <li><a href="#social-security" onclick="showCalculator('social-security')">Social Security Calculator</a></li>
+                  <li><a href="#annuity" onclick="showCalculator('annuity')">Annuity Calculator</a></li>
+                  <li><a href="#annuity-payout" onclick="showCalculator('annuity-payout')">Annuity Payout Calculator</a></li>
+                  <li><a href="#credit-card" onclick="showCalculator('credit-card')">Credit Card Calculator</a></li>
+                  <li><a href="#credit-cards-payoff" onclick="showCalculator('credit-cards-payoff')">Credit Cards Payoff Calculator</a></li>
+                  <li><a href="#debt-payoff" onclick="showCalculator('debt-payoff')">Debt Payoff Calculator</a></li>
+                  <li><a href="#debt-consolidation" onclick="showCalculator('debt-consolidation')">Debt Consolidation Calculator</a></li>
+                  <li><a href="#repayment" onclick="showCalculator('repayment')">Repayment Calculator</a></li>
+                  <li><a href="#student-loan" onclick="showCalculator('student-loan')">Student Loan Calculator</a></li>
+                  <li><a href="#college-cost" onclick="showCalculator('college-cost')">College Cost Calculator</a></li>
+                  <li><a href="#simple-interest" onclick="showCalculator('simple-interest')">Simple Interest Calculator</a></li>
+                  <li><a href="#cd" onclick="showCalculator('cd')">CD Calculator</a></li>
+                  <li><a href="#bond" onclick="showCalculator('bond')">Bond Calculator</a></li>
+                  <li><a href="#roth-ira" onclick="showCalculator('roth-ira')">Roth IRA Calculator</a></li>
+                  <li><a href="#ira" onclick="showCalculator('ira')">IRA Calculator</a></li>
+                  <li><a href="#rmd" onclick="showCalculator('rmd')">RMD Calculator</a></li>
+                  <li><a href="#vat" onclick="showCalculator('vat')">VAT Calculator</a></li>
+                  <li><a href="#cash-back" onclick="showCalculator('cash-back')">Cash Back or Low Interest Calculator</a></li>
+                  <li><a href="#auto-lease" onclick="showCalculator('auto-lease')">Auto Lease Calculator</a></li>
+                  <li><a href="#depreciation" onclick="showCalculator('depreciation')">Depreciation Calculator</a></li>
+                  <li><a href="#average-return" onclick="showCalculator('average-return')">Average Return Calculator</a></li>
+                  <li><a href="#margin" onclick="showCalculator('margin')">Margin Calculator</a></li>
+                  <li><a href="#discount" onclick="showCalculator('discount')">Discount Calculator</a></li>
+                  <li><a href="#business-loan" onclick="showCalculator('business-loan')">Business Loan Calculator</a></li>
+                  <li><a href="#debt-to-income" onclick="showCalculator('debt-to-income')">Debt-to-Income Ratio Calculator</a></li>
+                  <li><a href="#real-estate" onclick="showCalculator('real-estate')">Real Estate Calculator</a></li>
+                  <li><a href="#take-home-paycheck" onclick="showCalculator('take-home-paycheck')">Take-Home Paycheck Calculator</a></li>
+                  <li><a href="#personal-loan" onclick="showCalculator('personal-loan')">Personal Loan Calculator</a></li>
+                  <li><a href="#lease" onclick="showCalculator('lease')">Lease Calculator</a></li>
+                  <li><a href="#refinance" onclick="showCalculator('refinance')">Refinance Calculator</a></li>
+                  <li><a href="#budget" onclick="showCalculator('budget')">Budget Calculator</a></li>
+                  <li><a href="#rental-property" onclick="showCalculator('rental-property')">Rental Property Calculator</a></li>
+                  <li><a href="#roi" onclick="showCalculator('roi')">ROI Calculator</a></li>
+                  <li><a href="#apr" onclick="showCalculator('apr')">APR Calculator</a></li>
+                  <li><a href="#fha-loan" onclick="showCalculator('fha-loan')">FHA Loan Calculator</a></li>
+                  <li><a href="#va-mortgage" onclick="showCalculator('va-mortgage')">VA Mortgage Calculator</a></li>
+                  <li><a href="#down-payment" onclick="showCalculator('down-payment')">Down Payment Calculator</a></li>
+                  <li><a href="#rent-vs-buy" onclick="showCalculator('rent-vs-buy')">Rent vs. Buy Calculator</a></li>
+                  <li><a href="#payback-period" onclick="showCalculator('payback-period')">Payback Period Calculator</a></li>
+                  <li><a href="#present-value" onclick="showCalculator('present-value')">Present Value Calculator</a></li>
+                  <li><a href="#future-value" onclick="showCalculator('future-value')">Future Value Calculator</a></li>
+                  <li><a href="#commission" onclick="showCalculator('commission')">Commission Calculator</a></li>
+                  <li><a href="#mortgage-uk" onclick="showCalculator('mortgage-uk')">Mortgage Calculator UK</a></li>
+                  <li><a href="#canadian-mortgage" onclick="showCalculator('canadian-mortgage')">Canadian Mortgage Calculator</a></li>
+                  <li><a href="#mortgage-amortization" onclick="showCalculator('mortgage-amortization')">Mortgage Amortization Calculator</a></li>
+                  <li><a href="#percent-off" onclick="showCalculator('percent-off')">Percent Off Calculator</a></li>
+               </ul>
+            </div>
+         </section>
+         <section id="tool_layout" class="calculator_tool">
+            <div id="mortgage" class="calculator_tool" style="display:none;">
+               <h2>Mortgage Calculator</h2>
+               <form>
+                  <label for="mortgageAmount">Loan Amount:</label>
+                  <input type="number" id="mortgageAmount" name="mortgageAmount"><br>
+                  <label for="interestRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="interestRate" name="interestRate"><br>
+                  <label for="loanTerm">Loan Term (years):</label>
+                  <input type="number" id="loanTerm" name="loanTerm"><br>
+                  <button type="button" onclick="calculateMortgage()">Calculate</button>
+               </form>
+               <p id="mortgageResult"></p>
+            </div>
+            <div id="loan" class="calculator_tool" style="display:none;">
+               <h2>Loan Calculator</h2>
+               <form>
+                  <label for="loanAmount">Loan Amount:</label>
+                  <input type="number" id="loanAmount" name="loanAmount"><br>
+                  <label for="loanInterestRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="loanInterestRate" name="loanInterestRate"><br>
+                  <label for="loanTermYears">Loan Term (years):</label>
+                  <input type="number" id="loanTermYears" name="loanTermYears"><br>
+                  <button type="button" onclick="calculateLoan()">Calculate</button>
+               </form>
+               <p id="loanResult"></p>
+            </div>
+            <div id="auto-loan" class="calculator_tool" style="display:none;">
+               <h2>Auto Loan Calculator</h2>
+               <form>
+                  <label for="autoLoanAmount">Loan Amount:</label>
+                  <input type="number" id="autoLoanAmount" name="autoLoanAmount"><br>
+                  <label for="autoLoanInterestRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="autoLoanInterestRate" name="autoLoanInterestRate"><br>
+                  <label for="autoLoanTermYears">Loan Term (years):</label>
+                  <input type="number" id="autoLoanTermYears" name="autoLoanTermYears"><br>
+                  <button type="button" onclick="calculateAutoLoan()">Calculate</button>
+               </form>
+               <p id="autoLoanResult"></p>
+            </div>
+            <div id="interest" class="calculator_tool" style="display:none;">
+               <h2>Interest Calculator</h2>
+               <form>
+                  <label for="principalAmount">Principal Amount:</label>
+                  <input type="number" id="principalAmount" name="principalAmount"><br>
+                  <label for="annualInterestRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="annualInterestRate" name="annualInterestRate"><br>
+                  <label for="timePeriod">Time Period (years):</label>
+                  <input type="number" id="timePeriod" name="timePeriod"><br>
+                  <button type="button" onclick="calculateInterest()">Calculate</button>
+               </form>
+               <p id="interestResult"></p>
+            </div>
+            <div id="payment" class="calculator_tool" style="display:none;">
+               <h2>Payment Calculator</h2>
+               <form>
+                  <label for="paymentLoanAmount">Loan Amount:</label>
+                  <input type="number" id="paymentLoanAmount" name="paymentLoanAmount"><br>
+                  <label for="paymentInterestRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="paymentInterestRate" name="paymentInterestRate"><br>
+                  <label for="paymentTermYears">Loan Term (years):</label>
+                  <input type="number" id="paymentTermYears" name="paymentTermYears"><br>
+                  <button type="button" onclick="calculatePayment()">Calculate</button>
+               </form>
+               <p id="paymentResult"></p>
+            </div>
+            <div id="retirement" class="calculator_tool" style="display:none;">
+               <h2>Retirement Calculator</h2>
+               <form>
+                  <label for="currentAge">Current Age:</label>
+                  <input type="number" id="currentAge" name="currentAge"><br>
+                  <label for="retirementAge">Retirement Age:</label>
+                  <input type="number" id="retirementAge" name="retirementAge"><br>
+                  <label for="currentSavings">Current Savings:</label>
+                  <input type="number" id="currentSavings" name="currentSavings"><br>
+                  <label for="annualContribution">Annual Contribution:</label>
+                  <input type="number" id="annualContribution" name="annualContribution"><br>
+                  <label for="annualReturn">Annual Return (%):</label>
+                  <input type="number" id="annualReturn" name="annualReturn"><br>
+                  <button type="button" onclick="calculateRetirement()">Calculate</button>
+               </form>
+               <p id="retirementResult"></p>
+            </div>
+            <div id="amortization" class="calculator_tool" style="display:none;">
+               <h2>Amortization Calculator</h2>
+               <form>
+                  <label for="amortizationLoanAmount">Loan Amount:</label>
+                  <input type="number" id="amortizationLoanAmount" name="amortizationLoanAmount"><br>
+                  <label for="amortizationInterestRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="amortizationInterestRate" name="amortizationInterestRate"><br>
+                  <label for="amortizationTermYears">Loan Term (years):</label>
+                  <input type="number" id="amortizationTermYears" name="amortizationTermYears"><br>
+                  <button type="button" onclick="calculateAmortization()">Calculate</button>
+               </form>
+               <p id="amortizationResult"></p>
+            </div>
+            <div id="investment" class="calculator_tool" style="display:none;">
+               <h2>Investment Calculator</h2>
+               <form>
+                  <label for="initialInvestment">Initial Investment:</label>
+                  <input type="number" id="initialInvestment" name="initialInvestment"><br>
+                  <label for="investmentAnnualReturn">Annual Return (%):</label>
+                  <input type="number" id="investmentAnnualReturn" name="investmentAnnualReturn"><br>
+                  <label for="investmentYears">Number of Years:</label>
+                  <input type="number" id="investmentYears" name="investmentYears"><br>
+                  <button type="button" onclick="calculateInvestment()">Calculate</button>
+               </form>
+               <p id="investmentResult"></p>
+            </div>
+            <div id="currency" class="calculator_tool" style="display:none;">
+               <h2>Currency Calculator</h2>
+               <form>
+                  <label for="amountToConvert">Amount to Convert:</label>
+                  <input type="number" id="amountToConvert" name="amountToConvert"><br>
+                  <label for="conversionRate">Conversion Rate:</label>
+                  <input type="number" id="conversionRate" name="conversionRate"><br>
+                  <button type="button" onclick="calculateCurrency()">Calculate</button>
+               </form>
+               <p id="currencyResult"></p>
+            </div>
+            <div id="inflation" class="calculator_tool" style="display:none;">
+               <h2>Inflation Calculator</h2>
+               <form>
+                  <label for="initialPrice">Initial Price:</label>
+                  <input type="number" id="initialPrice" name="initialPrice"><br>
+                  <label for="inflationRate">Annual Inflation Rate (%):</label>
+                  <input type="number" id="inflationRate" name="inflationRate"><br>
+                  <label for="inflationYears">Number of Years:</label>
+                  <input type="number" id="inflationYears" name="inflationYears"><br>
+                  <button type="button" onclick="calculateInflation()">Calculate</button>
+               </form>
+               <p id="inflationResult"></p>
+            </div>
+            <div id="finance" class="calculator_tool" style="display:none;">
+               <h2>Finance Calculator</h2>
+               <form>
+                  <label for="financePrincipal">Principal Amount:</label>
+                  <input type="number" id="financePrincipal" name="financePrincipal"><br>
+                  <label for="financeRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="financeRate" name="financeRate"><br>
+                  <label for="financeTime">Time Period (years):</label>
+                  <input type="number" id="financeTime" name="financeTime"><br>
+                  <button type="button" onclick="calculateFinance()">Calculate</button>
+               </form>
+               <p id="financeResult"></p>
+            </div>
+            <div id="mortgage-payoff" class="calculator_tool" style="display:none;">
+               <h2>Mortgage Payoff Calculator</h2>
+               <form>
+                  <label for="mortgagePayoffAmount">Current Mortgage Amount:</label>
+                  <input type="number" id="mortgagePayoffAmount" name="mortgagePayoffAmount"><br>
+                  <label for="mortgagePayoffExtra">Extra Payment Amount:</label>
+                  <input type="number" id="mortgagePayoffExtra" name="mortgagePayoffExtra"><br>
+                  <label for="mortgagePayoffInterestRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="mortgagePayoffInterestRate" name="mortgagePayoffInterestRate"><br>
+                  <button type="button" onclick="calculateMortgagePayoff()">Calculate</button>
+               </form>
+               <p id="mortgagePayoffResult"></p>
+            </div>
+            <div id="income-tax" class="calculator_tool" style="display:none;">
+               <h2>Income Tax Calculator</h2>
+               <form>
+                  <label for="annualIncome">Annual Income:</label>
+                  <input type="number" id="annualIncome" name="annualIncome"><br>
+                  <label for="taxRate">Tax Rate (%):</label>
+                  <input type="number" id="taxRate" name="taxRate"><br>
+                  <button type="button" onclick="calculateIncomeTax()">Calculate</button>
+               </form>
+               <p id="incomeTaxResult"></p>
+            </div>
+            <div id="compound-interest" class="calculator_tool" style="display:none;">
+               <h2>Compound Interest Calculator</h2>
+               <form>
+                  <label for="compoundPrincipal">Principal Amount:</label>
+                  <input type="number" id="compoundPrincipal" name="compoundPrincipal"><br>
+                  <label for="compoundRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="compoundRate" name="compoundRate"><br>
+                  <label for="compoundYears">Time Period (years):</label>
+                  <input type="number" id="compoundYears" name="compoundYears"><br>
+                  <button type="button" onclick="calculateCompoundInterest()">Calculate</button>
+               </form>
+               <p id="compoundInterestResult"></p>
+            </div>
+            <div id="salary" class="calculator_tool" style="display:none;">
+               <h2>Salary Calculator</h2>
+               <form>
+                  <label for="hourlyWage">Hourly Wage:</label>
+                  <input type="number" id="hourlyWage" name="hourlyWage"><br>
+                  <label for="hoursPerWeek">Hours per Week:</label>
+                  <input type="number" id="hoursPerWeek" name="hoursPerWeek"><br>
+                  <button type="button" onclick="calculateSalary()">Calculate</button>
+               </form>
+               <p id="salaryResult"></p>
+            </div>
+            <div id="401k" class="calculator_tool" style="display:none;">
+               <h2>401K Calculator</h2>
+               <form>
+                  <label for="contribution">Annual Contribution:</label>
+                  <input type="number" id="contribution" name="contribution"><br>
+                  <label for="employerMatch">Employer Match (%):</label>
+                  <input type="number" id="employerMatch" name="employerMatch"><br>
+                  <label for="rateOfReturn">Rate of Return (%):</label>
+                  <input type="number" id="rateOfReturn" name="rateOfReturn"><br>
+                  <label for="yearsToGrow">Years to Grow:</label>
+                  <input type="number" id="yearsToGrow" name="yearsToGrow"><br>
+                  <button type="button" onclick="calculate401k()">Calculate</button>
+               </form>
+               <p id="401kResult"></p>
+            </div>
+            <div id="interest-rate" class="calculator_tool" style="display:none;">
+               <h2>Interest Rate Calculator</h2>
+               <form>
+                  <label for="principalAmountRate">Principal Amount:</label>
+                  <input type="number" id="principalAmountRate" name="principalAmountRate"><br>
+                  <label for="interestRateRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="interestRateRate" name="interestRateRate"><br>
+                  <label for="timePeriodRate">Time Period (years):</label>
+                  <input type="number" id="timePeriodRate" name="timePeriodRate"><br>
+                  <button type="button" onclick="calculateInterestRate()">Calculate</button>
+               </form>
+               <p id="interestRateResult"></p>
+            </div>
+            <div id="sales-tax" class="calculator_tool" style="display:none;">
+               <h2>Sales Tax Calculator</h2>
+               <form>
+                  <label for="purchaseAmount">Purchase Amount:</label>
+                  <input type="number" id="purchaseAmount" name="purchaseAmount"><br>
+                  <label for="salesTaxRate">Sales Tax Rate (%):</label>
+                  <input type="number" id="salesTaxRate" name="salesTaxRate"><br>
+                  <button type="button" onclick="calculateSalesTax()">Calculate</button>
+               </form>
+               <p id="salesTaxResult"></p>
+            </div>
+            <div id="house-affordability" class="calculator_tool" style="display:none;">
+               <h2>House Affordability Calculator</h2>
+               <form>
+                  <label for="annualIncomeHouse">Annual Income:</label>
+                  <input type="number" id="annualIncomeHouse" name="annualIncomeHouse"><br>
+                  <label for="downPayment">Down Payment:</label>
+                  <input type="number" id="downPayment" name="downPayment"><br>
+                  <label for="loanTermHouse">Loan Term (years):</label>
+                  <input type="number" id="loanTermHouse" name="loanTermHouse"><br>
+                  <label for="houseInterestRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="houseInterestRate" name="houseInterestRate"><br>
+                  <button type="button" onclick="calculateHouseAffordability()">Calculate</button>
+               </form>
+               <p id="houseAffordabilityResult"></p>
+            </div>
+            <div id="savings" class="calculator_tool" style="display:none;">
+               <h2>Savings Calculator</h2>
+               <form>
+                  <label for="initialSavings">Initial Savings:</label>
+                  <input type="number" id="initialSavings" name="initialSavings"><br>
+                  <label for="monthlyContribution">Monthly Contribution:</label>
+                  <input type="number" id="monthlyContribution" name="monthlyContribution"><br>
+                  <label for="annualInterestRateSavings">Annual Interest Rate (%):</label>
+                  <input type="number" id="annualInterestRateSavings" name="annualInterestRateSavings"><br>
+                  <label for="yearsSavings">Number of Years:</label>
+                  <input type="number" id="yearsSavings" name="yearsSavings"><br>
+                  <button type="button" onclick="calculateSavings()">Calculate</button>
+               </form>
+               <p id="savingsResult"></p>
+            </div>
+            <div id="rent" class="calculator_tool" style="display:none;">
+               <h2>Rent Calculator</h2>
+               <form>
+                  <label for="monthlyRent">Monthly Rent:</label>
+                  <input type="number" id="monthlyRent" name="monthlyRent"><br>
+                  <label for="rentTerm">Rent Term (months):</label>
+                  <input type="number" id="rentTerm" name="rentTerm"><br>
+                  <button type="button" onclick="calculateRent()">Calculate</button>
+               </form>
+               <p id="rentResult"></p>
+            </div>
+            <div id="marriage-tax" class="calculator_tool" style="display:none;">
+               <h2>Marriage Tax Calculator</h2>
+               <form>
+                  <label for="incomeSpouse1">Spouse 1 Income:</label>
+                  <input type="number" id="incomeSpouse1" name="incomeSpouse1"><br>
+                  <label for="incomeSpouse2">Spouse 2 Income:</label>
+                  <input type="number" id="incomeSpouse2" name="incomeSpouse2"><br>
+                  <label for="marriageTaxRate">Tax Rate (%):</label>
+                  <input type="number" id="marriageTaxRate" name="marriageTaxRate"><br>
+                  <button type="button" onclick="calculateMarriageTax()">Calculate</button>
+               </form>
+               <p id="marriageTaxResult"></p>
+            </div>
+            <div id="estate-tax" class="calculator_tool" style="display:none;">
+               <h2>Estate Tax Calculator</h2>
+               <form>
+                  <label for="estateValue">Estate Value:</label>
+                  <input type="number" id="estateValue" name="estateValue"><br>
+                  <label for="estateTaxRate">Tax Rate (%):</label>
+                  <input type="number" id="estateTaxRate" name="estateTaxRate"><br>
+                  <button type="button" onclick="calculateEstateTax()">Calculate</button>
+               </form>
+               <p id="estateTaxResult"></p>
+            </div>
+            <div id="pension" class="calculator_tool" style="display:none;">
+               <h2>Pension Calculator</h2>
+               <form>
+                  <label for="currentAgePension">Current Age:</label>
+                  <input type="number" id="currentAgePension" name="currentAgePension"><br>
+                  <label for="retirementAgePension">Retirement Age:</label>
+                  <input type="number" id="retirementAgePension" name="retirementAgePension"><br>
+                  <label for="annualPension">Annual Pension:</label>
+                  <input type="number" id="annualPension" name="annualPension"><br>
+                  <button type="button" onclick="calculatePension()">Calculate</button>
+               </form>
+               <p id="pensionResult"></p>
+            </div>
+            <div id="social-security" class="calculator_tool" style="display:none;">
+               <h2>Social Security Calculator</h2>
+               <form>
+                  <label for="currentAgeSS">Current Age:</label>
+                  <input type="number" id="currentAgeSS" name="currentAgeSS"><br>
+                  <label for="retirementAgeSS">Retirement Age:</label>
+                  <input type="number" id="retirementAgeSS" name="retirementAgeSS"><br>
+                  <label for="monthlySS">Monthly Social Security Benefit:</label>
+                  <input type="number" id="monthlySS" name="monthlySS"><br>
+                  <button type="button" onclick="calculateSocialSecurity()">Calculate</button>
+               </form>
+               <p id="socialSecurityResult"></p>
+            </div>
+            <div id="annuity" class="calculator_tool" style="display:none;">
+               <h2>Annuity Calculator</h2>
+               <form>
+                  <label for="initialAnnuity">Initial Investment:</label>
+                  <input type="number" id="initialAnnuity" name="initialAnnuity"><br>
+                  <label for="annualReturnAnnuity">Annual Return (%):</label>
+                  <input type="number" id="annualReturnAnnuity" name="annualReturnAnnuity"><br>
+                  <label for="annuityYears">Number of Years:</label>
+                  <input type="number" id="annuityYears" name="annuityYears"><br>
+                  <button type="button" onclick="calculateAnnuity()">Calculate</button>
+               </form>
+               <p id="annuityResult"></p>
+            </div>
+            <div id="annuity-payout" class="calculator_tool" style="display:none;">
+               <h2>Annuity Payout Calculator</h2>
+               <form>
+                  <label for="initialAnnuityPayout">Initial Investment:</label>
+                  <input type="number" id="initialAnnuityPayout" name="initialAnnuityPayout"><br>
+                  <label for="annualReturnAnnuityPayout">Annual Return (%):</label>
+                  <input type="number" id="annualReturnAnnuityPayout" name="annualReturnAnnuityPayout"><br>
+                  <label for="annuityPayoutYears">Number of Years:</label>
+                  <input type="number" id="annuityPayoutYears" name="annuityPayoutYears"><br>
+                  <button type="button" onclick="calculateAnnuityPayout()">Calculate</button>
+               </form>
+               <p id="annuityPayoutResult"></p>
+            </div>
+            <div id="credit-card" class="calculator_tool" style="display:none;">
+               <h2>Credit Card Calculator</h2>
+               <form>
+                  <label for="creditCardBalance">Balance:</label>
+                  <input type="number" id="creditCardBalance" name="creditCardBalance"><br>
+                  <label for="creditCardRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="creditCardRate" name="creditCardRate"><br>
+                  <label for="creditCardMonthlyPayment">Monthly Payment:</label>
+                  <input type="number" id="creditCardMonthlyPayment" name="creditCardMonthlyPayment"><br>
+                  <button type="button" onclick="calculateCreditCard()">Calculate</button>
+               </form>
+               <p id="creditCardResult"></p>
+            </div>
+            <div id="credit-cards-payoff" class="calculator_tool" style="display:none;">
+               <h2>Credit Cards Payoff Calculator</h2>
+               <form>
+                  <label for="creditCardsBalance">Total Balance:</label>
+                  <input type="number" id="creditCardsBalance" name="creditCardsBalance"><br>
+                  <label for="creditCardsRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="creditCardsRate" name="creditCardsRate"><br>
+                  <label for="creditCardsMonthlyPayment">Monthly Payment:</label>
+                  <input type="number" id="creditCardsMonthlyPayment" name="creditCardsMonthlyPayment"><br>
+                  <button type="button" onclick="calculateCreditCardsPayoff()">Calculate</button>
+               </form>
+               <p id="creditCardsPayoffResult"></p>
+            </div>
+            <div id="debt-payoff" class="calculator_tool" style="display:none;">
+               <h2>Debt Payoff Calculator</h2>
+               <form>
+                  <label for="debtPayoffBalance">Total Debt:</label>
+                  <input type="number" id="debtPayoffBalance" name="debtPayoffBalance"><br>
+                  <label for="debtPayoffRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="debtPayoffRate" name="debtPayoffRate"><br>
+                  <label for="debtPayoffMonthlyPayment">Monthly Payment:</label>
+                  <input type="number" id="debtPayoffMonthlyPayment" name="debtPayoffMonthlyPayment"><br>
+                  <button type="button" onclick="calculateDebtPayoff()">Calculate</button>
+               </form>
+               <p id="debtPayoffResult"></p>
+            </div>
+            <div id="debt-consolidation" class="calculator_tool" style="display:none;">
+               <h2>Debt Consolidation Calculator</h2>
+               <form>
+                  <label for="debtConsolidationBalance">Total Debt:</label>
+                  <input type="number" id="debtConsolidationBalance" name="debtConsolidationBalance"><br>
+                  <label for="debtConsolidationRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="debtConsolidationRate" name="debtConsolidationRate"><br>
+                  <label for="debtConsolidationMonthlyPayment">Monthly Payment:</label>
+                  <input type="number" id="debtConsolidationMonthlyPayment" name="debtConsolidationMonthlyPayment"><br>
+                  <button type="button" onclick="calculateDebtConsolidation()">Calculate</button>
+               </form>
+               <p id="debtConsolidationResult"></p>
+            </div>
+            <div id="repayment" class="calculator_tool" style="display:none;">
+               <h2>Repayment Calculator</h2>
+               <form>
+                  <label for="repaymentBalance">Total Amount:</label>
+                  <input type="number" id="repaymentBalance" name="repaymentBalance"><br>
+                  <label for="repaymentRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="repaymentRate" name="repaymentRate"><br>
+                  <label for="repaymentMonthlyPayment">Monthly Payment:</label>
+                  <input type="number" id="repaymentMonthlyPayment" name="repaymentMonthlyPayment"><br>
+                  <button type="button" onclick="calculateRepayment()">Calculate</button>
+               </form>
+               <p id="repaymentResult"></p>
+            </div>
+            <div id="student-loan" class="calculator_tool" style="display:none;">
+               <h2>Student Loan Calculator</h2>
+               <form>
+                  <label for="studentLoanAmount">Loan Amount:</label>
+                  <input type="number" id="studentLoanAmount" name="studentLoanAmount"><br>
+                  <label for="studentLoanRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="studentLoanRate" name="studentLoanRate"><br>
+                  <label for="studentLoanTerm">Loan Term (years):</label>
+                  <input type="number" id="studentLoanTerm" name="studentLoanTerm"><br>
+                  <button type="button" onclick="calculateStudentLoan()">Calculate</button>
+               </form>
+               <p id="studentLoanResult"></p>
+            </div>
+            <div id="college-cost" class="calculator_tool" style="display:none;">
+               <h2>College Cost Calculator</h2>
+               <form>
+                  <label for="collegeTuition">Annual Tuition:</label>
+                  <input type="number" id="collegeTuition" name="collegeTuition"><br>
+                  <label for="collegeYears">Number of Years:</label>
+                  <input type="number" id="collegeYears" name="collegeYears"><br>
+                  <label for="collegeSavings">Current Savings:</label>
+                  <input type="number" id="collegeSavings" name="collegeSavings"><br>
+                  <label for="collegeInterestRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="collegeInterestRate" name="collegeInterestRate"><br>
+                  <button type="button" onclick="calculateCollegeCost()">Calculate</button>
+               </form>
+               <p id="collegeCostResult"></p>
+            </div>
+            <div id="simple-interest" class="calculator_tool" style="display:none;">
+               <h2>Simple Interest Calculator</h2>
+               <form>
+                  <label for="simpleInterestPrincipal">Principal Amount:</label>
+                  <input type="number" id="simpleInterestPrincipal" name="simpleInterestPrincipal"><br>
+                  <label for="simpleInterestRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="simpleInterestRate" name="simpleInterestRate"><br>
+                  <label for="simpleInterestTime">Time Period (years):</label>
+                  <input type="number" id="simpleInterestTime" name="simpleInterestTime"><br>
+                  <button type="button" onclick="calculateSimpleInterest()">Calculate</button>
+               </form>
+               <p id="simpleInterestResult"></p>
+            </div>
+            <div id="cd" class="calculator_tool" style="display:none;">
+               <h2>CD Calculator</h2>
+               <form>
+                  <label for="cdPrincipal">Principal Amount:</label>
+                  <input type="number" id="cdPrincipal" name="cdPrincipal"><br>
+                  <label for="cdRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="cdRate" name="cdRate"><br>
+                  <label for="cdYears">Time Period (years):</label>
+                  <input type="number" id="cdYears" name="cdYears"><br>
+                  <button type="button" onclick="calculateCD()">Calculate</button>
+               </form>
+               <p id="cdResult"></p>
+            </div>
+            <div id="bond" class="calculator_tool" style="display:none;">
+               <h2>Bond Calculator</h2>
+               <form>
+                  <label for="bondPrincipal">Principal Amount:</label>
+                  <input type="number" id="bondPrincipal" name="bondPrincipal"><br>
+                  <label for="bondRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="bondRate" name="bondRate"><br>
+                  <label for="bondYears">Time Period (years):</label>
+                  <input type="number" id="bondYears" name="bondYears"><br>
+                  <button type="button" onclick="calculateBond()">Calculate</button>
+               </form>
+               <p id="bondResult"></p>
+            </div>
+            <div id="roth-ira" class="calculator_tool" style="display:none;">
+               <h2>Roth IRA Calculator</h2>
+               <form>
+                  <label for="rothIRAContribution">Annual Contribution:</label>
+                  <input type="number" id="rothIRAContribution" name="rothIRAContribution"><br>
+                  <label for="rothIRAReturn">Annual Return (%):</label>
+                  <input type="number" id="rothIRAReturn" name="rothIRAReturn"><br>
+                  <label for="rothIRAYears">Number of Years:</label>
+                  <input type="number" id="rothIRAYears" name="rothIRAYears"><br>
+                  <button type="button" onclick="calculateRothIRA()">Calculate</button>
+               </form>
+               <p id="rothIRAResult"></p>
+            </div>
+            <div id="ira" class="calculator_tool" style="display:none;">
+               <h2>IRA Calculator</h2>
+               <form>
+                  <label for="iraContribution">Annual Contribution:</label>
+                  <input type="number" id="iraContribution" name="iraContribution"><br>
+                  <label for="iraReturn">Annual Return (%):</label>
+                  <input type="number" id="iraReturn" name="iraReturn"><br>
+                  <label for="iraYears">Number of Years:</label>
+                  <input type="number" id="iraYears" name="iraYears"><br>
+                  <button type="button" onclick="calculateIRA()">Calculate</button>
+               </form>
+               <p id="iraResult"></p>
+            </div>
+            <div id="rmd" class="calculator_tool" style="display:none;">
+               <h2>RMD Calculator</h2>
+               <form>
+                  <label for="rmdAge">Age:</label>
+                  <input type="number" id="rmdAge" name="rmdAge"><br>
+                  <label for="rmdBalance">Account Balance:</label>
+                  <input type="number" id="rmdBalance" name="rmdBalance"><br>
+                  <button type="button" onclick="calculateRMD()">Calculate</button>
+               </form>
+               <p id="rmdResult"></p>
+            </div>
+            <div id="vat" class="calculator_tool" style="display:none;">
+               <h2>VAT Calculator</h2>
+               <form>
+                  <label for="vatAmount">Amount:</label>
+                  <input type="number" id="vatAmount" name="vatAmount"><br>
+                  <label for="vatRate">VAT Rate (%):</label>
+                  <input type="number" id="vatRate" name="vatRate"><br>
+                  <button type="button" onclick="calculateVAT()">Calculate</button>
+               </form>
+               <p id="vatResult"></p>
+            </div>
+            <div id="cash-back" class="calculator_tool" style="display:none;">
+               <h2>Cash Back or Low Interest Calculator</h2>
+               <form>
+                  <label for="purchaseAmountCB">Purchase Amount:</label>
+                  <input type="number" id="purchaseAmountCB" name="purchaseAmountCB"><br>
+                  <label for="cashBackRate">Cash Back Rate (%):</label>
+                  <input type="number" id="cashBackRate" name="cashBackRate"><br>
+                  <label for="interestRateCB">Interest Rate (%):</label>
+                  <input type="number" id="interestRateCB" name="interestRateCB"><br>
+                  <button type="button" onclick="calculateCashBack()">Calculate</button>
+               </form>
+               <p id="cashBackResult"></p>
+            </div>
+            <div id="auto-lease" class="calculator_tool" style="display:none;">
+               <h2>Auto Lease Calculator</h2>
+               <form>
+                  <label for="leasePrice">Lease Price:</label>
+                  <input type="number" id="leasePrice" name="leasePrice"><br>
+                  <label for="leaseTerm">Lease Term (months):</label>
+                  <input type="number" id="leaseTerm" name="leaseTerm"><br>
+                  <label for="leaseRate">Lease Rate (%):</label>
+                  <input type="number" id="leaseRate" name="leaseRate"><br>
+                  <button type="button" onclick="calculateAutoLease()">Calculate</button>
+               </form>
+               <p id="autoLeaseResult"></p>
+            </div>
+            <div id="depreciation" class="calculator_tool" style="display:none;">
+               <h2>Depreciation Calculator</h2>
+               <form>
+                  <label for="initialValue">Initial Value:</label>
+                  <input type="number" id="initialValue" name="initialValue"><br>
+                  <label for="depreciationRate">Annual Depreciation Rate (%):</label>
+                  <input type="number" id="depreciationRate" name="depreciationRate"><br>
+                  <label for="depreciationYears">Number of Years:</label>
+                  <input type="number" id="depreciationYears" name="depreciationYears"><br>
+                  <button type="button" onclick="calculateDepreciation()">Calculate</button>
+               </form>
+               <p id="depreciationResult"></p>
+            </div>
+            <div id="average-return" class="calculator_tool" style="display:none;">
+               <h2>Average Return Calculator</h2>
+               <form>
+                  <label for="initialInvestmentAR">Initial Investment:</label>
+                  <input type="number" id="initialInvestmentAR" name="initialInvestmentAR"><br>
+                  <label for="annualReturnAR">Annual Return (%):</label>
+                  <input type="number" id="annualReturnAR" name="annualReturnAR"><br>
+                  <label for="yearsAR">Number of Years:</label>
+                  <input type="number" id="yearsAR" name="yearsAR"><br>
+                  <button type="button" onclick="calculateAverageReturn()">Calculate</button>
+               </form>
+               <p id="averageReturnResult"></p>
+            </div>
+            <div id="margin" class="calculator_tool" style="display:none;">
+               <h2>Margin Calculator</h2>
+               <form>
+                  <label for="costPrice">Cost Price:</label>
+                  <input type="number" id="costPrice" name="costPrice"><br>
+                  <label for="sellingPrice">Selling Price:</label>
+                  <input type="number" id="sellingPrice" name="sellingPrice"><br>
+                  <button type="button" onclick="calculateMargin()">Calculate</button>
+               </form>
+               <p id="marginResult"></p>
+            </div>
+            <div id="discount" class="calculator_tool" style="display:none;">
+               <h2>Discount Calculator</h2>
+               <form>
+                  <label for="originalPrice">Original Price:</label>
+                  <input type="number" id="originalPrice" name="originalPrice"><br>
+                  <label for="discountRate">Discount Rate (%):</label>
+                  <input type="number" id="discountRate" name="discountRate"><br>
+                  <button type="button" onclick="calculateDiscount()">Calculate</button>
+               </form>
+               <p id="discountResult"></p>
+            </div>
+            <div id="business-loan" class="calculator_tool" style="display:none;">
+               <h2>Business Loan Calculator</h2>
+               <form>
+                  <label for="businessLoanAmount">Loan Amount:</label>
+                  <input type="number" id="businessLoanAmount" name="businessLoanAmount"><br>
+                  <label for="businessLoanRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="businessLoanRate" name="businessLoanRate"><br>
+                  <label for="businessLoanTerm">Loan Term (years):</label>
+                  <input type="number" id="businessLoanTerm" name="businessLoanTerm"><br>
+                  <button type="button" onclick="calculateBusinessLoan()">Calculate</button>
+               </form>
+               <p id="businessLoanResult"></p>
+            </div>
+            <div id="debt-to-income" class="calculator_tool" style="display:none;">
+               <h2>Debt-to-Income Ratio Calculator</h2>
+               <form>
+                  <label for="totalDebt">Total Debt:</label>
+                  <input type="number" id="totalDebt" name="totalDebt"><br>
+                  <label for="totalIncome">Total Income:</label>
+                  <input type="number" id="totalIncome" name="totalIncome"><br>
+                  <button type="button" onclick="calculateDebtToIncome()">Calculate</button>
+               </form>
+               <p id="debtToIncomeResult"></p>
+            </div>
+            <div id="real-estate" class="calculator_tool" style="display:none;">
+               <h2>Real Estate Calculator</h2>
+               <form>
+                  <label for="realEstatePrice">Property Price:</label>
+                  <input type="number" id="realEstatePrice" name="realEstatePrice"><br>
+                  <label for="realEstateLoanTerm">Loan Term (years):</label>
+                  <input type="number" id="realEstateLoanTerm" name="realEstateLoanTerm"><br>
+                  <label for="realEstateRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="realEstateRate" name="realEstateRate"><br>
+                  <button type="button" onclick="calculateRealEstate()">Calculate</button>
+               </form>
+               <p id="realEstateResult"></p>
+            </div>
+            <div id="take-home-paycheck" class="calculator_tool" style="display:none;">
+               <h2>Take-Home Paycheck Calculator</h2>
+               <form>
+                  <label for="grossPay">Gross Pay:</label>
+                  <input type="number" id="grossPay" name="grossPay"><br>
+                  <label for="taxWithheld">Tax Withheld (%):</label>
+                  <input type="number" id="taxWithheld" name="taxWithheld"><br>
+                  <button type="button" onclick="calculateTakeHomePaycheck()">Calculate</button>
+               </form>
+               <p id="takeHomePaycheckResult"></p>
+            </div>
+            <div id="personal-loan" class="calculator_tool" style="display:none;">
+               <h2>Personal Loan Calculator</h2>
+               <form>
+                  <label for="personalLoanAmount">Loan Amount:</label>
+                  <input type="number" id="personalLoanAmount" name="personalLoanAmount"><br>
+                  <label for="personalLoanRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="personalLoanRate" name="personalLoanRate"><br>
+                  <label for="personalLoanTerm">Loan Term (years):</label>
+                  <input type="number" id="personalLoanTerm" name="personalLoanTerm"><br>
+                  <button type="button" onclick="calculatePersonalLoan()">Calculate</button>
+               </form>
+               <p id="personalLoanResult"></p>
+            </div>
+            <div id="lease" class="calculator_tool" style="display:none;">
+               <h2>Lease Calculator</h2>
+               <form>
+                  <label for="leasePriceCalculator">Lease Price:</label>
+                  <input type="number" id="leasePriceCalculator" name="leasePriceCalculator"><br>
+                  <label for="leaseTermCalculator">Lease Term (months):</label>
+                  <input type="number" id="leaseTermCalculator" name="leaseTermCalculator"><br>
+                  <label for="leaseRateCalculator">Lease Rate (%):</label>
+                  <input type="number" id="leaseRateCalculator" name="leaseRateCalculator"><br>
+                  <button type="button" onclick="calculateLease()">Calculate</button>
+               </form>
+               <p id="leaseResult"></p>
+            </div>
+            <div id="refinance" class="calculator_tool" style="display:none;">
+               <h2>Refinance Calculator</h2>
+               <form>
+                  <label for="refinanceAmount">Loan Amount:</label>
+                  <input type="number" id="refinanceAmount" name="refinanceAmount"><br>
+                  <label for="refinanceRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="refinanceRate" name="refinanceRate"><br>
+                  <label for="refinanceTerm">Loan Term (years):</label>
+                  <input type="number" id="refinanceTerm" name="refinanceTerm"><br>
+                  <button type="button" onclick="calculateRefinance()">Calculate</button>
+               </form>
+               <p id="refinanceResult"></p>
+            </div>
+            <div id="budget" class="calculator_tool" style="display:none;">
+               <h2>Budget Calculator</h2>
+               <form>
+                  <label for="income">Monthly Income:</label>
+                  <input type="number" id="income" name="income"><br>
+                  <label for="expenses">Monthly Expenses:</label>
+                  <input type="number" id="expenses" name="expenses"><br>
+                  <button type="button" onclick="calculateBudget()">Calculate</button>
+               </form>
+               <p id="budgetResult"></p>
+            </div>
+            <div id="rental-property" class="calculator_tool" style="display:none;">
+               <h2>Rental Property Calculator</h2>
+               <form>
+                  <label for="propertyPrice">Property Price:</label>
+                  <input type="number" id="propertyPrice" name="propertyPrice"><br>
+                  <label for="rentalIncome">Monthly Rental Income:</label>
+                  <input type="number" id="rentalIncome" name="rentalIncome"><br>
+                  <label for="rentalExpenses">Monthly Rental Expenses:</label>
+                  <input type="number" id="rentalExpenses" name="rentalExpenses"><br>
+                  <button type="button" onclick="calculateRentalProperty()">Calculate</button>
+               </form>
+               <p id="rentalPropertyResult"></p>
+            </div>
+            <div id="roi" class="calculator_tool" style="display:none;">
+               <h2>ROI Calculator</h2>
+               <form>
+                  <label for="investment">Investment:</label>
+                  <input type="number" id="investment" name="investment"><br>
+                  <label for="returnAmount">Return Amount:</label>
+                  <input type="number" id="returnAmount" name="returnAmount"><br>
+                  <button type="button" onclick="calculateROI()">Calculate</button>
+               </form>
+               <p id="roiResult"></p>
+            </div>
+            <div id="apr" class="calculator_tool" style="display:none;">
+               <h2>APR Calculator</h2>
+               <form>
+                  <label for="aprLoanAmount">Loan Amount:</label>
+                  <input type="number" id="aprLoanAmount" name="aprLoanAmount"><br>
+                  <label for="aprRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="aprRate" name="aprRate"><br>
+                  <label for="aprTerm">Loan Term (years):</label>
+                  <input type="number" id="aprTerm" name="aprTerm"><br>
+                  <button type="button" onclick="calculateAPR()">Calculate</button>
+               </form>
+               <p id="aprResult"></p>
+            </div>
+            <div id="fha-loan" class="calculator_tool" style="display:none;">
+               <h2>FHA Loan Calculator</h2>
+               <form>
+                  <label for="fhaLoanAmount">Loan Amount:</label>
+                  <input type="number" id="fhaLoanAmount" name="fhaLoanAmount"><br>
+                  <label for="fhaRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="fhaRate" name="fhaRate"><br>
+                  <label for="fhaTerm">Loan Term (years):</label>
+                  <input type="number" id="fhaTerm" name="fhaTerm"><br>
+                  <button type="button" onclick="calculateFHALoan()">Calculate</button>
+               </form>
+               <p id="fhaLoanResult"></p>
+            </div>
+            <div id="va-mortgage" class="calculator_tool" style="display:none;">
+               <h2>VA Mortgage Calculator</h2>
+               <form>
+                  <label for="vaMortgageAmount">Loan Amount:</label>
+                  <input type="number" id="vaMortgageAmount" name="vaMortgageAmount"><br>
+                  <label for="vaRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="vaRate" name="vaRate"><br>
+                  <label for="vaTerm">Loan Term (years):</label>
+                  <input type="number" id="vaTerm" name="vaTerm"><br>
+                  <button type="button" onclick="calculateVAMortgage()">Calculate</button>
+               </form>
+               <p id="vaMortgageResult"></p>
+            </div>
+            <div id="down-payment" class="calculator_tool" style="display:none;">
+               <h2>Down Payment Calculator</h2>
+               <form>
+                  <label for="homePrice">Home Price:</label>
+                  <input type="number" id="homePrice" name="homePrice"><br>
+                  <label for="downPaymentRate">Down Payment Rate (%):</label>
+                  <input type="number" id="downPaymentRate" name="downPaymentRate"><br>
+                  <button type="button" onclick="calculateDownPayment()">Calculate</button>
+               </form>
+               <p id="downPaymentResult"></p>
+            </div>
+            <div id="rent-vs-buy" class="calculator_tool" style="display:none;">
+               <h2>Rent vs. Buy Calculator</h2>
+               <form>
+                  <label for="rentAmount">Monthly Rent:</label>
+                  <input type="number" id="rentAmount" name="rentAmount"><br>
+                  <label for="homePriceRvB">Home Price:</label>
+                  <input type="number" id="homePriceRvB" name="homePriceRvB"><br>
+                  <label for="downPaymentRvB">Down Payment (%):</label>
+                  <input type="number" id="downPaymentRvB" name="downPaymentRvB"><br>
+                  <button type="button" onclick="calculateRentVsBuy()">Calculate</button>
+               </form>
+               <p id="rentVsBuyResult"></p>
+            </div>
+            <div id="payback-period" class="calculator_tool" style="display:none;">
+               <h2>Payback Period Calculator</h2>
+               <form>
+                  <label for="initialInvestmentPB">Initial Investment:</label>
+                  <input type="number" id="initialInvestmentPB" name="initialInvestmentPB"><br>
+                  <label for="annualCashFlow">Annual Cash Flow:</label>
+                  <input type="number" id="annualCashFlow" name="annualCashFlow"><br>
+                  <button type="button" onclick="calculatePaybackPeriod()">Calculate</button>
+               </form>
+               <p id="paybackPeriodResult"></p>
+            </div>
+            <div id="present-value" class="calculator_tool" style="display:none;">
+               <h2>Present Value Calculator</h2>
+               <form>
+                  <label for="futureValue">Future Value:</label>
+                  <input type="number" id="futureValue" name="futureValue"><br>
+                  <label for="discountRate">Discount Rate (%):</label>
+                  <input type="number" id="discountRate" name="discountRate"><br>
+                  <label for="timePeriodPV">Time Period (years):</label>
+                  <input type="number" id="timePeriodPV" name="timePeriodPV"><br>
+                  <button type="button" onclick="calculatePresentValue()">Calculate</button>
+               </form>
+               <p id="presentValueResult"></p>
+            </div>
+            <div id="future-value" class="calculator_tool" style="display:none;">
+               <h2>Future Value Calculator</h2>
+               <form>
+                  <label for="presentValue">Present Value:</label>
+                  <input type="number" id="presentValue" name="presentValue"><br>
+                  <label for="futureRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="futureRate" name="futureRate"><br>
+                  <label for="futureYears">Number of Years:</label>
+                  <input type="number" id="futureYears" name="futureYears"><br>
+                  <button type="button" onclick="calculateFutureValue()">Calculate</button>
+               </form>
+               <p id="futureValueResult"></p>
+            </div>
+            <div id="commission" class="calculator_tool" style="display:none;">
+               <h2>Commission Calculator</h2>
+               <form>
+                  <label for="saleAmount">Sale Amount:</label>
+                  <input type="number" id="saleAmount" name="saleAmount"><br>
+                  <label for="commissionRate">Commission Rate (%):</label>
+                  <input type="number" id="commissionRate" name="commissionRate"><br>
+                  <button type="button" onclick="calculateCommission()">Calculate</button>
+               </form>
+               <p id="commissionResult"></p>
+            </div>
+            <div id="mortgage-uk" class="calculator_tool" style="display:none;">
+               <h2>Mortgage Calculator UK</h2>
+               <form>
+                  <label for="mortgageAmountUK">Loan Amount:</label>
+                  <input type="number" id="mortgageAmountUK" name="mortgageAmountUK"><br>
+                  <label for="interestRateUK">Annual Interest Rate (%):</label>
+                  <input type="number" id="interestRateUK" name="interestRateUK"><br>
+                  <label for="loanTermUK">Loan Term (years):</label>
+                  <input type="number" id="loanTermUK" name="loanTermUK"><br>
+                  <button type="button" onclick="calculateMortgageUK()">Calculate</button>
+               </form>
+               <p id="mortgageUKResult"></p>
+            </div>
+            <div id="canadian-mortgage" class="calculator_tool" style="display:none;">
+               <h2>Canadian Mortgage Calculator</h2>
+               <form>
+                  <label for="mortgageAmountCA">Loan Amount:</label>
+                  <input type="number" id="mortgageAmountCA" name="mortgageAmountCA"><br>
+                  <label for="interestRateCA">Annual Interest Rate (%):</label>
+                  <input type="number" id="interestRateCA" name="interestRateCA"><br>
+                  <label for="loanTermCA">Loan Term (years):</label>
+                  <input type="number" id="loanTermCA" name="loanTermCA"><br>
+                  <button type="button" onclick="calculateCanadianMortgage()">Calculate</button>
+               </form>
+               <p id="canadianMortgageResult"></p>
+            </div>
+            <div id="mortgage-amortization" class="calculator_tool" style="display:none;">
+               <h2>Mortgage Amortization Calculator</h2>
+               <form>
+                  <label for="mortgageAmortizationAmount">Loan Amount:</label>
+                  <input type="number" id="mortgageAmortizationAmount" name="mortgageAmortizationAmount"><br>
+                  <label for="amortizationRate">Annual Interest Rate (%):</label>
+                  <input type="number" id="amortizationRate" name="amortizationRate"><br>
+                  <label for="amortizationTerm">Loan Term (years):</label>
+                  <input type="number" id="amortizationTerm" name="amortizationTerm"><br>
+                  <button type="button" onclick="calculateMortgageAmortization()">Calculate</button>
+               </form>
+               <p id="mortgageAmortizationResult"></p>
+            </div>
+            <div id="percent-off" class="calculator_tool" style="display:none;">
+               <h2>Percent Off Calculator</h2>
+               <form>
+                  <label for="originalPricePercentOff">Original Price:</label>
+                  <input type="number" id="originalPricePercentOff" name="originalPricePercentOff"><br>
+                  <label for="percentOffRate">Percent Off (%):</label>
+                  <input type="number" id="percentOffRate" name="percentOffRate"><br>
+                  <button type="button" onclick="calculatePercentOff()">Calculate</button>
+               </form>
+               <p id="percentOffResult"></p>
+            </div>
+         </section>
+      </main>
+   </body>
+</html>
